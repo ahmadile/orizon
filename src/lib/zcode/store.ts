@@ -39,6 +39,9 @@ interface ZCodeState {
   phase: PhaseId;
   intent: Intent;
 
+  // layout
+  sidebarCollapsed: boolean;
+
   // actions
   setActiveConversation: (id: string) => void;
   newConversation: (repoPath?: string) => void;
@@ -52,6 +55,7 @@ interface ZCodeState {
 
   setPhase: (p: PhaseId) => void;
   setIntent: (i: Intent) => void;
+  toggleSidebar: () => void;
 }
 
 let msgIdCounter = 100;
@@ -80,6 +84,7 @@ export const useZCode = create<ZCodeState>((set, get) => ({
 
   phase: "comprehension",
   intent: null,
+  sidebarCollapsed: false,
 
   setActiveConversation: (id) => {
     set((s) => ({
@@ -257,6 +262,10 @@ export const useZCode = create<ZCodeState>((set, get) => ({
         c.id === s.activeConversationId ? { ...c, intent: i } : c
       ),
     }));
+  },
+
+  toggleSidebar: () => {
+    set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed }));
   },
 }));
 

@@ -1,7 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { Paperclip, ArrowUp, Folder, FileText, Image as ImageIcon, X, Square } from "lucide-react";
+import {
+  Paperclip,
+  ArrowUp,
+  Folder,
+  FileText,
+  Image as ImageIcon,
+  X,
+  Square,
+  CornerDownLeft,
+} from "lucide-react";
 import { useZCode } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,7 +41,7 @@ export function Composer() {
     const ta = taRef.current;
     if (!ta) return;
     ta.style.height = "auto";
-    ta.style.height = Math.min(ta.scrollHeight, 180) + "px";
+    ta.style.height = Math.min(ta.scrollHeight, 160) + "px";
   }, [text]);
 
   const submit = () => {
@@ -57,8 +66,10 @@ export function Composer() {
     attachFile(names[kind], kind, kind === "image" ? "248 KB" : undefined);
   };
 
+  const canSend = text.trim().length > 0 && !isAssistantTyping;
+
   return (
-    <div className="border-t border-border bg-background/80 backdrop-blur px-4 py-3">
+    <div className="border-t border-border bg-background px-4 py-3 shrink-0">
       {/* Attachments preview */}
       {attachments.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-2">
@@ -106,50 +117,57 @@ export function Composer() {
         </div>
       )}
 
-      <div className="relative flex items-end gap-2 bg-card border border-border rounded-xl focus-within:border-emerald-500/40 focus-within:ring-2 focus-within:ring-emerald-500/10 transition-all">
-        {/* Attach menu */}
-        <div className="flex items-center gap-0.5 pl-2 pb-2 pt-2.5">
-          <AttachMenu onAttach={onAttach} />
-        </div>
-
+      {/* Composer container — single rounded card with footer row */}
+      <div className="rounded-xl border border-border bg-card focus-within:border-emerald-500/40 focus-within:ring-2 focus-within:ring-emerald-500/10 transition-all overflow-hidden">
+        {/* Textarea row */}
         <Textarea
           ref={taRef}
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={onKey}
           placeholder="Demander à l'IA d'analyser, expliquer, transformer…"
-          className="flex-1 min-h-[40px] max-h-[180px] resize-none bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm placeholder:text-muted-foreground/60 px-1 py-2.5"
+          className="w-full min-h-[40px] max-h-[160px] resize-none bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm placeholder:text-muted-foreground/60 px-3 pt-2.5 pb-1"
           rows={1}
         />
 
-        <div className="flex items-center gap-1 pr-2 pb-2 pt-2.5">
-          <Button
-            onClick={submit}
-            disabled={!text.trim() || isAssistantTyping}
-            size="icon"
-            className={cn(
-              "h-8 w-8 rounded-lg shrink-0 transition-all",
-              text.trim() && !isAssistantTyping
-                ? "bg-emerald-500 hover:bg-emerald-600 text-background"
-                : "bg-secondary text-muted-foreground"
-            )}
-          >
-            {isAssistantTyping ? (
-              <Square className="w-3 h-3" />
-            ) : (
-              <ArrowUp className="w-4 h-4" />
-            )}
-          </Button>
-        </div>
-      </div>
+        {/* Footer row — attach + hint on the left, model + send on the right */}
+        <div className="flex items-center gap-2 px-2 pb-2 pt-1">
+          <AttachMenu onAttach={onAttach} />
 
-      <div className="flex items-center justify-between mt-1.5 px-1">
-        <span className="text-[10px] text-muted-foreground/60">
-          Entrée pour envoyer · Maj+Entrée pour un saut de ligne
-        </span>
-        <span className="text-[10px] text-muted-foreground/60">
-          <span className="text-emerald-400">●</span> GLM-5.2 orchestré
-        </span>
+          {/* Hint */}
+          <span className="hidden sm:flex items-center gap-1 text-[10px] text-muted-foreground/60">
+            <CornerDownLeft className="w-2.5 h-2.5" />
+            <span>Entrée pour envoyer</span>
+            <span className="text-muted-foreground/40">·</span>
+            <span>Maj+Entrée = saut de ligne</span>
+          </span>
+
+          {/* Right side: model badge + send button */}
+          <div className="ml-auto flex items-center gap-2">
+            <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground bg-secondary/60 border border-border rounded-md px-2 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              GLM-5.2
+            </span>
+            <Button
+              onClick={submit}
+              disabled={!canSend}
+              size="icon"
+              className={cn(
+                "h-8 w-8 rounded-lg shrink-0 transition-all",
+                canSend
+                  ? "bg-emerald-500 hover:bg-emerald-600 text-background"
+                  : "bg-secondary text-muted-foreground cursor-not-allowed"
+              )}
+              aria-label="Envoyer"
+            >
+              {isAssistantTyping ? (
+                <Square className="w-3 h-3" />
+              ) : (
+                <ArrowUp className="w-4 h-4" />
+              )}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -167,11 +185,11 @@ function AttachMenu({
       <Button
         variant="ghost"
         size="icon"
-        className="h-7 w-7 text-muted-foreground hover:text-foreground"
+        className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent"
         onClick={() => setOpen((o) => !o)}
         aria-label="Joindre"
       >
-        <Paperclip className="w-3.5 h-3.5" />
+        <Paperclip className="w-4 h-4" />
       </Button>
       {open && (
         <>
@@ -179,7 +197,10 @@ function AttachMenu({
             className="fixed inset-0 z-40"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute bottom-full left-0 mb-1 z-50 bg-popover border border-border rounded-lg shadow-xl py-1 w-44 zcode-fade-up">
+          <div className="absolute bottom-full left-0 mb-1.5 z-50 bg-popover border border-border rounded-lg shadow-2xl py-1 w-44 zcode-fade-up">
+            <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-muted-foreground/70 border-b border-border mb-1">
+              Joindre
+            </div>
             <button
               onClick={() => {
                 onAttach("folder");

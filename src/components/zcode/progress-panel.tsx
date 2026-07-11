@@ -89,9 +89,9 @@ export function ProgressPanel() {
 
   return (
     <aside className="flex flex-col h-full bg-sidebar border-l border-sidebar-border overflow-hidden">
-      {/* Header */}
-      <div className="px-4 py-3 border-b border-sidebar-border">
-        <div className="flex items-center justify-between">
+      {/* Header — h-14 to align with chat panel & sidebar headers */}
+      <div className="flex items-center justify-center h-14 px-4 border-b border-sidebar-border shrink-0">
+        <div className="flex items-center justify-between w-full">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Progression
           </span>
@@ -112,9 +112,11 @@ export function ProgressPanel() {
               : "En attente"}
           </span>
         </div>
+      </div>
 
-        {/* Progress bar */}
-        <div className="mt-2.5 flex items-center gap-2">
+      {/* Progress bar — directly below the aligned header */}
+      <div className="px-4 py-3 border-b border-sidebar-border shrink-0">
+        <div className="flex items-center gap-2">
           <div className="flex-1 h-1.5 rounded-full bg-secondary overflow-hidden">
             <div
               className={cn(

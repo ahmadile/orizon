@@ -5,9 +5,10 @@ import { ChatPanel } from "@/components/zcode/chat-panel";
 import { ProgressPanel } from "@/components/zcode/progress-panel";
 import { useZCode } from "@/lib/zcode/store";
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const { conversations, activeConversationId } = useZCode();
+  const { sidebarCollapsed } = useZCode();
 
   // Keyboard shortcut: ⌘N / Ctrl+N for new conversation
   useEffect(() => {
@@ -23,8 +24,13 @@ export default function Home() {
 
   return (
     <div className="h-screen w-screen flex bg-background text-foreground overflow-hidden">
-      {/* Sidebar — 260px fixed (matches spec §4) */}
-      <div className="w-[260px] shrink-0 hidden md:block">
+      {/* Sidebar — 260px expanded, 56px collapsed */}
+      <div
+        className={cn(
+          "shrink-0 hidden md:block transition-[width] duration-200 ease-out",
+          sidebarCollapsed ? "w-[56px]" : "w-[260px]"
+        )}
+      >
         <Sidebar />
       </div>
 
@@ -33,7 +39,7 @@ export default function Home() {
         <ChatPanel />
       </div>
 
-      {/* Progress — 320px fixed (matches spec §4) */}
+      {/* Progress — 320px fixed */}
       <div className="w-[320px] shrink-0 hidden lg:block">
         <ProgressPanel />
       </div>

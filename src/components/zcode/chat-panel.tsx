@@ -116,7 +116,7 @@ function ChatHeader() {
   const [modelOpen, setModelOpen] = React.useState(false);
 
   return (
-    <header className="flex items-center gap-3 px-6 h-14 border-b border-border bg-background/80 backdrop-blur shrink-0">
+    <header className="relative z-30 flex items-center gap-3 px-6 h-14 border-b border-border bg-background shrink-0">
       <div className="flex items-center gap-2 min-w-0">
         <FolderOpen className="w-4 h-4 text-emerald-400 shrink-0" />
         <div className="flex flex-col min-w-0">
@@ -146,15 +146,15 @@ function ChatHeader() {
           </span>
         </div>
 
-        {/* Model selector */}
+        {/* Model selector — dropdown renders above the phase journey (header is z-30) */}
         <div className="relative">
           <button
             onClick={() => setModelOpen((o) => !o)}
-            className="flex items-center gap-1.5 text-xs border border-border rounded-md px-2 py-1 hover:bg-accent"
+            className="flex items-center gap-1.5 text-xs border border-border rounded-md px-2.5 py-1.5 hover:bg-accent bg-secondary/50 transition-colors"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             GLM-5.2
-            <ChevronDown className="w-3 h-3" />
+            <ChevronDown className={cn("w-3 h-3 transition-transform", modelOpen && "rotate-180")} />
           </button>
           {modelOpen && (
             <>
@@ -162,7 +162,10 @@ function ChatHeader() {
                 className="fixed inset-0 z-40"
                 onClick={() => setModelOpen(false)}
               />
-              <div className="absolute right-0 top-full mt-1 z-50 bg-popover border border-border rounded-lg shadow-xl py-1 w-56 zcode-fade-up">
+              <div className="absolute right-0 top-full mt-1.5 z-50 bg-popover border border-border rounded-lg shadow-2xl py-1 w-60 zcode-fade-up">
+                <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-muted-foreground/70 border-b border-border mb-1">
+                  Modèle d'orchestration
+                </div>
                 {[
                   { id: "glm-5.2", name: "GLM-5.2", desc: "Orchestrateur (défaut)" },
                   { id: "glm-4.6", name: "GLM-4.6", desc: "Plus rapide, moins cher" },

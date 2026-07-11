@@ -6,14 +6,16 @@ import {
   Search,
   FolderGit2,
   MessageSquare,
-  Sparkles,
   MoreHorizontal,
   GitBranch,
   Settings,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
 import { useZCode, PHASES } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
 import { RelativeTime } from "@/components/zcode/relative-time";
+import { ZCodeLogo } from "@/components/zcode/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -39,6 +41,8 @@ export function Sidebar() {
     activeConversationId,
     setActiveConversation,
     newConversation,
+    sidebarCollapsed,
+    toggleSidebar,
   } = useZCode();
   const [query, setQuery] = React.useState("");
 
@@ -48,33 +52,96 @@ export function Sidebar() {
       c.repoName.toLowerCase().includes(query.toLowerCase())
   );
 
+  // Collapsed state — render a slim rail with just the logo + expand button
+  if (sidebarCollapsed) {
+    return (
+      <aside className="flex flex-col h-full bg-sidebar border-r border-sidebar-border items-center">
+        {/* Header aligned with chat header (h-14) */}
+        <div className="flex items-center justify-center h-14 w-full border-b border-sidebar-border shrink-0">
+          <ZCodeLogo size={24} markOnly />
+        </div>
+        {/* Expand button */}
+        <div className="p-2">
+          <TooltipProvider delayDuration={300}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleSidebar}
+                  className="h-9 w-9 text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
+                >
+                  <PanelLeftOpen className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">Afficher la barre latérale</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+        {/* New task (icon only) */}
+        <div className="p-2">
+          <TooltipProvider delayDuration={300}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  onClick={() => newConversation()}
+                  className="h-9 w-9 bg-secondary hover:bg-secondary/80 border border-sidebar-border text-foreground"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">Nouvelle tâche (⌘N)</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+        {/* Footer avatar */}
+        <div className="mt-auto p-2 border-t border-sidebar-border w-full flex justify-center">
+          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-sky-500/30 to-violet-500/30 border border-border flex items-center justify-center text-[10px] font-medium text-foreground">
+            R
+          </div>
+        </div>
+      </aside>
+    );
+  }
+
   return (
     <aside className="flex flex-col h-full bg-sidebar border-r border-sidebar-border">
-      {/* Brand header */}
-      <div className="flex items-center gap-2 px-4 py-3.5 border-b border-sidebar-border">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shrink-0">
-          <Sparkles className="w-4 h-4 text-background" />
+      {/* Brand header — h-14 to align with chat panel header */}
+      <div className="flex items-center gap-2 px-3 h-14 border-b border-sidebar-border shrink-0">
+        <ZCodeLogo size={26} />
+        <div className="ml-auto flex items-center gap-0.5">
+          <TooltipProvider delayDuration={300}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                  onClick={toggleSidebar}
+                >
+                  <PanelLeftClose className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Réduire la barre latérale</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <TooltipProvider delayDuration={300}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                >
+                  <Settings className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Paramètres</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
-        <div className="flex flex-col leading-tight">
-          <span className="text-sm font-semibold tracking-tight">ZCode</span>
-          <span className="text-[10px] text-muted-foreground">
-            v1 · compréhension
-          </span>
-        </div>
-        <TooltipProvider delayDuration={300}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="ml-auto h-7 w-7 text-muted-foreground hover:text-foreground"
-              >
-                <Settings className="w-3.5 h-3.5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right">Paramètres</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
       </div>
 
       {/* New task button */}

@@ -29,7 +29,7 @@ export function PhaseJourney() {
   const comprehensionIdx = 0;
 
   return (
-    <div className="border-b border-border bg-background/60 backdrop-blur px-6 py-2.5">
+    <div className="border-b border-border bg-background px-6 py-2.5">
       <div className="max-w-3xl mx-auto flex items-center gap-1">
         {PHASES.map((p, i) => {
           const Icon = ICONS[p.id];
