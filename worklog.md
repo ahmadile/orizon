@@ -1,0 +1,70 @@
+---
+Task ID: zcode-v1-build
+Agent: main (super-z)
+Task: Build the ZCode V1 platform — agentic chat interface for understanding & transforming local code repositories (5 phases: comprehension → intention → experimentation → maquette → generation)
+
+Work Log:
+- Loaded fullstack-dev + VLM skills
+- Analyzed reference screenshot (ZCode 3.0 dark UI, 3-panel layout, emerald accent)
+- Initialized Next.js 16 project (already present, kept existing files)
+- Updated layout.tsx: dark theme forced, French locale, ZCode metadata
+- Rewrote globals.css: dark-first color system, custom scrollbar, shimmer/pulse/fade-up animations, prose styling for markdown
+- Created src/lib/zcode/types.ts: full domain model (Phase, ComprehensionStep, RepoPart, Message, Conversation, MockupVariant, Intent)
+- Created src/lib/zcode/mock-data.ts: Gomoku-AI mock repo with 6 sequenced parts (engine, AI, UI, API, config, tests), 4 dependencies, 10 canned answers, 3 mockup variants (classic/modern/minimal)
+- Created src/lib/zcode/store.ts: Zustand store with comprehension simulation (6 steps, ~8s), chat with rule-based responses, phase/intent state
+- Created src/lib/zcode/utils.ts: timeAgo / formatRelativeShort helpers
+- Built components/zcode/code-block.tsx: syntax-highlighted code with copy button (react-syntax-highlighter + vsc-dark-plus)
+- Built components/zcode/message-bubble.tsx: user/assistant/system bubbles + typing indicator, markdown rendering
+- Built components/zcode/composer.tsx: auto-grow textarea, attach menu (file/folder/image), suggestion chips, GLM-5.2 indicator
+- Built components/zcode/sidebar.tsx: brand header, new task button, search, conversation list with phase+intent badges, footer user
+- Built components/zcode/chat-panel.tsx: header (repo info + model selector), phase journey, messages, repo header card, comprehension launch card
+- Built components/zcode/phase-journey.tsx: horizontal 5-phase stepper with lock states
+- Built components/zcode/intent-panel.tsx: 3 intent options (improve/derive/adapt)
+- Built components/zcode/experimentation-panel.tsx: 3 tracks per intent with effort/impact badges, expandable steps
+- Built components/zcode/mockup-panel.tsx: 3 mockup variants with preview/code toggle, dangerouslySetInnerHTML rendering
+- Built components/zcode/generation-panel.tsx: PROJECT_STRUCTURE.md generator with copy/download + agent launch panel
+- Built components/zcode/progress-panel.tsx: 6 comprehension steps with icons/connectors, sequenced parts with kind-colored badges, dependencies list, security note
+- Wired page.tsx: 3-panel layout (260px sidebar | 1fr chat | 320px progress) matching spec §4 exactly
+
+Stage Summary:
+- 3-panel layout from spec §4 implemented pixel-faithfully (260px / 1fr / 320px)
+- Dark theme matches ZCode 3.0 reference (emerald accent, Geist Sans, oklch palette)
+- Phase 1 (comprehension) fully interactive: click "Lancer l'analyse" → 6 steps animate to completion → summary message appears
+- Chat with rule-based AI responses on 10 topics (architecture, IA, frontend, code, tests, deps, improve, derive, adapt, greetings)
+- Phase journey stepper unlocks phases 2-5 once comprehension done
+- Each phase has its own inline panel with realistic mock content
+- Phase 5 generates a real PROJECT_STRUCTURE.md (downloadable + copyable)
+- 3 mockup variants render live HTML previews (classic wood / modern neon / minimal mono)
+- Keyboard shortcut ⌘N for new conversation
+- All text in French (matches user's language)
+
+---
+Task ID: zcode-v1-verify
+Agent: main (super-z) — browser verification pass
+Task: End-to-end verification of ZCode V1 with Agent Browser
+
+Work Log:
+- Opened http://localhost:3000 at 1440x900 (desktop)
+- Verified initial 3-panel layout renders: sidebar (260px) + chat (1fr) + progress (320px)
+- Found and fixed 1 runtime error: MOCKUP_VARIANTS was not imported/re-exported from store.ts
+- Clicked "Lancer l'analyse" → comprehension ran for ~8s, all 6 steps went from pending → running → completed
+- Verified progress bar filled to 6/6, AI summary message appeared in chat, phases 2-5 unlocked in journey bar
+- Sent chat message "Comment marche l'IA ?" → received architecture/IA explanation with code block
+- Navigated to Phase 2 (Intention): 3 options rendered correctly (Améliorer/Dériver/Adapter)
+- Selected "Améliorer" + clicked "Continuer" → Phase 3 (Expérimentation) appeared with 3 tracks + effort/impact badges
+- Navigated to Phase 4 (Maquette): visual HTML preview rendered (Classique bois variant with Gomoku board)
+- Switched to "Moderne néon" variant: preview updated correctly (dark theme with glowing stones)
+- Navigated to Phase 5 (Génération): PROJECT_STRUCTURE.md displayed with full content, Copy/Download buttons present
+- Tested mobile viewport (390x844): single-column layout, sidebar/progress hidden, no overflow
+- Final lint: clean (0 errors)
+- Dev server: running on port 3000, 200 responses, no runtime errors
+
+Stage Summary:
+- All 5 phases verified end-to-end in the browser
+- Chat interaction works (rule-based AI responses on 10 topics)
+- Comprehension simulation animates correctly (6 steps, progress bar, icons)
+- Maquette previews render live HTML (3 variants)
+- MD generation panel produces real downloadable PROJECT_STRUCTURE.md
+- Responsive: desktop (3 panels) + mobile (1 column) both work
+- No console errors, no runtime errors, clean lint
+- 14 verification screenshots saved to /home/z/my-project/download/
