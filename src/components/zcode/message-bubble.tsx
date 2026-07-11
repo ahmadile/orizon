@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { CodeBlock } from "./code-block";
 import type { Message } from "@/lib/zcode/types";
 import { User, Sparkles, Info } from "lucide-react";
-import { timeAgo } from "@/lib/zcode/utils";
+import { RelativeTime } from "@/components/zcode/relative-time";
 
 interface MessageBubbleProps {
   message: Message;
@@ -90,9 +90,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             </div>
           )}
         </div>
-        <span className="text-[10px] text-muted-foreground px-1">
-          {timeAgo(message.timestamp)}
-        </span>
+        <RelativeTime
+          ts={message.timestamp}
+          format="long"
+          className="text-[10px] text-muted-foreground px-1"
+        />
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useZCode, PHASES } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
-import { formatRelativeShort } from "@/lib/zcode/utils";
+import { RelativeTime } from "@/components/zcode/relative-time";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -159,9 +159,11 @@ export function Sidebar() {
                       {INTENT_LABEL[c.intent]}
                     </span>
                   )}
-                  <span className="text-[9px] text-muted-foreground/60 ml-auto">
-                    {formatRelativeShort(c.lastActivity)}
-                  </span>
+                  <RelativeTime
+                    ts={c.lastActivity}
+                    format="short"
+                    className="text-[9px] text-muted-foreground/60 ml-auto"
+                  />
                 </div>
               </div>
               <MoreHorizontal className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
