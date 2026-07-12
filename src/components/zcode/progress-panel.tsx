@@ -139,6 +139,9 @@ export function ProgressPanel() {
 
       {/* Steps list */}
       <div className="flex-1 overflow-y-auto zcode-scroll">
+        {/* Skills IA — always visible, at the top */}
+        <SkillsPanel variant="compact" />
+
         <div className="px-3 py-2">
           {steps.map((step, i) => (
             <StepRow key={step.id} step={step} isLast={i === steps.length - 1} />
@@ -229,9 +232,6 @@ export function ProgressPanel() {
                 Le dépôt ne contient pas de clés API ou de tokens exposés.
               </div>
             </div>
-
-            {/* Skills IA — capabilities active for this session */}
-            <SkillsPanel variant="compact" />
           </div>
         )}
 

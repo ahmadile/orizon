@@ -12,14 +12,14 @@ interface SkillsPanelProps {
 }
 
 export function SkillsPanel({ variant = "compact" }: SkillsPanelProps) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
 
   const activeCount = ZCODE_SKILLS.filter((s) => s.active).length;
   const totalCount = ZCODE_SKILLS.length;
 
   if (variant === "compact") {
     return (
-      <div className="px-3 pb-3">
+      <div className="px-3 pt-3 pb-1 border-b border-sidebar-border">
         <button
           onClick={() => setExpanded((e) => !e)}
           className="w-full flex items-center gap-2 text-[10px] uppercase tracking-wider text-muted-foreground/70 px-1 mb-1.5 hover:text-muted-foreground transition-colors"
