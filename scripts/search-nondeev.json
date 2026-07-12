@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.linkedin.com/posts/alexander-brown-5698a310b_perhaps-needless-to-say-software-engineering-activity-7416963513241268224-xb5-",
+    "name": "Software Engineering with AI in 2025: A Guide | Alexander Brown",
+    "snippet": "By the end of 2025 it was 95% in favour of AI, via Claude Code + Conductor, and peaked at 5-7 features across ~5 repos concurrently for mostly ...",
+    "host_name": "www.linkedin.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://arxiv.org/html/2603.28592v2",
+    "name": "A Large-Scale Empirical Study of AI-Generated Code in the Wild",
+    "snippet": "In this paper, we conduct a large-scale empirical study on the technical debt introduced by AI coding assistants in the wild. To achieve that, ...",
+    "host_name": "arxiv.org",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to/_fb5b9ba3d3af23c29cccb/year-one-of-ai-programming-my-2025-8bb",
+    "name": "Year One of AI Programming: My 2025 - DEV Community",
+    "snippet": "One day I discovered a tool that could generate deep technical explanations of codebases—incredibly helpful for understanding complex projects.",
+    "host_name": "dev.to",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://stackoverflow.blog/2026/02/18/closing-the-developer-ai-trust-gap",
+    "name": "Mind the gap: Closing the AI trust gap for developers - Stack Overflow",
+    "snippet": "But their trust in those tools dropped sharply: Only 29% of 2025 respondents said they trust AI, down 11 percentage points from 2024. At the ...",
+    "host_name": "stackoverflow.blog",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.augmentcode.com/tools/the-context-gap-why-some-ai-coding-tools-break",
+    "name": "The Context Gap: Why Some AI Coding Tools Break | Augment Code",
+    "snippet": "The root cause often traces back to context limitations. When AI tools lack full visibility into codebases, they generate suggestions that seem ...\nMost AI coding tools work like a brilliant developer with severe amnesia. They can write technically correct code for the file you're editing, ...",
+    "host_name": "www.augmentcode.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

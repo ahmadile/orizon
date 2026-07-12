@@ -367,3 +367,35 @@ Stage Summary:
 - 7 new skills added to the Skills panel (1 active: Skill Scanner)
 - Web preview route ready for screenshot capture
 - Lint clean, browser-verified
+
+---
+Task ID: zcode-strategic-positioning
+Agent: main (super-z)
+Task: Analyze competitive landscape + identify differentiators + structure OSS ecosystem + produce strategic document
+
+Work Log:
+- Researched 6 competitor categories: Cursor (IDE IA), Aider/Continue (open source), Cody/Copilot (code search), Devin (autonomous agent), DeepWiki/GitDiagram (understanding tools)
+- Identified the gap: no competitor covers the full "I don't understand → I want to transform" journey
+- Defined 5 unique differentiators:
+  1. 5-phase structured journey (Comprehension → Intention → Experimentation → Mockup → Generation)
+  2. Non-developer accessibility (Explain Like I'm skill, mockup validation)
+  3. Multi-agent analysis by layer (1 agent per sequenced part via OpenAI Agents SDK)
+  4. White mockup before code (Phase 4 with Browser Use screenshots)
+  5. Scanned skills ecosystem (SkillSpector security + transparent tooling)
+- Structured 21 OSS integrations by phase:
+  * Phase 1: tree-sitter, ast-grep, Repomix, Headroom, Firecrawl, ripgrep, gitleaks, repowise, OpenAI Agents SDK
+  * Phase 2-3: SkillSpector, Superpowers, Aider
+  * Phase 4: Browser Use, Ladle, style-dictionary
+  * Phase 5: Continue.dev, gstack, native diff view
+  * Transverse: Promptfoo, Agent Skills format
+- Defined 3 architecture principles: orchestrator as journey guardian, each phase produces persisted artifact, transparency as feature
+- Defined 3-milestone roadmap: MVP (done), real multi-agent socle (next), product differentiation (medium term)
+- Generated strategic positioning document (22KB docx) with cover + 9 sections + comparison tables
+
+Stage Summary:
+- Document saved to /home/z/my-project/download/ZCode-Strategic-Positioning.docx
+- Answers the user's question: what does ZCode have that others don't
+- Core thesis: ZCode is not an IDE IA nor an autonomous agent — it's a comprehension & transformation platform that fills the gap between "I don't understand this code" and "I want to transform it"
+- The 5 differentiators are architectural choices, not marketing slogans
+- The 21 OSS integrations are structured by phase, not just catalogued
+- The roadmap prioritizes Jalon 2: wire the real multi-agent socle (OpenAI Agents SDK + Headroom + Browser Use + SkillSpector)

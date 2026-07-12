@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.reddit.com/r/GithubCopilot/comments/1e5xlif/looking_for_an_llm_fully_aware_of_my_entire",
+    "name": "Looking for an LLM Fully Aware of My Entire Project - Reddit",
+    "snippet": "I've been searching for a solution to have a language model fully aware of my entire project. GitHub Copilot, as helpful as it is, only accesses files that are ...",
+    "host_name": "www.reddit.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://soundofdevelopment.substack.com/p/ai-power-showdown-sourcegraph-cody",
+    "name": "AI Power Showdown: Sourcegraph Cody vs GitHub Copilot",
+    "snippet": "Sourcegraph is a tool that originated from code search and code intelligence. It enables search and analysis over large codebases and is widely ...",
+    "host_name": "soundofdevelopment.substack.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://sourcegraph.com/blog/copilot-vs-cody-why-context-matters-for-code-ai",
+    "name": "Copilot vs. Cody: Why context matters for code AI - Sourcegraph",
+    "snippet": "Does your AI coding assistant really understand your code? We tested GitHub Copilot vs Cody on a production codebase to see the difference ...",
+    "host_name": "sourcegraph.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.13labs.au/compare/github-copilot-vs-sourcegraph-cody",
+    "name": "GitHub Copilot vs Sourcegraph Cody: AI Coding Tools - 13Labs",
+    "snippet": "Sourcegraph Cody combines AI completions with Sourcegraph's codebase intelligence, enabling precise code search and navigation across large repositories.",
+    "host_name": "www.13labs.au",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/sourcegraph/cody-public-snapshot",
+    "name": "GitHub - sourcegraph/cody-public-snapshot: Type less, code more",
+    "snippet": "Cody is an open-source AI coding assistant that helps you understand, write, and fix code faster. It uses advanced search to pull context from ...",
+    "host_name": "github.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

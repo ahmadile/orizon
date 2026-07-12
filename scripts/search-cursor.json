@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://cursor.com",
+    "name": "Cursor: AI coding agent",
+    "snippet": "It's a demonstration of Cursor's IDE showing AI-powered coding assistance features. The interface is displayed over a subtle, solid brand background. Cursor.",
+    "host_name": "cursor.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.altexsoft.com/blog/cursor-pros-and-cons",
+    "name": "The Good and Bad of Cursor AI Code Editor - AltexSoft",
+    "snippet": "What makes Cursor AI code editor stand out? Here's a breakdown of its features, pros, and cons to help you decide.",
+    "host_name": "www.altexsoft.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://techjacksolutions.com/ai/ai-development/cursor-ide-what-it-is",
+    "name": "Cursor IDE: Complete Guide to AI Code Editing 2026",
+    "snippet": "Cursor is the IDE, not a plugin. Why This Matters: Full control over editor state; Can open files, run terminal commands, apply multi-file diffs ...",
+    "host_name": "techjacksolutions.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://forum.cursor.com/t/need-advice-is-cursor-ai-reliable-for-production-grade-code-reviews/108448",
+    "name": "Is Cursor AI Reliable for Production-Grade Code Reviews",
+    "snippet": "It looks super promising with its deep integration into coding workflows.., especially the way it understands project context better than ...",
+    "host_name": "forum.cursor.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medium.com/@tahirbalarabe2/what-is-cursor-ai-code-editor-features-and-capabilities-bb1f4030e42c",
+    "name": "What is Cursor AI ?: Features and Capabilities | by Tahir | Medium",
+    "snippet": "Its features include an agent mode for end-to-end task completion and AI-driven capabilities for understanding code context. The editor can ...",
+    "host_name": "medium.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.continue.dev",
+    "name": "Continue.dev",
+    "snippet": "Our mission has always been to ensure developers are amplified, not automated, open-source coding agent. boundaries of what AI developer tooling could be, Is ...",
+    "host_name": "www.continue.dev",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://renard-digital.fr/blog/en/ai-coding-terminal-comparison",
+    "name": "AI Coding in the Terminal: OpenCode vs Continue.dev vs Aider vs Zed vs",
+    "snippet": "A deep comparison of five free, open-source AI coding tools that work on macOS and Linux (Arch). Includes full OpenCode configuration with multi ...",
+    "host_name": "renard-digital.fr",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://johnmaeda.medium.com/running-open-source-ai-coding-assistants-aider-and-claude-dev-2024-768190538280",
+    "name": "Running Open-Source AI Coding Assistants Aider and Claude Dev",
+    "snippet": "The open-source options. Claude Dev only runs with Claude models. To get Aider running Aider is for CLI-y people.",
+    "host_name": "johnmaeda.medium.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=708R-BYmjEk",
+    "name": "ClaudeDev + Aider + Continue: The BEST AI Coding Agent! - YouTube",
+    "snippet": "Claude Dev: Autonomous coding agent for creating, editing files, and executing commands. · Aider: A pair programmer that refines and iterates on ...",
+    "host_name": "www.youtube.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.reddit.com/r/ChatGPTCoding/comments/1dw6pjn/cursor_vs_continuedev_vs_doublebot_vs",
+    "name": "Cursor vs Continue.dev vs Double.bot vs ? : r/ChatGPTCoding - Reddit",
+    "snippet": "Hey, what's your experience with AI Coding Assistants? I'm seeking for best tool for the job (JavaScript/Vue Code Generation & Debugging ... Trying to understand the hype around Aider : r/ChatGPTCoding - Reddit Claude Dev (Cline) vs. Aider vs. Continue—How do they differ? More results from www.reddit.com",
+    "host_name": "www.reddit.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

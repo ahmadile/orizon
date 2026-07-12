@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://palantir.com/docs/foundry/code-repositories/create-transforms",
+    "name": "Create transforms - Code Repositories - Palantir",
+    "snippet": "Transforms can be created in Code Repositories using the file template configuration wizard. This wizard enables you to select a transform type and then ...",
+    "host_name": "palantir.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.linkedin.com/posts/ontologize_intro-to-code-repositories-for-python-transforms-activity-7219379819107504129-ZIT0",
+    "name": "How to use Code Repositories for Python Transforms - LinkedIn",
+    "snippet": "In this tutorial we cover the basics of how to use Code Repositories for Python Transforms. If you're new to Foundry for data engineering, ...",
+    "host_name": "www.linkedin.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=Etr_hK75iRU",
+    "name": "Intro to Code Repositories for Python Transforms - YouTube",
+    "snippet": "In this tutorial we cover the basics of how to use Code Repositories for Python Transforms. If you're new to Foundry for data engineering, ...",
+    "host_name": "www.youtube.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.instagram.com/reel/DZtizKzDEUF",
+    "name": "GitHub just made the leap from code repository to AI-powered teammate",
+    "snippet": "GitHub just made the leap from code repository to AI-powered teammate. With its new agentic workflows, developers can now automate entire ...",
+    "host_name": "www.instagram.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.linkedin.com/posts/gayathri-saranathan-2346a6183_top-open-source-ai-github-repositories-activity-7306566198979108864-9Isp",
+    "name": "How to visualize AI GitHub repos with Code Graphs - LinkedIn",
+    "snippet": "With growing repositories in AI, Code graphs provide a visual and structured representation of codebases, allowing for easier analysis, ...",
+    "host_name": "www.linkedin.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]
