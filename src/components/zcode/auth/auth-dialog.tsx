@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -195,15 +194,15 @@ export function AuthDialog({ open, onOpenChange, onAuthed }: AuthDialogProps) {
             </div>
           )}
 
-          <DialogFooter className="flex-col gap-2">
+          <div className="flex flex-col gap-3 pt-2">
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-brand hover:bg-brand-strong text-background"
+              className="w-full h-10 bg-brand hover:bg-brand-strong text-background font-medium"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                  <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
                   {mode === "signin" ? "Connexion…" : "Création…"}
                 </>
               ) : mode === "signin" ? (
@@ -213,19 +212,21 @@ export function AuthDialog({ open, onOpenChange, onAuthed }: AuthDialogProps) {
               )}
             </Button>
 
-            <button
-              type="button"
-              onClick={() => {
-                setMode(mode === "signin" ? "signup" : "signin");
-                setError(null);
-              }}
-              className="text-xs text-muted-foreground hover:text-brand transition-colors w-full text-center"
-            >
-              {mode === "signin"
-                ? "Pas encore de compte ? S'inscrire"
-                : "Déjà un compte ? Se connecter"}
-            </button>
-          </DialogFooter>
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setMode(mode === "signin" ? "signup" : "signin");
+                  setError(null);
+                }}
+                className="text-xs text-muted-foreground hover:text-brand transition-colors"
+              >
+                {mode === "signin"
+                  ? "Pas encore de compte ? S'inscrire"
+                  : "Déjà un compte ? Se connecter"}
+              </button>
+            </div>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
