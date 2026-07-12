@@ -81,3 +81,13 @@ export async function updateConversation(
     // fire-and-forget
   }
 }
+
+export async function deleteConversation(conversationId: string): Promise<void> {
+  try {
+    await fetch(`/api/conversations/${conversationId}`, {
+      method: "DELETE",
+    });
+  } catch {
+    // fire-and-forget
+  }
+}

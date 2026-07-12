@@ -25,6 +25,7 @@ import {
   createConversation,
   appendMessage,
   updateConversation,
+  deleteConversation as deleteConvPersist,
 } from "./persist";
 
 interface ZCodeState {
@@ -77,6 +78,7 @@ interface ZCodeState {
   // persistence
   hydrateFromDb: () => Promise<void>;
   loadRepo: (name: string, path: string, scan?: unknown) => void;
+  deleteConversation: (id: string) => void;
 
   // multi-conversation
   forkConversation: (fromMessageId?: string) => void;
@@ -508,6 +510,38 @@ export const useZCode = create<ZCodeState>((set, get) => ({
       dbConversationId: null,
       checkpoints: [],
     }));
+  },
+
+  deleteConversation: (id) => {
+    // If it's a DB conversation, delete it from the DB
+    if (id.startsWith("db_")) {
+      const dbId = id.slice(3);
+      deleteConvPersist(dbId);
+    }
+
+    set((s) => {
+      const remaining = s.conversations.filter((c) => c.id !== id);
+      const wasActive = s.conversations.find((c) => c.id === id)?.active;
+
+      // If we deleted the active conversation, reset to empty state
+      if (wasActive) {
+        return {
+          conversations: remaining,
+          activeConversationId: remaining[0]?.id ?? "empty",
+          hasRepo: false,
+          loadedRepo: null,
+          messages: [],
+          comprehensionDone: false,
+          comprehensionRunning: false,
+          phase: "comprehension" as PhaseId,
+          intent: null,
+          dbConversationId: null,
+          checkpoints: [],
+        };
+      }
+
+      return { conversations: remaining };
+    });
   },
 
   forkConversation: (fromMessageId) => {

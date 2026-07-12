@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { getCurrentUserId } from "@/lib/auth/session";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// GET /api/conversations — list all conversations (with last message preview)
+// GET /api/conversations — list conversations for the current user
 export async function GET() {
   try {
+    const userId = await getCurrentUserId();
+
+    // If not logged in, return empty list (anonymous sessions are not persisted)
+    if (!userId) {
+      return NextResponse.json({ conversations: [] });
+    }
+
     const conversations = await db.conversation.findMany({
+      where: { userId },
       orderBy: { lastActivity: "desc" },
       include: {
         _count: { select: { messages: true } },
@@ -45,6 +54,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { title, repoPath, repoName, phase, intent } = body;
 
+    const userId = await getCurrentUserId();
+
     // Find or create the repo
     let repoId: string | null = null;
     if (repoPath && repoName) {
@@ -65,6 +76,7 @@ export async function POST(req: NextRequest) {
         phase: phase ?? "comprehension",
         intent: intent ?? null,
         repoId,
+        userId,
       },
     });
 

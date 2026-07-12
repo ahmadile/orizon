@@ -14,6 +14,17 @@ datasource db {
 // ZCode models
 // =========================================================================
 
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  passwordHash  String?
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  conversations Conversation[]
+}
+
 model Repo {
   id          String   @id @default(cuid())
   name        String
@@ -38,6 +49,9 @@ model Conversation {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   repoId String?
   repo   Repo?   @relation(fields: [repoId], references: [id], onDelete: SetNull)
 
@@ -45,6 +59,7 @@ model Conversation {
   comprehensionSteps ComprehensionStep[]
 
   @@index([repoId])
+  @@index([userId])
 }
 
 model Message {

@@ -6,12 +6,10 @@ import {
   Search,
   FolderGit2,
   FolderOpen,
-  MessageSquare,
-  MoreHorizontal,
-  GitBranch,
   Settings,
   PanelLeftClose,
   PanelLeftOpen,
+  Trash2,
 } from "lucide-react";
 import { useZCode, PHASES } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
@@ -19,6 +17,7 @@ import { RelativeTime } from "@/components/zcode/relative-time";
 import { ZCodeLogo } from "@/components/zcode/logo";
 import { RepoOpenDialog } from "@/components/zcode/repo-open-dialog";
 import { SettingsDialog } from "@/components/zcode/settings/settings-dialog";
+import { UserMenu } from "@/components/zcode/auth/user-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -49,6 +48,7 @@ export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
     activeConversationId,
     setActiveConversation,
     newConversation,
+    deleteConversation,
     sidebarCollapsed,
     toggleSidebar,
   } = useZCode();
@@ -275,30 +275,26 @@ export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
                   />
                 </div>
               </div>
-              <MoreHorizontal className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (confirm(`Supprimer la tâche « ${c.title} » ?`)) {
+                    deleteConversation(c.id);
+                  }
+                }}
+                className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 p-1 hover:bg-rose-500/10 rounded text-muted-foreground hover:text-rose-400"
+                title="Supprimer cette tâche"
+                aria-label="Supprimer"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
             </div>
           </button>
         ))}
       </div>
 
-      {/* Footer — workspace info */}
-      <div className="border-t border-sidebar-border p-3">
-        <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sky-500/30 to-violet-500/30 border border-border flex items-center justify-center text-[10px] font-medium text-foreground">
-            R
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-foreground text-xs font-medium truncate">
-              Ryan Dev
-            </div>
-            <div className="flex items-center gap-1 truncate">
-              <GitBranch className="w-2.5 h-2.5" />
-              <span className="truncate">main · offline</span>
-            </div>
-          </div>
-          <MessageSquare className="w-3.5 h-3.5" />
-        </div>
-      </div>
+      {/* Footer — user menu (sign in / sign out) */}
+      <UserMenu />
     </aside>
   );
 }

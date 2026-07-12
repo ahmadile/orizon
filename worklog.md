@@ -442,3 +442,67 @@ Stage Summary:
 - All routes tested and working
 - Lint clean, browser-verified
 - The differentiator #3 (multi-agent by layer) is now real, not just a mock
+
+---
+Task ID: zcode-auth-delete-tasks
+Agent: main (super-z)
+Task: Add authentication (sign in / sign up / sign out) + conversation deletion
+
+Work Log:
+1. Authentication system (NextAuth v4 + Credentials provider):
+   - Added User model to Prisma schema (id, email, name, passwordHash, image)
+   - Linked Conversation to User (userId, onDelete: Cascade)
+   - Pushed schema to SQLite
+   - Installed bcryptjs for password hashing
+   - Created src/lib/auth/config.ts: NextAuth config with CredentialsProvider
+   - Created src/lib/auth/session.ts: getCurrentUser() + getCurrentUserId() helpers
+   - Created src/app/api/auth/[...nextauth]/route.ts: NextAuth handler
+   - Created src/app/api/auth/register/route.ts: POST register endpoint (bcrypt hash, email uniqueness)
+   - Created src/app/api/me/route.ts: GET current user endpoint
+   - Added NEXTAUTH_SECRET + NEXTAUTH_URL to .env.local
+
+2. Auth UI:
+   - Created src/components/zcode/auth/auth-dialog.tsx: sign-in / sign-up dialog
+     - Toggle between "Connexion" and "Créer un compte" modes
+     - Email + password fields (with icons)
+     - Name field (signup only, optional)
+     - Password min 6 chars validation
+     - Error display
+     - Loading state
+     - On success: window.location.reload() to pick up session cookie
+   - Created src/components/zcode/auth/user-menu.tsx: sidebar footer
+     - Fetches /api/me on mount
+     - If not logged in: amber "Se connecter" button + "Sauvegardez vos conversations" hint
+     - If logged in: avatar (initials), name, email, chevron-up menu with sign-out
+   - Replaced old "Ryan Dev" footer in sidebar with UserMenu
+
+3. User-scoped conversations:
+   - Updated /api/conversations GET: filters by userId (returns [] if not logged in)
+   - Updated /api/conversations POST: attaches userId to new conversations
+   - Anonymous sessions (not logged in) are not persisted to DB
+
+4. Conversation deletion:
+   - Added deleteConversation() to persist.ts (DELETE /api/conversations/[id])
+   - Added deleteConversation action to store:
+     - Removes from local state
+     - If DB conversation (db_ prefix), deletes from DB
+     - If active conversation was deleted, resets to empty state
+   - Replaced MoreHorizontal icon in sidebar with Trash2 button
+   - Confirmation dialog (confirm()) before deletion
+   - Hover-only visibility (opacity-0 group-hover:opacity-100)
+   - Rose color on hover for destructive intent
+
+5. Bug fixes:
+   - Fixed db.ts: was caching old PrismaClient in dev, now creates fresh client per request in dev
+   - Cleared Turbopack cache (.next/cache) to pick up Prisma schema changes
+   - Hydration error in log is caused by DarkReader browser extension (non-blocking, not our code)
+
+Stage Summary:
+- Full auth system: sign up, sign in, sign out with NextAuth + Credentials
+- Passwords hashed with bcrypt (12 rounds)
+- Sessions are JWT-based (no DB session storage)
+- Conversations are user-scoped (each user sees only their own)
+- Delete button on hover for each conversation in sidebar
+- Confirmation dialog prevents accidental deletion
+- Deleting active conversation resets to welcome/empty state
+- Lint clean, browser-verified (signup + delete tested end-to-end)
