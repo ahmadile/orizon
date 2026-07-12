@@ -29,8 +29,9 @@ export function PhaseJourney() {
   const comprehensionIdx = 0;
 
   return (
-    <div className="border-b border-border bg-background px-6 py-2.5">
-      <div className="max-w-3xl mx-auto flex items-center gap-1">
+    // Fixed h-12 to align with the progress panel's secondary row (progress bar section)
+    <div className="flex items-center h-12 border-b border-border bg-background px-6 shrink-0">
+      <div className="max-w-3xl mx-auto w-full flex items-center gap-1">
         {PHASES.map((p, i) => {
           const Icon = ICONS[p.id];
           const isActive = p.id === phase;
@@ -47,9 +48,9 @@ export function PhaseJourney() {
                 onClick={() => clickable && setPhase(p.id)}
                 disabled={!clickable}
                 className={cn(
-                  "group flex items-center gap-1.5 px-2.5 py-1.5 rounded-md transition-all text-xs",
+                  "group flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-xs",
                   isActive
-                    ? "bg-secondary border border-emerald-500/30 text-foreground"
+                    ? "bg-brand-soft border border-brand text-foreground"
                     : isDone || isComprehensionDone
                     ? "text-muted-foreground hover:text-foreground hover:bg-accent/60"
                     : isLocked
@@ -62,9 +63,9 @@ export function PhaseJourney() {
                   className={cn(
                     "w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors",
                     isActive
-                      ? "bg-emerald-500 text-background"
+                      ? "bg-brand text-background"
                       : isDone || isComprehensionDone
-                      ? "bg-emerald-500/15 text-emerald-400"
+                      ? "bg-add-soft text-add"
                       : isLocked
                       ? "bg-secondary/50 text-muted-foreground/40"
                       : "bg-secondary text-muted-foreground"
@@ -91,7 +92,7 @@ export function PhaseJourney() {
                 <div
                   className={cn(
                     "h-px flex-1 min-w-2 transition-colors",
-                    i < phaseIdx ? "bg-emerald-500/40" : "bg-border"
+                    i < phaseIdx ? "bg-add/40" : "bg-border"
                   )}
                 />
               )}

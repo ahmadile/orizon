@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useZCode, MOCK_REPO } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
+import { SkillsPanel } from "@/components/zcode/skills-panel";
 import {
   Check,
   Loader2,
@@ -99,9 +100,9 @@ export function ProgressPanel() {
             className={cn(
               "text-[10px] px-1.5 py-0.5 rounded border",
               comprehensionDone
-                ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                ? "bg-add-soft border-add text-add"
                 : comprehensionRunning
-                ? "bg-amber-500/10 border-amber-500/20 text-amber-400"
+                ? "bg-brand-soft border-brand text-brand"
                 : "bg-secondary border-border text-muted-foreground"
             )}
           >
@@ -114,17 +115,17 @@ export function ProgressPanel() {
         </div>
       </div>
 
-      {/* Progress bar — directly below the aligned header */}
-      <div className="px-4 py-3 border-b border-sidebar-border shrink-0">
-        <div className="flex items-center gap-2">
+      {/* Progress bar — h-12 to align with the phase journey bar on the chat panel */}
+      <div className="flex items-center h-12 px-4 border-b border-sidebar-border shrink-0">
+        <div className="flex items-center gap-2 w-full">
           <div className="flex-1 h-1.5 rounded-full bg-secondary overflow-hidden">
             <div
               className={cn(
                 "h-full transition-all duration-500",
                 comprehensionDone
-                  ? "bg-emerald-500"
+                  ? "bg-add"
                   : comprehensionRunning
-                  ? "bg-amber-500"
+                  ? "bg-brand"
                   : "bg-muted-foreground/30"
               )}
               style={{ width: `${pct}%` }}
@@ -221,13 +222,16 @@ export function ProgressPanel() {
             </div>
 
             {/* Security note */}
-            <div className="mt-3 rounded-md border border-emerald-500/20 bg-emerald-500/[0.06] p-2.5 flex items-start gap-2">
-              <Check className="w-3 h-3 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="mt-3 rounded-md border border-add bg-add-soft p-2.5 flex items-start gap-2">
+              <Check className="w-3 h-3 text-add shrink-0 mt-0.5" />
               <div className="text-[11px] text-muted-foreground leading-relaxed">
                 <span className="text-foreground">Aucun secret détecté.</span>{" "}
                 Le dépôt ne contient pas de clés API ou de tokens exposés.
               </div>
             </div>
+
+            {/* Skills IA — capabilities active for this session */}
+            <SkillsPanel variant="compact" />
           </div>
         )}
 
@@ -245,7 +249,7 @@ export function ProgressPanel() {
               </div>
               <button
                 onClick={startComprehension}
-                className="mt-2 text-[11px] text-emerald-400 hover:text-emerald-300 font-medium"
+                className="mt-2 text-[11px] text-brand hover:opacity-80 font-medium"
               >
                 Lancer maintenant →
               </button>
@@ -276,9 +280,9 @@ function StepRow({
         className={cn(
           "shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-colors z-10 bg-sidebar",
           step.status === "completed"
-            ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-400"
+            ? "border-add bg-add-soft text-add"
             : step.status === "running"
-            ? "border-amber-500/40 bg-amber-500/10 text-amber-400"
+            ? "border-brand bg-brand-soft text-brand"
             : step.status === "error"
             ? "border-rose-500/40 bg-rose-500/10 text-rose-400"
             : "border-border text-muted-foreground/60"
@@ -319,7 +323,7 @@ function StepRow({
           {step.detail}
         </div>
         {step.status === "running" && (
-          <div className="text-[10px] text-amber-400 mt-1 zcode-pulse-soft">
+          <div className="text-[10px] text-brand mt-1 zcode-pulse-soft">
             traitement…
           </div>
         )}

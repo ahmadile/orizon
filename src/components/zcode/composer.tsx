@@ -69,7 +69,7 @@ export function Composer() {
   const canSend = text.trim().length > 0 && !isAssistantTyping;
 
   return (
-    <div className="border-t border-border bg-background px-4 py-3 shrink-0">
+    <div className="bg-background px-4 py-3 shrink-0">
       {/* Attachments preview */}
       {attachments.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-2">
@@ -79,7 +79,7 @@ export function Composer() {
               className="flex items-center gap-1.5 text-xs bg-secondary border border-border rounded-md pl-2 pr-1 py-1"
             >
               {a.kind === "folder" ? (
-                <Folder className="w-3 h-3 text-emerald-400" />
+                <Folder className="w-3 h-3 text-brand" />
               ) : a.kind === "image" ? (
                 <ImageIcon className="w-3 h-3 text-sky-400" />
               ) : (
@@ -109,7 +109,7 @@ export function Composer() {
             <button
               key={s}
               onClick={() => setText(s)}
-              className="text-xs text-muted-foreground hover:text-foreground border border-border hover:border-emerald-500/40 rounded-full px-2.5 py-1 transition-colors"
+              className="text-xs text-muted-foreground hover:text-foreground border border-border hover:border-brand rounded-full px-2.5 py-1 transition-colors"
             >
               {s}
             </button>
@@ -118,7 +118,7 @@ export function Composer() {
       )}
 
       {/* Composer container — single rounded card with footer row */}
-      <div className="rounded-xl border border-border bg-card focus-within:border-emerald-500/40 focus-within:ring-2 focus-within:ring-emerald-500/10 transition-all overflow-hidden">
+      <div className="rounded-xl border border-border bg-card focus-within:border-brand focus-within:ring-2 focus-within:ring-brand-soft transition-all overflow-hidden">
         {/* Textarea row */}
         <Textarea
           ref={taRef}
@@ -145,7 +145,7 @@ export function Composer() {
           {/* Right side: model badge + send button */}
           <div className="ml-auto flex items-center gap-2">
             <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground bg-secondary/60 border border-border rounded-md px-2 py-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="w-1.5 h-1.5 rounded-full bg-brand" />
               GLM-5.2
             </span>
             <Button
@@ -155,7 +155,7 @@ export function Composer() {
               className={cn(
                 "h-8 w-8 rounded-lg shrink-0 transition-all",
                 canSend
-                  ? "bg-emerald-500 hover:bg-emerald-600 text-background"
+                  ? "bg-brand hover:bg-brand-strong text-background"
                   : "bg-secondary text-muted-foreground cursor-not-allowed"
               )}
               aria-label="Envoyer"
@@ -208,7 +208,7 @@ function AttachMenu({
               }}
               className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-accent text-left"
             >
-              <Folder className="w-3.5 h-3.5 text-emerald-400" />
+              <Folder className="w-3.5 h-3.5 text-brand" />
               Dossier
             </button>
             <button

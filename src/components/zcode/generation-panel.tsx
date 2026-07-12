@@ -34,16 +34,16 @@ export function GenerationPanel() {
     <div className="my-4 rounded-xl border border-border bg-card overflow-hidden zcode-fade-up">
       <div className="px-4 py-3 border-b border-border bg-secondary/30">
         <div className="flex items-center gap-2">
-          <FileCode2 className="w-4 h-4 text-emerald-400" />
+          <FileCode2 className="w-4 h-4 text-brand" />
           <h3 className="text-sm font-semibold">
             Phase 5 — Génération
           </h3>
-          <span className="text-[10px] uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded text-emerald-400 ml-auto">
+          <span className="text-[10px] uppercase tracking-wider bg-brand-soft border border-brand px-1.5 py-0.5 rounded text-brand ml-auto">
             {intentLabel}
           </span>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          Fichier <code className="text-emerald-400">PROJECT_STRUCTURE.md</code>{" "}
+          Fichier <code className="text-brand">PROJECT_STRUCTURE.md</code>{" "}
           réutilisable par n'importe quel agent de code, ou génération complète
           par l'agent intégré.
         </p>
@@ -56,7 +56,7 @@ export function GenerationPanel() {
           className={cn(
             "text-xs px-3 py-1.5 rounded-t-md border-b-2 -mb-px transition-all flex items-center gap-1.5",
             tab === "md"
-              ? "border-emerald-500 text-foreground bg-background/40"
+              ? "bg-brand text-foreground bg-background/40"
               : "border-transparent text-muted-foreground hover:text-foreground"
           )}
         >
@@ -68,7 +68,7 @@ export function GenerationPanel() {
           className={cn(
             "text-xs px-3 py-1.5 rounded-t-md border-b-2 -mb-px transition-all flex items-center gap-1.5",
             tab === "agent"
-              ? "border-emerald-500 text-foreground bg-background/40"
+              ? "bg-brand text-foreground bg-background/40"
               : "border-transparent text-muted-foreground hover:text-foreground"
           )}
         >
@@ -83,7 +83,7 @@ export function GenerationPanel() {
             >
               {copied ? (
                 <>
-                  <Check className="w-3 h-3 text-emerald-400" />
+                  <Check className="w-3 h-3 text-brand" />
                   Copié
                 </>
               ) : (
@@ -114,10 +114,10 @@ export function GenerationPanel() {
         </div>
       ) : (
         <div className="p-4">
-          <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/[0.04] p-4">
+          <div className="rounded-lg border border-brand bg-brand/[0.04] p-4">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
-                <Bot className="w-4 h-4 text-emerald-400" />
+              <div className="w-9 h-9 rounded-lg bg-brand-soft flex items-center justify-center shrink-0">
+                <Bot className="w-4 h-4 text-brand" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium">
@@ -137,7 +137,7 @@ export function GenerationPanel() {
                         "Lance la génération complète du projet cible à partir du fichier PROJECT_STRUCTURE.md"
                       )
                     }
-                    className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-500 text-background hover:bg-emerald-600 font-medium"
+                    className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand text-background hover:bg-brand-strong font-medium"
                   >
                     <Bot className="w-3.5 h-3.5" />
                     Lancer la génération

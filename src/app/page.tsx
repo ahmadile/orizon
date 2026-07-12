@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const { sidebarCollapsed } = useZCode();
+  const { sidebarCollapsed, progressCollapsed } = useZCode();
 
   // Keyboard shortcut: ⌘N / Ctrl+N for new conversation
   useEffect(() => {
@@ -39,8 +39,13 @@ export default function Home() {
         <ChatPanel />
       </div>
 
-      {/* Progress — 320px fixed */}
-      <div className="w-[320px] shrink-0 hidden lg:block">
+      {/* Progress — 320px expanded, 0 collapsed */}
+      <div
+        className={cn(
+          "shrink-0 hidden lg:block transition-[width] duration-200 ease-out overflow-hidden",
+          progressCollapsed ? "w-0" : "w-[320px]"
+        )}
+      >
         <ProgressPanel />
       </div>
     </div>

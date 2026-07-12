@@ -33,8 +33,8 @@ export function ZCodeLogo({ size = 28, className, markOnly = false }: ZCodeLogoP
       >
         <defs>
           <linearGradient id="zcode-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#10b981" />
-            <stop offset="1" stopColor="#059669" />
+            <stop stopColor="#f5a524" />
+            <stop offset="1" stopColor="#d97706" />
           </linearGradient>
         </defs>
         {/* Rounded square background */}

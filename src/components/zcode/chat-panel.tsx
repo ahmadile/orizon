@@ -17,9 +17,12 @@ import {
   RotateCcw,
   ChevronDown,
   FolderOpen,
+  PanelRightClose,
+  PanelRightOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { PhaseId } from "@/lib/zcode/types";
 
 export function ChatPanel() {
@@ -60,10 +63,10 @@ export function ChatPanel() {
 
           {/* Comprehension launch state */}
           {!comprehensionDone && !comprehensionRunning && (
-            <div className="my-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] p-4 zcode-fade-up">
+            <div className="my-4 rounded-xl border border-brand bg-brand-soft p-4 zcode-fade-up">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
-                  <Play className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="w-8 h-8 rounded-lg bg-brand-soft flex items-center justify-center shrink-0">
+                  <Play className="w-3.5 h-3.5 text-brand" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-foreground">
@@ -77,7 +80,7 @@ export function ChatPanel() {
                   <Button
                     onClick={startComprehension}
                     size="sm"
-                    className="mt-3 h-8 bg-emerald-500 hover:bg-emerald-600 text-background"
+                    className="mt-3 h-8 bg-brand hover:bg-brand-strong text-background"
                   >
                     <Play className="w-3.5 h-3.5 mr-1" />
                     Lancer l'analyse
@@ -111,14 +114,19 @@ export function ChatPanel() {
 }
 
 function ChatHeader() {
-  const { resetComprehension, comprehensionDone, comprehensionRunning } =
-    useZCode();
+  const {
+    resetComprehension,
+    comprehensionDone,
+    comprehensionRunning,
+    progressCollapsed,
+    toggleProgress,
+  } = useZCode();
   const [modelOpen, setModelOpen] = React.useState(false);
 
   return (
     <header className="relative z-30 flex items-center gap-3 px-6 h-14 border-b border-border bg-background shrink-0">
       <div className="flex items-center gap-2 min-w-0">
-        <FolderOpen className="w-4 h-4 text-emerald-400 shrink-0" />
+        <FolderOpen className="w-4 h-4 text-brand shrink-0" />
         <div className="flex flex-col min-w-0">
           <span className="text-sm font-medium truncate">
             {MOCK_REPO.name}
@@ -129,7 +137,7 @@ function ChatHeader() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 ml-auto">
+      <div className="flex items-center gap-2 ml-auto">
         {/* Repo stats */}
         <div className="hidden md:flex items-center gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
@@ -152,7 +160,7 @@ function ChatHeader() {
             onClick={() => setModelOpen((o) => !o)}
             className="flex items-center gap-1.5 text-xs border border-border rounded-md px-2.5 py-1.5 hover:bg-accent bg-secondary/50 transition-colors"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand" />
             GLM-5.2
             <ChevronDown className={cn("w-3 h-3 transition-transform", modelOpen && "rotate-180")} />
           </button>
@@ -183,7 +191,7 @@ function ChatHeader() {
                       </div>
                     </div>
                     {m.id === "glm-5.2" && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand mt-1.5" />
                     )}
                   </button>
                 ))}
@@ -205,6 +213,29 @@ function ChatHeader() {
             <RotateCcw className="w-3.5 h-3.5" />
           </Button>
         )}
+
+        {/* Toggle progress panel */}
+        <TooltipProvider delayDuration={300}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleProgress}
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
+              >
+                {progressCollapsed ? (
+                  <PanelRightOpen className="w-4 h-4" />
+                ) : (
+                  <PanelRightClose className="w-4 h-4" />
+                )}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {progressCollapsed ? "Afficher la progression" : "Réduire la progression"}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </header>
   );
@@ -214,7 +245,7 @@ function RepoHeaderCard() {
   return (
     <div className="rounded-xl border border-border bg-card p-4 my-2 zcode-fade-up">
       <div className="flex items-center gap-3 mb-2">
-        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/5 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-mono text-lg font-bold shrink-0">
+        <div className="w-10 h-10 rounded-lg bg-brand-soft border border-brand flex items-center justify-center text-brand font-mono text-lg font-bold shrink-0">
           G
         </div>
         <div className="flex-1 min-w-0">

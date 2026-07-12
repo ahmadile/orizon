@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://medium.com/@email2dineshkuppan/semantic-code-indexing-with-ast-and-tree-sitter-for-ai-agents-part-1-of-3-eb5237ba687a",
+    "name": "Semantic Code Indexing with AST and Tree-sitter for AI Agents (Part",
+    "snippet": "Tree-sitter keeps the full fidelity of the source — every bracket, colon, and semicolon — so you can link analysis back to the exact source text ...",
+    "host_name": "medium.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://tree-sitter.github.io",
+    "name": "Tree-sitter: Introduction",
+    "snippet": "Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the ...",
+    "host_name": "tree-sitter.github.io",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.dropstone.io/blog/ast-parsing-tree-sitter-40-languages",
+    "name": "AST Parsing at Scale: Tree-sitter Across 40 Languages - Dropstone",
+    "snippet": "Tree-sitter uses an incremental, error-tolerant parsing algorithm. It can parse incomplete code, recover from syntax errors, and update the AST ...",
+    "host_name": "www.dropstone.io",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/topics/tree-sitter",
+    "name": "tree-sitter · GitHub Topics",
+    "snippet": "Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the ...",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to/rijultp/understand-code-like-an-editor-intro-to-tree-sitter-50be",
+    "name": "Understand Code Like an Editor: Intro to Tree-sitter - DEV Community",
+    "snippet": "Tree-sitter is a powerful parser generator tool and incremental parsing library that makes it easier to work with code structure. It turns messy ...",
+    "host_name": "dev.to",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://arxiv.org/pdf/2603.27277",
+    "name": "[PDF] Tree-Sitter-Based Knowledge Graphs for LLM Code Exploration via",
+    "snippet": "A knowledge-graph architecture for code that combines Tree-Sitter parsing across 66 languages, a multi-phase build pipeline with parallel ...",
+    "host_name": "arxiv.org",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.continue.dev",
+    "name": "Continue.dev",
+    "snippet": "Continue has been acquired by Cursor. Our mission has always been to ensure developers are amplified, not automated, and we continue in that commitment.",
+    "host_name": "www.continue.dev",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://repomix.com",
+    "name": "Repomix | Pack your codebase into AI-friendly formats",
+    "snippet": "Repomix is a powerful tool that packages your entire codebase into a single AI-friendly file. Repomix makes it easy to share your entire repository context ...",
+    "host_name": "repomix.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/continuedev/continue",
+    "name": "continuedev/continue: open-source coding agent - GitHub",
+    "snippet": "The continuedev/continue repository is no longer. Continue is a coding agent available as a CLI, VS Code extension, and JetBrains plugin. Documentation To ...",
+    "host_name": "github.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://elixirforum.com/t/ai-code-assistant-blocks-and-bundles-for-continue-dev/69715",
+    "name": "AI code assistant blocks and bundles for continue.dev - Elixir Forum",
+    "snippet": "I've started making some re-usable “blocks” and an assistant on Continue.dev (my assistant framework of choice). I'll add more as I think of them.",
+    "host_name": "elixirforum.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=DfZZpyV9msc",
+    "name": "AI Coding Assistant Continue.dev in Codeanywhere: No Setup Required",
+    "snippet": "Comments · Ladybird Browser: State of the Union · Getting started with Codex · The Local AI Hardware Mistake Everyone Makes · Continue. · AI Coding ...",
+    "host_name": "www.youtube.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://betterstack.com/community/guides/ai/continue-dev-ai",
+    "name": "Continue.dev: Open-Source AI Code Agent Guide | Better Stack Community",
+    "snippet": "Learn how Continue.dev transforms your development workflow with AI-powered code reviews, full-project context awareness, and support for ...",
+    "host_name": "betterstack.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

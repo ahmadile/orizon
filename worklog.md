@@ -68,3 +68,61 @@ Stage Summary:
 - Responsive: desktop (3 panels) + mobile (1 column) both work
 - No console errors, no runtime errors, clean lint
 - 14 verification screenshots saved to /home/z/my-project/download/
+
+---
+Task ID: zcode-v1-design-oss
+Agent: main (super-z)
+Task: Design fixes (color change, custom AI icon, collapse buttons, alignment, composer border) + open source research + skills panel
+
+Work Log:
+Design fixes:
+- Changed primary brand color from emerald → saffron amber (oklch(0.75 0.16 62))
+- Kept emerald as semantic color for additions/success (text-add, bg-add-soft)
+- Kept rose as semantic color for deletions/errors
+- Added brand utility classes in globals.css (text-brand, bg-brand, bg-brand-soft, border-brand, etc.)
+- Created AIBrandIcon component: custom geometric SVG (central dot + 3 orbiting nodes) replacing generic Sparkles
+- Updated ZCodeLogo gradient to amber (#f5a524 → #d97706)
+- Added progress panel collapse button (PanelRightClose/Open) in chat header, mirroring sidebar pattern
+- Added progressCollapsed state + toggleProgress action to Zustand store
+- Updated page.tsx to animate progress panel width (320px ↔ 0)
+- Aligned phase journey (h-12) with progress panel's progress bar section (h-12) — both now start at y=56px after the h-14 headers
+- Removed border-t above composer (seamless transition from messages to input)
+- Updated all phase panels (intent, experimentation, maquette, generation) to use brand amber instead of emerald for primary actions
+- Updated message-bubble.tsx to use AIBrandIcon for assistant avatar + typing indicator
+- Updated chat-panel header: FolderOpen icon, model selector dot, repo card all use brand amber
+- Updated composer: send button + GLM badge + focus ring use brand amber
+
+Open source research (web searches):
+- tree-sitter: AST parsing for 40+ languages (comprehension)
+- ast-grep: structural code search (comprehension + experimentation)
+- Repomix: pack repo into AI-friendly format (comprehension)
+- ripgrep: fast code search (comprehension)
+- gitleaks: secret detection (comprehension, security)
+- repowise: bus factor + coupling analysis (comprehension)
+- Aider: pair-programming AI, blast radius estimation (experimentation)
+- Ladle: lightweight Storybook alternative (maquette)
+- Storybook: component workshop reference (maquette)
+- style-dictionary: design tokens export (maquette)
+- Continue.dev: AI code agent, MD structure consumer (generation)
+- OpenAI Agents SDK: multi-agent orchestration framework (global)
+- Agent Skills format: standardized skill packaging (intention)
+
+Feature additions:
+- Created oss-catalog.ts with 14 OSS integrations (name, url, role, rationale, phase, license, lang, stars)
+- Created 12 ZCode skills mapped to phases + powered-by OSS integrations
+- Created SkillsPanel component (compact variant) embedded in progress panel
+- Skills show: name, description, active state (amber dot), powered-by OSS tool
+- Active skills: AST Walk, Pattern Search, Repo Pack, Secret Scan, MD Structure, Multi-Agent Orchestrator
+- Inactive skills: Git Archaeology, Blast Radius, Mockup Stories, Token Export, Explain Level, Diff Visualizer
+
+Stage Summary:
+- Primary brand color is now saffron amber (distinctive, not the usual AI emerald/blue)
+- Emerald kept ONLY as semantic success color (completed steps, additions, "no secrets" note)
+- Custom AIBrandIcon replaces generic Sparkles everywhere
+- Both sidebar and progress panel have collapse buttons
+- Phase journey bar aligns perfectly with progress panel's progress bar row
+- Composer border-t removed for seamless message→input transition
+- 14 open-source projects researched and catalogued
+- 12 AI skills defined and displayed in progress panel
+- Each skill maps to a real OSS tool (tree-sitter, ast-grep, Repomix, gitleaks, etc.)
+- Lint clean, no runtime errors, browser-verified

@@ -44,7 +44,7 @@ export function IntentPanel() {
     <div className="my-4 rounded-xl border border-border bg-card overflow-hidden zcode-fade-up">
       <div className="px-4 py-3 border-b border-border bg-secondary/30">
         <div className="flex items-center gap-2">
-          <Target className="w-4 h-4 text-emerald-400" />
+          <Target className="w-4 h-4 text-brand" />
           <h3 className="text-sm font-semibold">Phase 2 — Déclarez votre intention</h3>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
@@ -64,7 +64,7 @@ export function IntentPanel() {
               className={cn(
                 "flex items-start gap-3 p-3 rounded-lg border text-left transition-all",
                 isSel
-                  ? "border-emerald-500/50 bg-emerald-500/[0.06]"
+                  ? "border-brand bg-brand-soft/60"
                   : "border-border hover:border-border hover:bg-accent/40"
               )}
             >
@@ -72,7 +72,7 @@ export function IntentPanel() {
                 className={cn(
                   "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
                   isSel
-                    ? "bg-emerald-500/15 text-emerald-400"
+                    ? "bg-brand-soft text-brand"
                     : "bg-secondary text-muted-foreground"
                 )}
               >
@@ -88,7 +88,7 @@ export function IntentPanel() {
                 className={cn(
                   "w-4 h-4 rounded-full border-2 shrink-0 mt-1 transition-colors",
                   isSel
-                    ? "border-emerald-500 bg-emerald-500"
+                    ? "bg-brand bg-brand"
                     : "border-border"
                 )}
               />
@@ -99,7 +99,7 @@ export function IntentPanel() {
 
       <div className="px-4 py-3 border-t border-border flex items-center justify-between bg-secondary/20">
         <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-          <Sparkles className="w-3 h-3 text-emerald-400" />
+          <Sparkles className="w-3 h-3 text-brand" />
           L'IA proposera des pistes concrètes adaptées à votre intention.
         </div>
         <button
@@ -111,7 +111,7 @@ export function IntentPanel() {
           className={cn(
             "flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md transition-all",
             selected
-              ? "bg-emerald-500 text-background hover:bg-emerald-600"
+              ? "bg-brand text-background hover:bg-brand-strong"
               : "bg-secondary text-muted-foreground cursor-not-allowed"
           )}
         >

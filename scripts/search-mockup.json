@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://storybook.js.org",
+    "name": "Storybook: Frontend workshop for UI development",
+    "snippet": "Storybook is a frontend workshop for building UI components and pages in isolation. It's open source and free.",
+    "host_name": "storybook.js.org",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to/mbarzeev/trying-out-ladle-a-storybook-alternative-f68",
+    "name": "Trying out Ladle - A Storybook Alternative - DEV Community",
+    "snippet": "In this post join me as I will try out Ladle, a Storybook alternative based on Vite technology, and see if the time has come for Storybook to step down.",
+    "host_name": "dev.to",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://polprog.pl/learning/storybook-vs-ladle",
+    "name": "Storybook vs Ladle: Best Component Workshop for React? - polprog",
+    "snippet": "Both Storybook and Ladle are generally available as open-source projects under permissive licenses, but verify current licensing before ...",
+    "host_name": "polprog.pl",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://reflect.run/articles/introduction-to-ladle",
+    "name": "Introduction to Ladle - SmartBear Reflect",
+    "snippet": "In this article we introduce Ladle, an open-source tool for viewing and testing React components that is a drop-in replacement for Storybook.",
+    "host_name": "reflect.run",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.co/testing/open-source/ladle",
+    "name": "Ladle: React Component Development & Testing - DEV.co",
+    "snippet": "Fast, lightweight React component sandbox for development, testing, and documentation. MIT-licensed, Vite-powered alternative to Storybook.",
+    "host_name": "dev.co",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.firecrawl.dev/blog/best-open-source-agent-frameworks",
+    "name": "The best open source frameworks for building AI agents in 2026",
+    "snippet": "The OpenAI Agents SDK is a lightweight Python framework released in March 2025 with over 26,900 GitHub stars and 10.3 million monthly downloads. Top 10 open source... · How to choose an agent... · Best practices in building...",
+    "host_name": "www.firecrawl.dev",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://agentskills.io/home",
+    "name": "Agent Skills Overview - Agent Skills",
+    "snippet": "What are Agent Skills? Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows.",
+    "host_name": "agentskills.io",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
+    "name": "Agent Skills - Claude Platform Docs",
+    "snippet": "Agent Skills are modular capabilities that extend Claude's functionality. Each Skill packages instructions, metadata, and optional resources (scripts, templates) ...",
+    "host_name": "platform.claude.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.graphbit.ai/resources/blogs/top-9-open-source-ai-agent-framework-2025",
+    "name": "Top 9 Open-source AI Agent Frameworks for 2025 - Graphbit",
+    "snippet": "The top 9 open-source AI agent frameworks covering benefits, core functions, use cases & how they help teams build scalable, ...",
+    "host_name": "www.graphbit.ai",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=77nHShlpCfQ",
+    "name": "The Definitive Guide to Building AI Agents in 2025 - YouTube",
+    "snippet": "Comments ; PydanticAI: The Best AI Agent Framework Has Arrived. Launch Intelligence · 34K views ; Anthropic Workshop: Build Agents That Run for ...",
+    "host_name": "www.youtube.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://blogs.microsoft.com/blog/2025/05/19/microsoft-build-2025-the-age-of-ai-agents-and-building-the-open-agentic-web",
+    "name": "Microsoft Build 2025: The age of AI agents and building the open",
+    "snippet": "We've entered the era of AI agents. Thanks to groundbreaking advancements in reasoning and memory, AI models are now more capable and efficient.",
+    "host_name": "blogs.microsoft.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

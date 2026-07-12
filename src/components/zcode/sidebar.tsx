@@ -194,7 +194,7 @@ export function Sidebar() {
                 className={cn(
                   "w-3.5 h-3.5 mt-0.5 shrink-0",
                   c.id === activeConversationId
-                    ? "text-emerald-400"
+                    ? "text-brand"
                     : "text-muted-foreground"
                 )}
               />
@@ -211,7 +211,7 @@ export function Sidebar() {
                     {c.repoName}
                   </span>
                   {c.unread && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand shrink-0" />
                   )}
                 </div>
                 <div className="text-[11px] text-muted-foreground truncate mt-0.5">
@@ -222,7 +222,7 @@ export function Sidebar() {
                     {PHASE_LABEL[c.phase]}
                   </span>
                   {c.intent && (
-                    <span className="text-[9px] uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded text-emerald-400">
+                    <span className="text-[9px] uppercase tracking-wider bg-brand-soft border border-brand px-1.5 py-0.5 rounded text-brand">
                       {INTENT_LABEL[c.intent]}
                     </span>
                   )}

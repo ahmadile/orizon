@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://sidneyliebrand.medium.com/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861",
+    "name": "How FZF and ripgrep improved my workflow | by Sidney Liebrand",
+    "snippet": "Ripgrep is written in rust and one of its primary goals is to be the fastest grep of them all. It performs amazing even in a larger code base.",
+    "host_name": "sidneyliebrand.medium.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/junegunn/fzf",
+    "name": "junegunn/fzf: :cherry_blossom: A command-line fuzzy finder - GitHub",
+    "snippet": "fzf is a general-purpose command-line fuzzy finder and an interactive terminal toolkit. Whether you're selecting files, browsing command history, previewing ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to/hayden/optimizing-your-workflow-with-fzf-ripgrep-2eai",
+    "name": "optimizing your workflow with fzf & ripgrep - DEV Community",
+    "snippet": "A command-line fuzzy finder. Whether you use bash, zsh or fish, fzf works great with an easy installation process. Just follow along from their github page ...",
+    "host_name": "dev.to",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://blog.poloxue.com/turbocharge-your-terminal-searches-discovering-fd-ripgrep-and-fzf-9b054dee7174",
+    "name": "Unlocking the Speeds of fd, ripgrep, and fzf” | by poloxue | Medium",
+    "snippet": "ripgrep doesn't just search; it conquers. Explore directory-specific searches, file-specific hunts, and even disable recursion with ease. # ...",
+    "host_name": "blog.poloxue.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://addozhang.medium.com/cli-essentials-fd-rg-fzf-bat-6137c34d5d1b",
+    "name": "CLI Essentials: fd / rg / fzf / bat | by Addo Zhang | Medium",
+    "snippet": "ripgrep's speed advantage comes from three factors: SIMD byte scanning, a backtrack-free regex engine, and parallel directory traversal.",
+    "host_name": "addozhang.medium.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

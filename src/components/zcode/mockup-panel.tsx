@@ -16,7 +16,7 @@ export function MockupPanel() {
     <div className="my-4 rounded-xl border border-border bg-card overflow-hidden zcode-fade-up">
       <div className="px-4 py-3 border-b border-border bg-secondary/30">
         <div className="flex items-center gap-2">
-          <LayoutTemplate className="w-4 h-4 text-emerald-400" />
+          <LayoutTemplate className="w-4 h-4 text-brand" />
           <h3 className="text-sm font-semibold">
             Phase 4 — Maquette (prototype à blanc)
           </h3>
@@ -39,7 +39,7 @@ export function MockupPanel() {
             className={cn(
               "text-xs px-3 py-1.5 rounded-t-md border-b-2 transition-all -mb-px",
               v.id === activeId
-                ? "border-emerald-500 text-foreground bg-background/40"
+                ? "bg-brand text-foreground bg-background/40"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             )}
           >
@@ -84,7 +84,7 @@ export function MockupPanel() {
             <div className="flex items-center gap-1.5 px-3 py-1.5 border-b border-border bg-secondary/30">
               <span className="w-2 h-2 rounded-full bg-rose-500/60" />
               <span className="w-2 h-2 rounded-full bg-amber-500/60" />
-              <span className="w-2 h-2 rounded-full bg-emerald-500/60" />
+              <span className="w-2 h-2 rounded-full bg-brand/60" />
               <span className="text-[10px] text-muted-foreground ml-2 font-mono">
                 zcode://mockup/{active.id}
               </span>
@@ -133,7 +133,7 @@ export function MockupPanel() {
         </div>
         <button
           onClick={() => setPhase("generation")}
-          className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-500 text-background hover:bg-emerald-600 font-medium"
+          className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand text-background hover:bg-brand-strong font-medium"
         >
           Valider et générer
           <ArrowRight className="w-3.5 h-3.5" />

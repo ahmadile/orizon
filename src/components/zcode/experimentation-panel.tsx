@@ -150,7 +150,7 @@ export function ExperimentationPanel() {
     <div className="my-4 rounded-xl border border-border bg-card overflow-hidden zcode-fade-up">
       <div className="px-4 py-3 border-b border-border bg-secondary/30">
         <div className="flex items-center gap-2">
-          <FlaskConical className="w-4 h-4 text-emerald-400" />
+          <FlaskConical className="w-4 h-4 text-brand" />
           <h3 className="text-sm font-semibold">
             Phase 3 — Expérimentation
           </h3>
@@ -175,7 +175,7 @@ export function ExperimentationPanel() {
               className={cn(
                 "rounded-lg border transition-all",
                 isOpen
-                  ? "border-emerald-500/40 bg-emerald-500/[0.03]"
+                  ? "border-brand bg-brand-soft/40"
                   : "border-border bg-background/40"
               )}
             >
@@ -242,7 +242,7 @@ export function ExperimentationPanel() {
                     </button>
                     <button
                       onClick={() => setPhase("maquette")}
-                      className="text-xs flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30"
+                      className="text-xs flex items-center gap-1 px-2.5 py-1 rounded-md bg-brand-soft text-brand hover:bg-brand-soft/70 border border-brand"
                     >
                       Maquetter cette piste
                       <ArrowRight className="w-3 h-3" />
@@ -269,7 +269,7 @@ export function ExperimentationPanel() {
         </button>
         <button
           onClick={() => setPhase("maquette")}
-          className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-500 text-background hover:bg-emerald-600 font-medium"
+          className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand text-background hover:bg-brand-strong font-medium"
         >
           Passer à la maquette
           <ArrowRight className="w-3.5 h-3.5" />

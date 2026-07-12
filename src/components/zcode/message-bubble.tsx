@@ -5,7 +5,8 @@ import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 import { CodeBlock } from "./code-block";
 import type { Message } from "@/lib/zcode/types";
-import { User, Sparkles, Info } from "lucide-react";
+import { User, Info } from "lucide-react";
+import { AIBrandIcon } from "@/components/zcode/ai-brand-icon";
 import { RelativeTime } from "@/components/zcode/relative-time";
 
 interface MessageBubbleProps {
@@ -17,7 +18,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
     return (
       <div className="flex justify-center my-2 zcode-fade-up">
         <div className="flex items-start gap-2 max-w-[85%] text-xs text-muted-foreground bg-secondary/40 border border-border rounded-lg px-3 py-2">
-          <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-emerald-500" />
+          <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-brand" />
           <div className="zcode-prose text-muted-foreground">
             <ReactMarkdown>{message.content}</ReactMarkdown>
           </div>
@@ -41,13 +42,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
           "shrink-0 w-7 h-7 rounded-full flex items-center justify-center",
           isUser
             ? "bg-secondary border border-border"
-            : "bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-500/30"
+            : "bg-brand-soft border border-brand"
         )}
       >
         {isUser ? (
           <User className="w-3.5 h-3.5 text-foreground" />
         ) : (
-          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+          <AIBrandIcon className="text-brand" size={15} />
         )}
       </div>
 
@@ -103,8 +104,8 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 export function TypingIndicator() {
   return (
     <div className="flex gap-3 my-4 zcode-fade-up">
-      <div className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-500/30">
-        <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+      <div className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center bg-brand-soft border border-brand">
+        <AIBrandIcon className="text-brand" size={15} />
       </div>
       <div className="rounded-2xl rounded-tl-sm bg-card border border-border px-4 py-3">
         <div className="flex gap-1 items-center">

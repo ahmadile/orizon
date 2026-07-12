@@ -49,8 +49,8 @@ export function CodeBlock({ code, language, filename, className }: CodeBlockProp
         >
           {copied ? (
             <>
-              <Check className="w-3 h-3 text-emerald-500" />
-              <span className="text-emerald-500">Copié</span>
+              <Check className="w-3 h-3 text-add" />
+              <span className="text-add">Copié</span>
             </>
           ) : (
             <>

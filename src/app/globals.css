@@ -78,7 +78,13 @@
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* ZCode brand */
+  /* ZCode brand — saffron amber (distinctive, warm, not the usual AI emerald/blue) */
+  --zcode-brand: oklch(0.75 0.16 62);
+  --zcode-brand-strong: oklch(0.68 0.17 58);
+  --zcode-brand-soft: oklch(0.75 0.16 62 / 0.12);
+  --zcode-brand-border: oklch(0.75 0.16 62 / 0.25);
+
+  /* Semantic accents (kept stable regardless of brand) */
   --zcode-emerald: oklch(0.696 0.17 162.48);
   --zcode-emerald-soft: oklch(0.696 0.17 162.48 / 0.12);
   --zcode-amber: oklch(0.769 0.188 70.08);
@@ -96,6 +102,27 @@
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
   }
+}
+
+/* ===== ZCode brand utility classes ===== */
+@layer utilities {
+  .text-brand { color: var(--zcode-brand); }
+  .bg-brand { background-color: var(--zcode-brand); }
+  .bg-brand-strong { background-color: var(--zcode-brand-strong); }
+  .bg-brand-soft { background-color: var(--zcode-brand-soft); }
+  .border-brand { border-color: var(--zcode-brand-border); }
+  .ring-brand { box-shadow: 0 0 0 2px var(--zcode-brand-soft); }
+  .from-brand { --tw-gradient-from: var(--zcode-brand); }
+  .to-brand-strong { --tw-gradient-to: var(--zcode-brand-strong); }
+
+  /* Semantic — emerald = additions/success, rose = deletions/errors */
+  .text-add { color: var(--zcode-emerald); }
+  .bg-add { background-color: var(--zcode-emerald); }
+  .bg-add-soft { background-color: var(--zcode-emerald-soft); }
+  .border-add { border-color: oklch(0.696 0.17 162.48 / 0.3); }
+  .text-del { color: var(--zcode-rose); }
+  .bg-del { background-color: var(--zcode-rose); }
+  .border-del { border-color: oklch(0.645 0.246 16.439 / 0.3); }
 }
 
 /* ===== Custom scrollbars (dark, slim) ===== */

@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.linkedin.com/posts/lauratacho_two-years-from-now-what-is-git-blame-going-activity-7427838095489777664-_ohu",
+    "name": "Laura Tacho's Post - LinkedIn",
+    "snippet": "The primary use of “git blame” in the companies I've started is to identify which issue+pr->commit led to a particular change and when. I don't ...",
+    "host_name": "www.linkedin.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medium.com/@dstekanov.tech/can-git-history-act-as-a-lightweight-memory-layer-for-ai-coding-agents-d53fa345b0a2",
+    "name": "Can git history act as a lightweight memory layer for AI coding agents?",
+    "snippet": "Can git history act as a lightweight memory layer for AI coding agents? Here's what happened after 3 weeks. My AI agent keeps rediscovering ...",
+    "host_name": "medium.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.cloudbees.com/blog/git-blame-explained",
+    "name": "Git Blame Explained With Examples: Who Touched the Code?",
+    "snippet": "Git blame is the command that can tell you who was the last person to modify each line of code and when.",
+    "host_name": "www.cloudbees.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.repowise.dev/guides/git-intelligence",
+    "name": "Git Intelligence: Bus Factor & Hidden Coupling - repowise",
+    "snippet": "repowise reads your last 500 commits (configurable up to 5,000) plus git blame, parses the repo into a dependency graph, and derives every signal ...",
+    "host_name": "www.repowise.dev",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://stackoverflow.com/questions/62632477/git-blame-see-all-history-of-commit",
+    "name": "Git blame see all history of commit - Stack Overflow",
+    "snippet": "If they created a new repository and copied the code there, it will not have the history from the old repository. You can stitch the history back together. Retrieve the commit log for a specific line in a file? How to show full-file Git blame in Visual Studio Code More results from stackoverflow.com",
+    "host_name": "stackoverflow.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

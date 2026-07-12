@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com/ast-grep/ast-grep",
+    "name": "GitHub - ast-grep/ast-grep: A CLI tool for code structural search, lint and",
+    "snippet": "ast-grep is an abstract syntax tree based tool to search code by pattern code. Think of it as your old-friend grep, but matching AST nodes instead of text.",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://ast-grep.github.io",
+    "name": "ast-grep | structural search/rewrite tool for many languages",
+    "snippet": "ast-grep is a code tool for structural search and replace. It is like syntax-aware grep/sed! You can write code patterns to locate and modify code, based on AST ...",
+    "host_name": "ast-grep.github.io",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://betterprogramming.pub/deep-dive-into-ast-greps-pattern-7efc3eefc7c3",
+    "name": "A Deep Dive Into ast-grep's Pattern - Better Programming",
+    "snippet": "When you use ast-grep to search for patterns in source code, you need to understand the difference between textual and structural matching.",
+    "host_name": "betterprogramming.pub",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://marketplace.visualstudio.com/items?itemName=ast-grep.ast-grep-vscode",
+    "name": "ast-grep VSCode: Structural Search, Replace and more",
+    "snippet": "ast-grep is a structural search/replace tool that uses abstract syntax trees (ASTs) to represent the syntax and structure of your code.",
+    "host_name": "marketplace.visualstudio.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.x-cmd.com/install/ast-grep",
+    "name": "ast-grep - X-CMD",
+    "snippet": "It's an abstract syntax tree (AST) based code search and refactoring tool that lets you match code structure using patterns that look like code itself—no more ...",
+    "host_name": "www.x-cmd.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]
