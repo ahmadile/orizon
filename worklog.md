@@ -254,3 +254,62 @@ Stage Summary:
 - App starts clean: no mock conversations, welcome screen with drag-drop zone
 - All 5 phases from the V1 spec are implemented
 - Lint clean, no runtime errors, browser-verified
+
+---
+Task ID: zcode-v1-priorities-6-7
+Agent: main (super-z)
+Task: Priority 7 (onboarding/experience) + Priority 6 (multi-conversation/checkpoints)
+
+Work Log:
+Priority 7 — Onboarding & experience:
+1. Command Palette (⌘K):
+   - Created src/components/zcode/command-palette.tsx using cmdk + shadcn CommandDialog
+   - Sections: Actions (open repo, new task, settings), Phases (with lock state), Comprehension (launch/reset), Conversations (recent), Layout (toggle sidebar/progress)
+   - Keyboard shortcut ⌘K / Ctrl+K registered in page.tsx
+   - Integrated with sidebar + chat panel via external state props
+
+2. Onboarding Tour:
+   - Created src/components/zcode/onboarding-tour.tsx
+   - 7 steps: welcome → sidebar → chat → phases → progress → settings → shortcuts
+   - Step indicators (progressive dots), amber brand icon, Précédent/Suivant buttons
+   - Auto-opens on first visit (localStorage key "zcode-tour-done")
+   - Backdrop click + X button to dismiss
+   - z-index 200 (above command palette z-100)
+
+3. Refactored ChatPanel + Sidebar props:
+   - ChatPanel accepts externalRepoDialogOpen, externalSettingsOpen props
+   - Sidebar accepts onOpenRepo, onOpenSettings callbacks
+   - Both dialogs (RepoOpenDialog, SettingsDialog) now rendered in ChatPanel both in empty state and loaded state
+   - page.tsx coordinates dialog state between sidebar, chat panel, and command palette
+
+Priority 6 — Multi-conversation & checkpoints:
+1. Fork conversation:
+   - Added forkConversation(fromMessageId?) action to store
+   - Creates a new conversation with "(fork N)" suffix
+   - Copies messages up to the fork point (or all messages if no messageId)
+   - Preserves phase, intent, repo metadata
+   - "Créer une branche (fork)" button in CheckpointPanel
+
+2. Checkpoints:
+   - Added Checkpoint interface to store (id, label, timestamp, messageCount, phase, intent)
+   - createCheckpoint() action: snapshots messages + phase + intent to localStorage
+   - restoreCheckpoint(id) action: restores the snapshot
+   - Created src/components/zcode/checkpoint-panel.tsx
+   - Renders in ProgressPanel between Skills and comprehension steps
+   - Shows checkpoint list with time, message count, phase
+   - Restore button (RotateCcw icon) on hover
+   - Create button (+) in header
+
+3. Store changes:
+   - Added checkpoints: Checkpoint[] to state
+   - Added forkConversation, createCheckpoint, restoreCheckpoint actions
+   - loadRepo resets checkpoints to []
+
+Stage Summary:
+- Command palette (⌘K) with 5 sections: Actions, Phases, Comprehension, Conversations, Layout
+- Onboarding tour: 7 steps, auto-opens on first visit, dismissible
+- Fork conversation: create a branch from any point
+- Checkpoints: snapshot + restore messages/phase/intent
+- CheckpointPanel in progress panel with create/restore/fork actions
+- Lint clean, browser-verified
+- All 7 priorities from the original proposal are now implemented

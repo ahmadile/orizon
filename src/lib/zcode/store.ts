@@ -75,6 +75,21 @@ interface ZCodeState {
   // persistence
   hydrateFromDb: () => Promise<void>;
   loadRepo: (name: string, path: string, scan?: unknown) => void;
+
+  // multi-conversation
+  forkConversation: (fromMessageId?: string) => void;
+  createCheckpoint: () => void;
+  restoreCheckpoint: (checkpointId: string) => void;
+  checkpoints: Checkpoint[];
+}
+
+export interface Checkpoint {
+  id: string;
+  label: string;
+  timestamp: number;
+  messageCount: number;
+  phase: PhaseId;
+  intent: Intent;
 }
 
 let msgIdCounter = 100;
@@ -108,6 +123,7 @@ export const useZCode = create<ZCodeState>((set, get) => ({
   intent: null,
   sidebarCollapsed: false,
   progressCollapsed: false,
+  checkpoints: [],
 
   setActiveConversation: (id) => {
     set((s) => ({
@@ -442,7 +458,92 @@ export const useZCode = create<ZCodeState>((set, get) => ({
       phase: "comprehension",
       intent: null,
       dbConversationId: null,
+      checkpoints: [],
     }));
+  },
+
+  forkConversation: (fromMessageId) => {
+    const state = get();
+    const forkPoint = fromMessageId
+      ? state.messages.findIndex((m) => m.id === fromMessageId)
+      : state.messages.length - 1;
+    if (forkPoint < 0) return;
+
+    const forkedMessages = state.messages.slice(0, forkPoint + 1);
+    const convId = `c${Date.now()}`;
+    const baseTitle = state.conversations.find(
+      (c) => c.id === state.activeConversationId
+    )?.title ?? "session";
+    const forkCount = state.conversations.filter((c) =>
+      c.title.includes("(fork)")
+    ).length;
+
+    const conv: Conversation = {
+      id: convId,
+      title: `${baseTitle} (fork ${forkCount + 1})`,
+      repoPath: state.loadedRepo?.path ?? "~",
+      repoName: state.loadedRepo?.name ?? "dépôt",
+      phase: state.phase,
+      intent: state.intent,
+      lastActivity: Date.now(),
+      active: true,
+    };
+
+    set((s) => ({
+      conversations: [
+        conv,
+        ...s.conversations.map((c) => ({ ...c, active: false })),
+      ],
+      activeConversationId: convId,
+      messages: forkedMessages,
+      dbConversationId: null,
+      checkpoints: [],
+    }));
+  },
+
+  createCheckpoint: () => {
+    const state = get();
+    const cp: Checkpoint = {
+      id: `cp${Date.now()}`,
+      label: `Checkpoint ${state.checkpoints.length + 1}`,
+      timestamp: Date.now(),
+      messageCount: state.messages.length,
+      phase: state.phase,
+      intent: state.intent,
+    };
+    // Store a snapshot of messages in localStorage (simple approach)
+    try {
+      localStorage.setItem(
+        `zcode-cp-${cp.id}`,
+        JSON.stringify({
+          messages: state.messages,
+          phase: state.phase,
+          intent: state.intent,
+        })
+      );
+    } catch {
+      // storage full or unavailable
+    }
+    set((s) => ({ checkpoints: [...s.checkpoints, cp] }));
+  },
+
+  restoreCheckpoint: (checkpointId) => {
+    try {
+      const raw = localStorage.getItem(`zcode-cp-${checkpointId}`);
+      if (!raw) return;
+      const snap = JSON.parse(raw) as {
+        messages: Message[];
+        phase: PhaseId;
+        intent: Intent;
+      };
+      set({
+        messages: snap.messages,
+        phase: snap.phase,
+        intent: snap.intent,
+      });
+    } catch {
+      // ignore
+    }
   },
 }));
 

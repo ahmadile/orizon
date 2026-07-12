@@ -11,6 +11,7 @@ import { MockupPanel } from "./mockup-panel";
 import { GenerationPanel } from "./generation-panel";
 import { EmptyState } from "./empty-state";
 import { RepoOpenDialog } from "./repo-open-dialog";
+import { SettingsDialog } from "@/components/zcode/settings/settings-dialog";
 import {
   GitBranch,
   Star,
@@ -27,7 +28,19 @@ import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { PhaseId } from "@/lib/zcode/types";
 
-export function ChatPanel() {
+interface ChatPanelProps {
+  externalRepoDialogOpen?: boolean;
+  externalSettingsOpen?: boolean;
+  onExternalRepoDialogChange?: (open: boolean) => void;
+  onExternalSettingsChange?: (open: boolean) => void;
+}
+
+export function ChatPanel({
+  externalRepoDialogOpen,
+  externalSettingsOpen,
+  onExternalRepoDialogChange,
+  onExternalSettingsChange,
+}: ChatPanelProps = {}) {
   const {
     messages,
     isAssistantTyping,
@@ -41,7 +54,14 @@ export function ChatPanel() {
     loadRepo,
   } = useZCode();
 
-  const [repoDialogOpen, setRepoDialogOpen] = React.useState(false);
+  const [internalRepoDialogOpen, setInternalRepoDialogOpen] = React.useState(false);
+  const [internalSettingsOpen, setInternalSettingsOpen] = React.useState(false);
+
+  // Use external state if provided, otherwise fall back to internal state
+  const repoDialogOpen = externalRepoDialogOpen ?? internalRepoDialogOpen;
+  const setRepoDialogOpen = onExternalRepoDialogChange ?? setInternalRepoDialogOpen;
+  const settingsOpen = externalSettingsOpen ?? internalSettingsOpen;
+  const setSettingsOpen = onExternalSettingsChange ?? setInternalSettingsOpen;
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
@@ -69,6 +89,7 @@ export function ChatPanel() {
             loadRepo(name, path);
           }}
         />
+        <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
       </main>
     );
   }
@@ -138,6 +159,16 @@ export function ChatPanel() {
 
       {/* Composer */}
       <Composer />
+
+      {/* Dialogs (also accessible from sidebar / command palette) */}
+      <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
+      <RepoOpenDialog
+        open={repoDialogOpen}
+        onOpenChange={setRepoDialogOpen}
+        onRepoSelected={(path, name) => {
+          loadRepo(name, path);
+        }}
+      />
     </main>
   );
 }

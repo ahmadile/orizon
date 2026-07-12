@@ -38,7 +38,12 @@ const INTENT_LABEL: Record<string, string> = {
   adapt: "Adapter",
 };
 
-export function Sidebar() {
+interface SidebarProps {
+  onOpenRepo?: () => void;
+  onOpenSettings?: () => void;
+}
+
+export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
   const {
     conversations,
     activeConversationId,
@@ -50,6 +55,15 @@ export function Sidebar() {
   const [query, setQuery] = React.useState("");
   const [repoDialogOpen, setRepoDialogOpen] = React.useState(false);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+
+  const openRepo = () => {
+    if (onOpenRepo) onOpenRepo();
+    else setRepoDialogOpen(true);
+  };
+  const openSettings = () => {
+    if (onOpenSettings) onOpenSettings();
+    else setSettingsOpen(true);
+  };
 
   const handleRepoSelected = (repoPath: string, repoName: string) => {
     newConversation(repoPath);
@@ -145,7 +159,7 @@ export function Sidebar() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setSettingsOpen(true)}
+                  onClick={openSettings}
                   className="h-8 w-8 text-muted-foreground hover:text-foreground"
                 >
                   <Settings className="w-4 h-4" />
@@ -173,7 +187,7 @@ export function Sidebar() {
           </kbd>
         </Button>
         <Button
-          onClick={() => setRepoDialogOpen(true)}
+          onClick={openRepo}
           className="w-full justify-start gap-2 h-9 bg-brand hover:bg-brand-strong text-background border-0"
         >
           <FolderOpen className="w-4 h-4" />

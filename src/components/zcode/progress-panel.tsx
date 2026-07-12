@@ -4,6 +4,7 @@ import * as React from "react";
 import { useZCode, MOCK_REPO } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
 import { SkillsPanel } from "@/components/zcode/skills-panel";
+import { CheckpointPanel } from "@/components/zcode/checkpoint-panel";
 import {
   Check,
   Loader2,
@@ -141,6 +142,9 @@ export function ProgressPanel() {
       <div className="flex-1 overflow-y-auto zcode-scroll">
         {/* Skills IA — always visible, at the top */}
         <SkillsPanel variant="compact" />
+
+        {/* Checkpoints — create / restore / fork */}
+        <CheckpointPanel />
 
         <div className="px-3 py-2">
           {steps.map((step, i) => (
