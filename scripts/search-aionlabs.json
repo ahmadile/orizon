@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.aionlabs.ai/docs",
+    "name": "Documentation | Aion Labs",
+    "snippet": "Aion Labs provides AI models through an OpenAI-compatible REST API. LLM API. A versioned API at /v1/ supporting chat completions and model discovery. Drop-in ...",
+    "host_name": "www.aionlabs.ai",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.aionlabs.ai/docs/quickstart",
+    "name": "Quickstart | Aion Labs Docs",
+    "snippet": "Make your first API request. The Aion Labs API is OpenAI-compatible, so you can use the OpenAI SDK or any HTTP client. 1. Create an API Key. Create ...",
+    "host_name": "www.aionlabs.ai",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://developers.openai.com/api/reference/overview",
+    "name": "API Overview | OpenAI API Reference",
+    "snippet": "API Overview. Use this reference to look up OpenAI API endpoints, request and response schemas, streaming events, client library methods, and shared ...",
+    "host_name": "developers.openai.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.aionlabs.ai/docs/api-reference",
+    "name": "API Reference | Aion Labs Docs",
+    "snippet": "Complete reference for the Aion Labs REST API. All endpoints are under https://api.aionlabs.ai/v1/ and are compatible with the OpenAI client libraries.",
+    "host_name": "www.aionlabs.ai",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/diegosouzapw/OmniRoute/issues/3977",
+    "name": "[Feature] Add support for Aion labs · Issue #3977 - GitHub",
+    "snippet": "AionLabs isn't built-in yet, but it works today as a custom OpenAI-compatible provider: base URL https://api.aionlabs.ai/v1 + your token. We've ...",
+    "host_name": "github.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://docs.orq.ai/docs/ai-studio/ai-gateway/openai-compatible-api",
+    "name": "OpenAI-compatible API - Orq.ai Documentation",
+    "snippet": "Use Orq.ai as an OpenAI-compatible API proxy. Access 300+ LLM models with your existing OpenAI SDK by changing only the base URL. Zero code changes required.",
+    "host_name": "docs.orq.ai",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

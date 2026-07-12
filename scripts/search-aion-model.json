@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.aionlabs.ai/docs",
+    "name": "Documentation | Aion Labs",
+    "snippet": "Authentication. Chat completion requests require an API key in the Authorization header: Authorization: Bearer YOUR_API_KEY Authorization: Api-Key YOUR_API_KEY.",
+    "host_name": "www.aionlabs.ai",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.aionlabs.ai/docs/api-reference",
+    "name": "API Reference | Aion Labs Docs",
+    "snippet": "Complete reference for the Aion Labs REST API. All endpoints are under https://api.aionlabs.ai/v1/ and are compatible with the OpenAI client libraries.",
+    "host_name": "www.aionlabs.ai",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://developer.puter.com/ai/aion-labs/aion-3.0-mini",
+    "name": "Aion-3.0-Mini - API, Specs, Playground & Pricing - Puter.js",
+    "snippet": "Try Aion-3.0-Mini instantly in your browser. This playground uses the Puter.js AI API — no API keys or setup required. Chat aion-labs ...",
+    "host_name": "developer.puter.com",
+    "rank": 2,
+    "date": "Jul 7, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.aionlabs.ai",
+    "name": "Aion Labs | Powerful AI Models & Agents",
+    "snippet": "Drop in your API key and you're live — no new SDKs, no migration. If you get stuck or want help setting up a specific workflow, just reach out. We're happy to ...",
+    "host_name": "www.aionlabs.ai",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.typingmind.com/guide/venice/aion-labs.aion-2-0",
+    "name": "Connect and use Aion 2.0 from Venice AI with API Key - TypingMind",
+    "snippet": "Learn how to access and use Aion 2.0 with your Venice AI API key through TypingMind. Get started with this powerful AI model in minutes. Venice.",
+    "host_name": "www.typingmind.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.aionlabs.ai/docs/models",
+    "name": "Models | Aion Labs Docs",
+    "snippet": "Discovering Models. Query the models endpoint to list currently available models. No API key required: curl https://api.aionlabs.ai/v1/models. Copy. Billing ...",
+    "host_name": "www.aionlabs.ai",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

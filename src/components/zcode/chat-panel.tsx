@@ -161,7 +161,7 @@ function ChatHeader() {
             className="flex items-center gap-1.5 text-xs border border-border rounded-md px-2.5 py-1.5 hover:bg-accent bg-secondary/50 transition-colors"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-            GLM-5.2
+            Aion-3.0
             <ChevronDown className={cn("w-3 h-3 transition-transform", modelOpen && "rotate-180")} />
           </button>
           {modelOpen && (
@@ -175,9 +175,9 @@ function ChatHeader() {
                   Modèle d'orchestration
                 </div>
                 {[
-                  { id: "glm-5.2", name: "GLM-5.2", desc: "Orchestrateur (défaut)" },
-                  { id: "glm-4.6", name: "GLM-4.6", desc: "Plus rapide, moins cher" },
-                  { id: "glm-4.6v", name: "GLM-4.6V", desc: "Vision (mockup analysis)" },
+                  { id: "aion-3.0", name: "Aion-3.0", desc: "Orchestrateur (défaut)" },
+                  { id: "aion-mini", name: "Aion-3.0-Mini", desc: "Plus rapide, moins cher" },
+                  { id: "aion-vision", name: "Aion-3.0-Vision", desc: "Vision (mockup analysis)" },
                 ].map((m) => (
                   <button
                     key={m.id}
@@ -190,7 +190,7 @@ function ChatHeader() {
                         {m.desc}
                       </div>
                     </div>
-                    {m.id === "glm-5.2" && (
+                    {m.id === "aion-3.0" && (
                       <span className="w-1.5 h-1.5 rounded-full bg-brand mt-1.5" />
                     )}
                   </button>

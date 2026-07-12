@@ -126,3 +126,77 @@ Stage Summary:
 - 12 AI skills defined and displayed in progress panel
 - Each skill maps to a real OSS tool (tree-sitter, ast-grep, Repomix, gitleaks, etc.)
 - Lint clean, no runtime errors, browser-verified
+
+---
+Task ID: zcode-v1-real-ai-persistence
+Agent: main (super-z)
+Task: Branch the real Aion-3.0 AI + Prisma persistence + filesystem reading + diff view
+
+Work Log:
+1. Real AI integration (Aion-3.0):
+   - Researched aionlabs.ai API format: OpenAI-compatible, base URL https://api.aionlabs.ai/v1
+   - Tested API key with curl: confirmed working (model returns French responses)
+   - Tested streaming: confirmed SSE with delta.reasoning + delta.content
+   - Created .env.local with AIONLABS_API_KEY, AIONLABS_BASE_URL, AIONLABS_MODEL
+   - Created src/lib/aionlabs/client.ts: streamChat() + complete() with SSE parsing
+   - Created src/lib/aionlabs/system-prompt.ts: ZCode agent persona + full repo context
+   - Created src/app/api/chat/route.ts: SSE endpoint forwarding to Aion Labs
+   - Created src/lib/zcode/sse-client.ts: browser-side SSE parser
+   - Updated store.sendMessage: streams real AI responses with reasoning + content
+   - Added fallback to canned answers if API fails (demo stays functional)
+   - Updated MessageBubble: shows reasoning (chain-of-thought) while streaming, blinking caret
+   - Updated chat header + composer: model name now "Aion-3.0" (was GLM-5.2)
+   - Verified: real AI answers about minimax algorithm, complete response in ~25s
+
+2. Prisma persistence:
+   - Updated prisma/schema.prisma: added Repo, Conversation, Message, ComprehensionStep models
+   - Added @unique constraint on Repo.path
+   - Pushed schema to SQLite (bun run db:push)
+   - Created src/app/api/conversations/route.ts: GET (list) + POST (create)
+   - Created src/app/api/conversations/[id]/route.ts: GET + PATCH + DELETE
+   - Created src/app/api/conversations/[id]/messages/route.ts: POST (append message)
+   - Created src/lib/zcode/persist.ts: fire-and-forget client (listConversations, createConversation, appendMessage, updateConversation)
+   - Added dbConversationId to store state
+   - Updated store: startComprehension creates DB conversation, sendMessage persists user+assistant messages, setPhase/setIntent persist
+   - Added hydrateFromDb action: loads DB conversations on page mount
+   - Updated page.tsx: calls hydrateFromDb() in useEffect
+   - Verified: conversations survive refresh, messages persisted to SQLite
+
+3. Filesystem reading:
+   - Created src/app/api/repo/scan/route.ts: POST endpoint that walks a directory
+     - Respects .gitignore + IGNORE_DIRS (node_modules, .git, dist, etc.)
+     - Detects stack: primary language, frameworks, package manager
+     - Counts files + lines (sampled for perf)
+     - Returns file tree structure
+   - Created src/app/api/repo/browse/route.ts: GET endpoint for directory navigation
+     - Lists subdirectories, flags project folders (has package.json/requirements.txt/etc.)
+   - Created src/components/zcode/repo-open-dialog.tsx: dialog with folder browser + scan preview
+     - Path bar with home + parent navigation
+     - Folder list with "projet" badge for detected projects
+     - Scan result panel: language, frameworks, package manager, file/line counts, language bar
+   - Added "Ouvrir un dépôt" button to sidebar (next to "Nouvelle tâche")
+   - Verified: scanning /home/z/my-project detects TypeScript 87%, Next.js, React, Tailwind, Prisma, bun
+
+4. Diff view (Phase 5):
+   - Created src/components/zcode/diff-view.tsx: GitHub-PR-style diff renderer
+     - DiffFile interface: filename, hunks, newFile/deletedFile flags
+     - DiffLine: add/del/context/hunk-header types
+     - Green background + "+" prefix for additions
+     - Red background + "−" prefix for deletions
+     - Line numbers (old + new)
+     - Collapsible file blocks
+     - Summary header with total +/− counts
+   - Created MOCK_DIFF: realistic example (Minimax.ts iterative deepening, Heuristic.ts weight bump, new test file)
+   - Added "Diff proposé" tab to GenerationPanel (between MD and Agent tabs)
+   - Added "Expliquer" + "Appliquer" buttons that trigger chat messages
+   - Verified: diff renders with correct green/red coloring, 3 files, 27 additions, 2 deletions
+
+Stage Summary:
+- Chat now uses real Aion-3.0 model via streaming SSE (no more canned answers)
+- Reasoning chain-of-thought shown while streaming (subtle italic aside)
+- All conversations + messages persisted to SQLite via Prisma
+- Filesystem reading works: can scan any local directory and detect its stack
+- "Ouvrir un dépôt" dialog with folder browser + live scan preview
+- Phase 5 has a proper diff view with green additions / red deletions
+- Fallback to canned answers if API fails (graceful degradation)
+- Lint clean, no runtime errors, browser-verified

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const { sidebarCollapsed, progressCollapsed } = useZCode();
+  const { sidebarCollapsed, progressCollapsed, hydrateFromDb } = useZCode();
 
   // Keyboard shortcut: ⌘N / Ctrl+N for new conversation
   useEffect(() => {
@@ -21,6 +21,11 @@ export default function Home() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
+
+  // Hydrate conversations from the database on mount
+  useEffect(() => {
+    hydrateFromDb();
+  }, [hydrateFromDb]);
 
   return (
     <div className="h-screen w-screen flex bg-background text-foreground overflow-hidden">

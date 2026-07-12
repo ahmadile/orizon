@@ -64,12 +64,39 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             "rounded-2xl px-4 py-2.5 text-sm",
             isUser
               ? "bg-secondary text-foreground rounded-tr-sm"
+              : message.error
+              ? "bg-rose-500/5 border border-rose-500/20 rounded-tl-sm"
               : "bg-card border border-border rounded-tl-sm"
           )}
         >
-          <div className="zcode-prose">
-            <ReactMarkdown>{message.content}</ReactMarkdown>
-          </div>
+          {/* Chain-of-thought shown while streaming (subtle, collapsible) */}
+          {message.streaming && message.reasoning && (
+            <div className="mb-2 pb-2 border-b border-border/50">
+              <div className="text-[10px] uppercase tracking-wider text-muted-foreground/60 mb-1">
+                raisonnement
+              </div>
+              <div className="text-[11px] text-muted-foreground/70 italic leading-relaxed max-h-24 overflow-y-auto zcode-scroll">
+                {message.reasoning}
+              </div>
+            </div>
+          )}
+
+          {/* Main content */}
+          {message.content ? (
+            <div className="zcode-prose">
+              <ReactMarkdown>{message.content}</ReactMarkdown>
+              {message.streaming && (
+                <span className="inline-block w-1.5 h-3.5 bg-brand ml-0.5 align-text-bottom zcode-caret" />
+              )}
+            </div>
+          ) : message.streaming ? (
+            <div className="flex gap-1 items-center py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60 zcode-pulse-soft" style={{ animationDelay: "0ms" }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60 zcode-pulse-soft" style={{ animationDelay: "200ms" }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60 zcode-pulse-soft" style={{ animationDelay: "400ms" }} />
+            </div>
+          ) : null}
+
           {message.codeBlocks?.map((cb, i) => (
             <CodeBlock
               key={i}

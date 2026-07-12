@@ -5,6 +5,7 @@ import {
   Plus,
   Search,
   FolderGit2,
+  FolderOpen,
   MessageSquare,
   MoreHorizontal,
   GitBranch,
@@ -16,6 +17,7 @@ import { useZCode, PHASES } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
 import { RelativeTime } from "@/components/zcode/relative-time";
 import { ZCodeLogo } from "@/components/zcode/logo";
+import { RepoOpenDialog } from "@/components/zcode/repo-open-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -45,6 +47,14 @@ export function Sidebar() {
     toggleSidebar,
   } = useZCode();
   const [query, setQuery] = React.useState("");
+  const [repoDialogOpen, setRepoDialogOpen] = React.useState(false);
+
+  const handleRepoSelected = (repoPath: string, repoName: string) => {
+    newConversation(repoPath);
+    // In a real app, we'd trigger a scan here. For now, the mock comprehension
+    // flow picks up the new conversation.
+    console.log("Repo selected:", repoPath, repoName);
+  };
 
   const filtered = conversations.filter(
     (c) =>
@@ -144,8 +154,8 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* New task button */}
-      <div className="p-3">
+      {/* New task + open repo buttons */}
+      <div className="p-3 space-y-1.5">
         <Button
           onClick={() => newConversation()}
           className="w-full justify-start gap-2 h-9 bg-secondary hover:bg-secondary/80 border border-sidebar-border text-foreground"
@@ -157,7 +167,20 @@ export function Sidebar() {
             ⌘N
           </kbd>
         </Button>
+        <Button
+          onClick={() => setRepoDialogOpen(true)}
+          className="w-full justify-start gap-2 h-9 bg-brand hover:bg-brand-strong text-background border-0"
+        >
+          <FolderOpen className="w-4 h-4" />
+          Ouvrir un dépôt
+        </Button>
       </div>
+
+      <RepoOpenDialog
+        open={repoDialogOpen}
+        onOpenChange={setRepoDialogOpen}
+        onRepoSelected={handleRepoSelected}
+      />
 
       {/* Search */}
       <div className="px-3 pb-2">

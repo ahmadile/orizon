@@ -146,7 +146,7 @@ export function Composer() {
           <div className="ml-auto flex items-center gap-2">
             <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground bg-secondary/60 border border-border rounded-md px-2 py-1">
               <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-              GLM-5.2
+              Aion-3.0
             </span>
             <Button
               onClick={submit}

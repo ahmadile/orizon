@@ -3,12 +3,13 @@
 import * as React from "react";
 import { useZCode, MOCK_REPO } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
-import { FileCode2, Download, Copy, Check, ArrowRight, Bot } from "lucide-react";
+import { FileCode2, Download, Copy, Check, ArrowRight, Bot, GitCompare } from "lucide-react";
+import { DiffView, MOCK_DIFF } from "@/components/zcode/diff-view";
 
 export function GenerationPanel() {
   const { intent, sendMessage } = useZCode();
   const [copied, setCopied] = React.useState(false);
-  const [tab, setTab] = React.useState<"md" | "agent">("md");
+  const [tab, setTab] = React.useState<"md" | "diff" | "agent">("md");
 
   const intentLabel =
     intent === "improve"
@@ -64,6 +65,18 @@ export function GenerationPanel() {
           PROJECT_STRUCTURE.md
         </button>
         <button
+          onClick={() => setTab("diff")}
+          className={cn(
+            "text-xs px-3 py-1.5 rounded-t-md border-b-2 -mb-px transition-all flex items-center gap-1.5",
+            tab === "diff"
+              ? "bg-brand text-foreground bg-background/40"
+              : "border-transparent text-muted-foreground hover:text-foreground"
+          )}
+        >
+          <GitCompare className="w-3 h-3" />
+          Diff proposé
+        </button>
+        <button
           onClick={() => setTab("agent")}
           className={cn(
             "text-xs px-3 py-1.5 rounded-t-md border-b-2 -mb-px transition-all flex items-center gap-1.5",
@@ -111,6 +124,37 @@ export function GenerationPanel() {
           <pre className="rounded-lg border border-border bg-[#0d0d0d] p-3 overflow-x-auto zcode-scroll text-[11px] leading-relaxed font-mono text-muted-foreground max-h-96">
             <code>{md}</code>
           </pre>
+        </div>
+      ) : tab === "diff" ? (
+        <div className="p-3 space-y-3">
+          <div className="text-xs text-muted-foreground leading-relaxed">
+            Aperçu des changements que l'agent appliquera au dépôt. Vert = ajouts, rouge = suppressions. Cliquez sur un fichier pour le replier.
+          </div>
+          <DiffView files={MOCK_DIFF} />
+          <div className="flex items-center justify-between rounded-lg border border-border bg-secondary/20 p-2">
+            <span className="text-[11px] text-muted-foreground">
+              3 fichiers · 23 ajouts · 2 suppressions
+            </span>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() =>
+                  sendMessage("Peux-tu expliquer en détail chaque changement du diff ?")
+                }
+                className="text-xs flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary hover:bg-accent border border-border"
+              >
+                Expliquer
+              </button>
+              <button
+                onClick={() =>
+                  sendMessage("Applique ces changements et lance le build de vérification")
+                }
+                className="text-xs flex items-center gap-1.5 px-3 py-1 rounded-md bg-brand text-background hover:bg-brand-strong font-medium"
+              >
+                <Check className="w-3.5 h-3.5" />
+                Appliquer
+              </button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="p-4">

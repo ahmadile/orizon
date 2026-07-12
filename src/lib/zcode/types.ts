@@ -91,6 +91,10 @@ export interface Message {
   refPartId?: string;
   /** is the assistant currently "typing" this message */
   streaming?: boolean;
+  /** optional chain-of-thought shown as a subtle aside while streaming */
+  reasoning?: string;
+  /** error flag if the API call failed */
+  error?: boolean;
 }
 
 export type Intent = "improve" | "derive" | "adapt" | null;
