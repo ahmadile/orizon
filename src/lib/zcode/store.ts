@@ -68,6 +68,8 @@ interface ZCodeState {
   removeAttachment: (id: string) => void;
 
   setPhase: (p: PhaseId) => void;
+  /** Proactively enter a phase: updates state + injects an AI kickoff message */
+  enterPhase: (p: PhaseId) => void;
   setIntent: (i: Intent) => void;
   toggleSidebar: () => void;
   toggleProgress: () => void;
@@ -291,8 +293,11 @@ export const useZCode = create<ZCodeState>((set, get) => ({
     };
     set((s) => ({ messages: [...s.messages, placeholder] }));
 
-    // Stream from the real API
-    sseStreamChat(history, {
+    // Stream from the real API — pass current phase + intent so the system
+    // prompt is context-aware and the AI can guide the user proactively.
+    sseStreamChat(
+      history,
+      {
       onReasoning: (chunk) => {
         set((s) => ({
           messages: s.messages.map((m) =>
@@ -353,7 +358,10 @@ export const useZCode = create<ZCodeState>((set, get) => ({
           isAssistantTyping: false,
         }));
       },
-    });
+    },
+      undefined,
+      { phase: get().phase, intent: get().intent }
+    );
   },
 
   attachFile: (name, kind, size) => {
@@ -381,6 +389,46 @@ export const useZCode = create<ZCodeState>((set, get) => ({
     }));
     const dbId = get().dbConversationId;
     if (dbId) updateConversation(dbId, { phase: p });
+  },
+
+  enterPhase: (p) => {
+    // Update the phase first
+    get().setPhase(p);
+
+    // Inject a system message announcing the phase transition, then
+    // send a kickoff prompt to the AI so it proactively presents the phase
+    // and proposes the first action — instead of waiting passively.
+    const phaseLabels: Record<PhaseId, string> = {
+      comprehension: "Phase 1 — Compréhension",
+      intention: "Phase 2 — Intention",
+      experimentation: "Phase 3 — Expérimentation",
+      maquette: "Phase 4 — Maquette",
+      generation: "Phase 5 — Génération",
+    };
+
+    const sysMsg: Message = {
+      id: nextMsgId(),
+      role: "system",
+      content: `↳ Entrée dans la **${phaseLabels[p]}**. L'agent adapte son rôle et propose la première action.`,
+      timestamp: Date.now(),
+    };
+    set((s) => ({ messages: [...s.messages, sysMsg] }));
+
+    // Kickoff prompt — the AI will respond with a proactive presentation
+    const kickoffPrompts: Record<PhaseId, string> = {
+      comprehension:
+        "On entre dans la phase de compréhension. Présente-toi, explique ce que tu vas faire pour m'aider à comprendre ce dépôt, et propose la première action.",
+      intention:
+        "On entre dans la phase d'intention. Aide-moi à clarifier ce que je veux faire de ce dépôt : améliorer, dériver ou adapter ? Pose-moi les bonnes questions.",
+      experimentation:
+        "On entre dans la phase d'expérimentation. J'ai déclaré mon intention. Présente-moi les 3 pistes concrètes que tu vois, avec leur effort et leur impact.",
+      maquette:
+        "On entre dans la phase maquette. Présente-moi les variants visuels proposés et aide-moi à valider une direction avant tout code.",
+      generation:
+        "On entre dans la phase de génération. Présente-moi le PROJECT_STRUCTURE.md et le diff proposé. Explique comment procéder.",
+    };
+
+    get().sendMessage(kickoffPrompts[p]);
   },
 
   setIntent: (i) => {

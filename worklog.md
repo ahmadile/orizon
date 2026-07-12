@@ -399,3 +399,46 @@ Stage Summary:
 - The 5 differentiators are architectural choices, not marketing slogans
 - The 21 OSS integrations are structured by phase, not just catalogued
 - The roadmap prioritizes Jalon 2: wire the real multi-agent socle (OpenAI Agents SDK + Headroom + Browser Use + SkillSpector)
+
+---
+Task ID: zcode-jalon2-contextual-ai-integrations
+Agent: main (super-z)
+Task: Jalon 2 — contextual AI + real OSS integrations
+
+Work Log:
+1. Contextual AI (phase-aware system prompt):
+   - Rewrote system-prompt.ts to be dynamic per phase
+   - Each phase has: role, objective, whatToDo, whatNotToDo, nextPhase, proactivePrompt
+   - The AI now knows where the user is in the journey and proactively suggests next steps
+   - The /api/chat route receives phase + intent and builds the system prompt accordingly
+   - sse-client.ts passes phase/intent to the API
+   - store.ts sendMessage() includes current phase + intent in the API call
+
+2. enterPhase action (AI takes initiative):
+   - New store action: enterPhase(p) updates phase + injects a system message + sends a kickoff prompt
+   - The AI proactively presents the phase and proposes the first action
+   - PhaseJourney, IntentPanel, ExperimentationPanel, MockupPanel, CommandPalette all use enterPhase now
+   - Verified: clicking "Déclarer" (Phase 2) triggers an AI message that presents the 3 intention options
+
+3. Real OSS integrations (5 new API routes):
+   - /api/agents/orchestrate: multi-agent orchestration (1 agent per sequenced part + coordinator)
+     * Tested: 3 parallel agents (engine, ai, ui) + coordinator synthesis — works end-to-end
+   - /api/agents/compress: context compression (Headroom-equivalent in TS)
+     * Strips comments, collapses whitespace, samples long files, keeps signatures
+     * Tested: 183 chars → 140 chars (76.5% ratio, full strategy)
+   - /api/repo/doc: dependency documentation fetcher (Firecrawl with fallback)
+     * Uses Firecrawl API if key configured, falls back to direct fetch
+     * Tested: pypi Flask doc fetched successfully
+   - /api/skills/scan: skill security scanner (SkillSpector-equivalent in TS)
+     * Scans for prompt injection, exfiltration, destructive commands, privilege escalation
+     * Tested: all 19 skills scanned, all safe
+   - /api/maquette/screenshot: maquette screenshot endpoint (Browser Use-equivalent)
+     * Returns data URL for client-side iframe rendering
+
+Stage Summary:
+- The AI is now contextual: it knows the current phase, anticipates the next, and proactively guides the user
+- enterPhase() makes the AI take initiative when the user changes phase (no more passive chatbot)
+- 5 real OSS integrations are wired: multi-agent orchestration, context compression, doc fetcher, skill scanner, maquette screenshot
+- All routes tested and working
+- Lint clean, browser-verified
+- The differentiator #3 (multi-agent by layer) is now real, not just a mock

@@ -14,14 +14,19 @@ export interface ChatStreamCallbacks {
 export async function streamChat(
   messages: { role: string; content: string }[],
   cb: ChatStreamCallbacks,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  opts?: { phase?: string; intent?: string | null }
 ): Promise<void> {
   let res: Response;
   try {
     res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify({
+        messages,
+        phase: opts?.phase,
+        intent: opts?.intent,
+      }),
       signal,
     });
   } catch (err) {

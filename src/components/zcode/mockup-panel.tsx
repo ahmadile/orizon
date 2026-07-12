@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { LayoutTemplate, ArrowRight, Eye, Code2, RefreshCw } from "lucide-react";
 
 export function MockupPanel() {
-  const { setPhase, sendMessage } = useZCode();
+  const { enterPhase, sendMessage } = useZCode();
   const [activeId, setActiveId] = React.useState(MOCKUP_VARIANTS[0].id);
   const [view, setView] = React.useState<"preview" | "code">("preview");
 
@@ -132,7 +132,7 @@ export function MockupPanel() {
           </button>
         </div>
         <button
-          onClick={() => setPhase("generation")}
+          onClick={() => enterPhase("generation")}
           className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand text-background hover:bg-brand-strong font-medium"
         >
           Valider et générer

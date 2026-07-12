@@ -142,7 +142,7 @@ const EFFORT_COLOR: Record<string, string> = {
 };
 
 export function ExperimentationPanel() {
-  const { intent, setPhase, sendMessage } = useZCode();
+  const { intent, enterPhase, sendMessage } = useZCode();
   const tracks = (intent && TRACKS_BY_INTENT[intent]) || TRACKS_BY_INTENT.improve;
   const [expanded, setExpanded] = React.useState<string | null>(tracks[0]?.id ?? null);
 
@@ -241,7 +241,7 @@ export function ExperimentationPanel() {
                       Discuter cette piste
                     </button>
                     <button
-                      onClick={() => setPhase("maquette")}
+                      onClick={() => enterPhase("maquette")}
                       className="text-xs flex items-center gap-1 px-2.5 py-1 rounded-md bg-brand-soft text-brand hover:bg-brand-soft/70 border border-brand"
                     >
                       Maquetter cette piste
@@ -268,7 +268,7 @@ export function ExperimentationPanel() {
           Demander d'autres pistes
         </button>
         <button
-          onClick={() => setPhase("maquette")}
+          onClick={() => enterPhase("maquette")}
           className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand text-background hover:bg-brand-strong font-medium"
         >
           Passer à la maquette

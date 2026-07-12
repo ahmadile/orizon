@@ -23,7 +23,7 @@ const ICONS: Record<PhaseId, React.ElementType> = {
 };
 
 export function PhaseJourney() {
-  const { phase, setPhase, comprehensionDone } = useZCode();
+  const { phase, enterPhase, comprehensionDone } = useZCode();
 
   const phaseIdx = PHASES.findIndex((p) => p.id === phase);
   const comprehensionIdx = 0;
@@ -45,7 +45,7 @@ export function PhaseJourney() {
           return (
             <React.Fragment key={p.id}>
               <button
-                onClick={() => clickable && setPhase(p.id)}
+                onClick={() => clickable && enterPhase(p.id)}
                 disabled={!clickable}
                 className={cn(
                   "group flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all text-xs",

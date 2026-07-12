@@ -2,6 +2,7 @@
 // ZCode — Strategic Positioning Document
 // "What makes ZCode different from Cursor, Aider, Continue, Cody, Devin"
 // =========================================================================
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 const {
   Document, Packer, Paragraph, TextRun, Header, Footer,

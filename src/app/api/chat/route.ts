@@ -8,6 +8,8 @@ export const dynamic = "force-dynamic";
 interface RequestBody {
   messages: { role: "system" | "user" | "assistant"; content: string }[];
   context?: string;
+  phase?: string;
+  intent?: string | null;
 }
 
 // Load provider settings from DB, with env fallbacks
@@ -38,7 +40,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const { messages, context } = body;
+  const { messages, context, phase, intent } = body;
 
   if (!Array.isArray(messages) || messages.length === 0) {
     return new Response(
@@ -46,6 +48,14 @@ export async function POST(req: NextRequest) {
       { status: 400, headers: { "Content-Type": "application/json" } }
     );
   }
+
+  // Validate phase
+  const validPhases = ["comprehension", "intention", "experimentation", "maquette", "generation"];
+  const currentPhase = (phase && validPhases.includes(phase) ? phase : "comprehension") as
+    | "comprehension" | "intention" | "experimentation" | "maquette" | "generation";
+  const currentIntent = (intent === "improve" || intent === "derive" || intent === "adapt")
+    ? intent
+    : null;
 
   // Load provider settings (DB > env)
   const { apiKey, baseUrl, model } = await loadProviderSettings();
@@ -60,9 +70,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Prepend the system prompt
+  // Prepend the dynamic, phase-aware system prompt
   const fullMessages = [
-    { role: "system" as const, content: buildSystemPrompt(context) },
+    { role: "system" as const, content: buildSystemPrompt(currentPhase, currentIntent, context) },
     ...messages,
   ];
 

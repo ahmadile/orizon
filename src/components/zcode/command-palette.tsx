@@ -48,7 +48,7 @@ export function CommandPalette({
     conversations,
     setActiveConversation,
     newConversation,
-    setPhase,
+    enterPhase,
     toggleSidebar,
     toggleProgress,
     startComprehension,
@@ -115,7 +115,7 @@ export function CommandPalette({
                   <CommandItem
                     key={p.id}
                     disabled={isLocked}
-                    onSelect={() => run(() => setPhase(p.id))}
+                    onSelect={() => run(() => enterPhase(p.id))}
                     className="cursor-pointer"
                   >
                     <Icon className="mr-2 h-4 w-4" />

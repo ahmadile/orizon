@@ -37,7 +37,7 @@ const OPTIONS: {
 ];
 
 export function IntentPanel() {
-  const { intent, setIntent, setPhase } = useZCode();
+  const { intent, setIntent, enterPhase } = useZCode();
   const [selected, setSelected] = React.useState<Intent>(intent);
 
   return (
@@ -105,7 +105,7 @@ export function IntentPanel() {
         <button
           onClick={() => {
             setIntent(selected);
-            setPhase("experimentation");
+            enterPhase("experimentation");
           }}
           disabled={!selected}
           className={cn(
