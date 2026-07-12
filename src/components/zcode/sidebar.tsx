@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { RelativeTime } from "@/components/zcode/relative-time";
 import { ZCodeLogo } from "@/components/zcode/logo";
 import { RepoOpenDialog } from "@/components/zcode/repo-open-dialog";
+import { SettingsDialog } from "@/components/zcode/settings/settings-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -48,6 +49,7 @@ export function Sidebar() {
   } = useZCode();
   const [query, setQuery] = React.useState("");
   const [repoDialogOpen, setRepoDialogOpen] = React.useState(false);
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
 
   const handleRepoSelected = (repoPath: string, repoName: string) => {
     newConversation(repoPath);
@@ -143,6 +145,7 @@ export function Sidebar() {
                 <Button
                   variant="ghost"
                   size="icon"
+                  onClick={() => setSettingsOpen(true)}
                   className="h-8 w-8 text-muted-foreground hover:text-foreground"
                 >
                   <Settings className="w-4 h-4" />
@@ -153,6 +156,8 @@ export function Sidebar() {
           </TooltipProvider>
         </div>
       </div>
+
+      <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
 
       {/* New task + open repo buttons */}
       <div className="p-3 space-y-1.5">

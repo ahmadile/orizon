@@ -9,6 +9,8 @@ import { IntentPanel } from "./intent-panel";
 import { ExperimentationPanel } from "./experimentation-panel";
 import { MockupPanel } from "./mockup-panel";
 import { GenerationPanel } from "./generation-panel";
+import { EmptyState } from "./empty-state";
+import { RepoOpenDialog } from "./repo-open-dialog";
 import {
   GitBranch,
   Star,
@@ -34,7 +36,12 @@ export function ChatPanel() {
     startComprehension,
     resetComprehension,
     phase,
+    hasRepo,
+    loadedRepo,
+    loadRepo,
   } = useZCode();
+
+  const [repoDialogOpen, setRepoDialogOpen] = React.useState(false);
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
@@ -43,6 +50,28 @@ export function ChatPanel() {
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [messages, isAssistantTyping]);
+
+  // Empty state — no repo loaded yet
+  if (!hasRepo) {
+    return (
+      <main className="flex flex-col h-full bg-background min-w-0">
+        <ChatHeader />
+        <EmptyState
+          onOpenRepo={() => setRepoDialogOpen(true)}
+          onRepoScanned={(path, name, scan) => {
+            loadRepo(name, path, scan);
+          }}
+        />
+        <RepoOpenDialog
+          open={repoDialogOpen}
+          onOpenChange={setRepoDialogOpen}
+          onRepoSelected={(path, name) => {
+            loadRepo(name, path);
+          }}
+        />
+      </main>
+    );
+  }
 
   return (
     <main className="flex flex-col h-full bg-background min-w-0">
@@ -120,25 +149,29 @@ function ChatHeader() {
     comprehensionRunning,
     progressCollapsed,
     toggleProgress,
+    hasRepo,
+    loadedRepo,
   } = useZCode();
   const [modelOpen, setModelOpen] = React.useState(false);
+
+  const repoName = hasRepo && loadedRepo ? loadedRepo.name : "ZCode";
+  const repoPath = hasRepo && loadedRepo ? loadedRepo.path : "Aucun dépôt chargé";
 
   return (
     <header className="relative z-30 flex items-center gap-3 px-6 h-14 border-b border-border bg-background shrink-0">
       <div className="flex items-center gap-2 min-w-0">
         <FolderOpen className="w-4 h-4 text-brand shrink-0" />
         <div className="flex flex-col min-w-0">
-          <span className="text-sm font-medium truncate">
-            {MOCK_REPO.name}
-          </span>
+          <span className="text-sm font-medium truncate">{repoName}</span>
           <span className="text-[10px] text-muted-foreground truncate font-mono">
-            {MOCK_REPO.path}
+            {repoPath}
           </span>
         </div>
       </div>
 
       <div className="flex items-center gap-2 ml-auto">
-        {/* Repo stats */}
+        {/* Repo stats — only shown when a repo is loaded */}
+        {hasRepo && (
         <div className="hidden md:flex items-center gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
             <Star className="w-3 h-3" />
@@ -153,6 +186,7 @@ function ChatHeader() {
             main
           </span>
         </div>
+        )}
 
         {/* Model selector — dropdown renders above the phase journey (header is z-30) */}
         <div className="relative">

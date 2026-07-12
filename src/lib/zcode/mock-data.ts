@@ -203,61 +203,14 @@ export const MOCK_REPO: RepoSummary = {
 };
 
 // =========================================================================
-// Initial conversations for the sidebar
+// Initial conversations — empty by default (real conversations come from DB)
 // =========================================================================
-const now = Date.now();
-export const INITIAL_CONVERSATIONS: Conversation[] = [
-  {
-    id: "c1",
-    title: "gomoku-ai — compréhension initiale",
-    repoPath: "~/projects/gomoku-ai",
-    repoName: "gomoku-ai",
-    phase: "comprehension",
-    intent: null,
-    lastActivity: now,
-    active: true,
-  },
-  {
-    id: "c2",
-    title: "chat-app-react — refonte UX",
-    repoPath: "~/projects/chat-app-react",
-    repoName: "chat-app-react",
-    phase: "maquette",
-    intent: "improve",
-    lastActivity: now - 1000 * 60 * 60 * 5,
-  },
-  {
-    id: "c3",
-    title: "weather-cli — dériver en API web",
-    repoPath: "~/projects/weather-cli",
-    repoName: "weather-cli",
-    phase: "generation",
-    intent: "derive",
-    lastActivity: now - 1000 * 60 * 60 * 26,
-  },
-  {
-    id: "c4",
-    title: "blog-static — adapter en e-commerce",
-    repoPath: "~/projects/blog-static",
-    repoName: "blog-static",
-    phase: "experimentation",
-    intent: "adapt",
-    lastActivity: now - 1000 * 60 * 60 * 48,
-  },
-];
+export const INITIAL_CONVERSATIONS: Conversation[] = [];
 
 // =========================================================================
-// Initial messages for the active conversation
+// Initial messages — empty (populated when a repo is loaded)
 // =========================================================================
-export const INITIAL_MESSAGES: Message[] = [
-  {
-    id: "m1",
-    role: "system",
-    content:
-      "Dépôt **gomoku-ai** chargé depuis `~/projects/gomoku-ai`. 42 fichiers, 3 120 lignes. Lancement de l'orchestration multi-agents pour la phase de compréhension.",
-    timestamp: now - 1000 * 60 * 2,
-  },
-];
+export const INITIAL_MESSAGES: Message[] = [];
 
 // =========================================================================
 // Mockup variants for Phase 4

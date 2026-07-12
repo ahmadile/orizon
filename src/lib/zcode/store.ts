@@ -33,6 +33,10 @@ interface ZCodeState {
   activeConversationId: string;
   /** Prisma DB id of the active conversation (null = not yet persisted) */
   dbConversationId: string | null;
+  /** whether a repo is loaded (controls empty state vs chat view) */
+  hasRepo: boolean;
+  /** loaded repo metadata */
+  loadedRepo: { name: string; path: string; scan?: unknown } | null;
 
   // comprehension
   steps: ComprehensionStep[];
@@ -70,6 +74,7 @@ interface ZCodeState {
 
   // persistence
   hydrateFromDb: () => Promise<void>;
+  loadRepo: (name: string, path: string, scan?: unknown) => void;
 }
 
 let msgIdCounter = 100;
@@ -86,8 +91,10 @@ function findCannedAnswer(text: string) {
 
 export const useZCode = create<ZCodeState>((set, get) => ({
   conversations: INITIAL_CONVERSATIONS,
-  activeConversationId: INITIAL_CONVERSATIONS[0].id,
+  activeConversationId: "empty",
   dbConversationId: null,
+  hasRepo: false,
+  loadedRepo: null,
 
   steps: INITIAL_STEPS.map((s) => ({ ...s })),
   comprehensionDone: false,
@@ -397,6 +404,44 @@ export const useZCode = create<ZCodeState>((set, get) => ({
 
     set((s) => ({
       conversations: [...dbConvs, ...s.conversations.filter((c) => !c.id.startsWith("db_"))],
+    }));
+  },
+
+  loadRepo: (name, path, scan) => {
+    const convId = `c${Date.now()}`;
+    const conv: Conversation = {
+      id: convId,
+      title: `${name} — compréhension`,
+      repoPath: path,
+      repoName: name,
+      phase: "comprehension",
+      intent: null,
+      lastActivity: Date.now(),
+      active: true,
+    };
+
+    const systemMsg: Message = {
+      id: nextMsgId(),
+      role: "system",
+      content: `Dépôt **${name}** chargé depuis \`${path}\`. Prêt à lancer l'analyse.`,
+      timestamp: Date.now(),
+    };
+
+    set((s) => ({
+      conversations: [
+        conv,
+        ...s.conversations.map((c) => ({ ...c, active: false })),
+      ],
+      activeConversationId: convId,
+      hasRepo: true,
+      loadedRepo: { name, path, scan },
+      messages: [systemMsg],
+      steps: INITIAL_STEPS.map((st) => ({ ...st, status: "pending" as const })),
+      comprehensionDone: false,
+      comprehensionRunning: false,
+      phase: "comprehension",
+      intent: null,
+      dbConversationId: null,
     }));
   },
 }));

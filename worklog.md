@@ -200,3 +200,57 @@ Stage Summary:
 - Phase 5 has a proper diff view with green additions / red deletions
 - Fallback to canned answers if API fails (graceful degradation)
 - Lint clean, no runtime errors, browser-verified
+
+---
+Task ID: zcode-v1-dragdrop-providers-cleanup
+Agent: main (super-z)
+Task: Drag-and-drop folder + multi-provider settings + clean mock data + verify phases
+
+Work Log:
+1. Drag-and-drop folder loading:
+   - Created src/components/zcode/empty-state.tsx: welcome screen with drag-drop zone
+   - Uses <input webkitdirectory> for folder selection (browser security prevents reading absolute paths from drag-drop)
+   - Created src/app/api/repo/analyze-files/route.ts: analyzes uploaded files (no absolute path needed)
+   - Detects language, frameworks, package manager from file contents
+   - Shows scan result preview before confirming
+   - Error handling: explains browser security limitation for drag-drop folders
+
+2. Multi-provider settings:
+   - Created src/lib/zcode/providers.ts: 3 providers (Aion Labs, OpenAI-compatible, Ollama)
+   - Created src/app/api/settings/route.ts: GET/PUT settings stored in Prisma Setting table
+   - Added Setting model to prisma/schema.prisma (key-value store)
+   - Created src/components/zcode/settings/settings-dialog.tsx: full settings UI
+     - Provider selection cards (Aion Labs / OpenAI-compatible / Ollama)
+     - API key field (hidden for Ollama) with show/hide toggle
+     - Base URL field (defaults per provider)
+     - Model field with quick-select buttons per provider
+     - Security note: keys stored locally in SQLite, never sent to client
+     - Local mode banner for Ollama (no key required)
+   - Updated src/app/api/chat/route.ts: loads provider settings from DB (falls back to env)
+   - Updated sidebar: Settings button now opens the dialog
+   - Wired up: changing provider updates base URL + model to provider defaults
+
+3. Cleaned mock data:
+   - Emptied INITIAL_CONVERSATIONS (was 4 mock conversations, now [])
+   - Emptied INITIAL_MESSAGES (was 1 system message, now [])
+   - Reset Prisma DB (bunx prisma db push --force-reset)
+   - App now starts on a clean welcome/empty state
+   - Real conversations come from DB (hydrated on mount) or are created on repo load
+
+4. Phases verification:
+   - The original V1 spec defines exactly 5 phases: Compréhension, Intention, Expérimentation, Maquette, Génération
+   - All 5 are implemented and functional:
+     * Phase 1 (Compréhension): 6-step animated analysis with progress panel
+     * Phase 2 (Intention): 3 options (improve/derive/adapt) with radio selection
+     * Phase 3 (Expérimentation): 3 tracks per intent with effort/impact badges
+     * Phase 4 (Maquette): 3 visual variants (classic/modern/minimal) with live HTML preview
+     * Phase 5 (Génération): PROJECT_STRUCTURE.md + Diff view (green/red) + Agent launch
+   - No Phase 6 or 7 in the spec — these would be V2 features
+
+Stage Summary:
+- Drag-and-drop folder loading works via <input webkitdirectory> (browser security prevents absolute paths from drag-drop)
+- Settings dialog supports 3 providers: Aion Labs (cloud), OpenAI-compatible (custom), Ollama (local)
+- API key stored in Prisma Setting table, used server-side only
+- App starts clean: no mock conversations, welcome screen with drag-drop zone
+- All 5 phases from the V1 spec are implemented
+- Lint clean, no runtime errors, browser-verified
