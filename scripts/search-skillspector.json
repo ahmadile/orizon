@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com/nvidia/skillspector",
+    "name": "GitHub - NVIDIA/SkillSpector: Security scanner for AI agent skills. Detect",
+    "snippet": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, and security risks before installing agent skills. Python 3.12 ...",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "Jul 11, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://docs.nvidia.com/skills/scanning-agent-skills",
+    "name": "Scan Agent Skills Before Installation - NVIDIA Documentation",
+    "snippet": "Use SkillSpector to detect vulnerabilities, malicious patterns, and policy risks in AI agent skills.",
+    "host_name": "docs.nvidia.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://thomasthornton.cloud/securing-ai-skill-repositories-with-nvidia-skillspector-and-github-actions",
+    "name": "Securing AI skill repositories with Nvidia SkillSpector and GitHub",
+    "snippet": "SkillSpector can scan a directory, Git repository or even a single markdown file. In practice, I would usually point it at either the whole ...",
+    "host_name": "thomasthornton.cloud",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.linkedin.com/posts/harshkumar-vekariya_github-nvidiaskillspector-security-scanner-activity-7466707921494597632-X_4q",
+    "name": "NVIDIA's SkillSpector scans AI agent skills for security risks - LinkedIn",
+    "snippet": "GitHub - NVIDIA/SkillSpector: Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, and security risks.",
+    "host_name": "www.linkedin.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to/arshtechpro/nvidia-skillspector-should-you-scan-your-ai-agent-skills-before-installing-them-3am7",
+    "name": "NVIDIA SkillSpector: Should You Scan Your AI Agent Skills Before",
+    "snippet": "SkillSpector is a security scanner purpose-built for AI agent skills rather than general source code. It runs a two-stage pipeline: Static ...",
+    "host_name": "dev.to",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

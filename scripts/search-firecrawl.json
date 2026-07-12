@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.firecrawl.dev",
+    "name": "Firecrawl - The context API to search, scrape, and interact with the web at",
+    "snippet": "Firecrawl is the context API to search, scrape, and interact with the web at scale. Turn any source into clean Markdown or structured data your agents can ...",
+    "host_name": "www.firecrawl.dev",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/firecrawl/firecrawl",
+    "name": "GitHub - firecrawl/firecrawl: The API to search, scrape, and interact with the",
+    "snippet": "The API to search, scrape, and interact with the web at scale. The web context API to find sources, extract content, and turn it into clean Markdown or ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.firecrawl.dev/blog/scrape-a-website-to-markdown",
+    "name": "How To Scrape A Website To Markdown For LLMs And AI Agents",
+    "snippet": "Learn how to scrape a website to markdown for LLMs and AI agents using the latest Firecrawl API, MCP server, CLI, and playground workflows.",
+    "host_name": "www.firecrawl.dev",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.firecrawl.dev/alternatives/firecrawl-vs-crawl4ai",
+    "name": "Best Crawl4AI Alternative - Firecrawl",
+    "snippet": "Firecrawl returns LLM-ready markdown and structured JSON on every request. Crawl4AI requires configuring your own extraction strategies, content filters, and ...",
+    "host_name": "www.firecrawl.dev",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.firecrawl.dev/blog/ai-powered-data-retrieval",
+    "name": "Add AI-Powered Data Retrieval to Your Product with Firecrawl",
+    "snippet": "Firecrawl returns the actual page content as markdown or structured JSON. You can also search and scrape in a single call, extract data with ...",
+    "host_name": "www.firecrawl.dev",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

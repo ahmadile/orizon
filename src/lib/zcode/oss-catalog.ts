@@ -201,6 +201,106 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     lang: "Python",
     stars: "27k+",
   },
+
+  // --- New integrations (user-provided projects) ---
+
+  // Comprehension / context compression
+  {
+    id: "headroom",
+    name: "Headroom",
+    url: "https://github.com/headroomlabs-ai/headroom",
+    role: "Compression de contexte pour LLM",
+    rationale:
+      "Compresse tout ce que l'IA lit — sorties d'outils, logs, chunks RAG, fichiers, historique — avant que ça n'atteigne le LLM. Pour ZCode, c'est critique sur les gros dépôts : on compresse les fichiers parsés par tree-sitter avant de les envoyer à l'orchestrateur, ce qui réduit le coût token et permet d'analyser des dépôts plus grands.",
+    phase: "comprehension",
+    license: "MIT",
+    lang: "TypeScript",
+    stars: "58k+",
+  },
+
+  // Security — skills scanner
+  {
+    id: "skillspector",
+    name: "SkillSpector",
+    url: "https://github.com/nvidia/skillspector",
+    role: "Scanner de sécurité pour skills IA",
+    rationale:
+      "Scanner de sécurité développé par NVIDIA pour détecter les vulnérabilités, patterns malveillants et risques de politique dans les skills IA. ZCode l'utilise pour scanner chaque skill avant activation — un skill peut contenir des instructions malveillantes (prompt injection, exfiltration de données), SkillSpector bloque ça avant l'installation.",
+    phase: "intention",
+    license: "Apache-2.0",
+    lang: "Python",
+    stars: "1k+",
+  },
+
+  // Browser automation — project preview & visual testing
+  {
+    id: "browser-use",
+    name: "Browser Use",
+    url: "https://github.com/browser-use/browser-use",
+    role: "Automatisation navigateur pour IA",
+    rationale:
+      "Permet à l'IA d'utiliser un navigateur comme un humain : ouvrir des pages, cliquer, remplir des formulaires. Pour ZCode : (1) en Phase 4 (maquette), l'IA peut ouvrir la maquette HTML dans un vrai navigateur et prendre des screenshots pour valider le rendu ; (2) en Phase 5 (génération), l'IA peut naviguer sur le projet généré pour vérifier qu'il marche.",
+    phase: "maquette",
+    license: "MIT",
+    lang: "Python",
+    stars: "55k+",
+  },
+
+  // Web scraping — documentation & dependency research
+  {
+    id: "firecrawl",
+    name: "Firecrawl",
+    url: "https://github.com/firecrawl/firecrawl",
+    role: "Scraping web → Markdown pour LLM",
+    rationale:
+      "Convertit n'importe quelle page web en Markdown propre, structuré, prêt pour le LLM. Pour ZCode : quand l'utilisateur demande « à quoi sert cette dépendance ? », Firecrawl va chercher la doc officielle (npmjs.com, pypi.org, docs du framework) et la transforme en contexte utilisable par l'IA. Aussi utile pour analyser le README d'un dépôt GitHub distant.",
+    phase: "comprehension",
+    license: "AGPL-3.0",
+    lang: "TypeScript",
+    stars: "30k+",
+  },
+
+  // Generation workflow — methodology
+  {
+    id: "gstack",
+    name: "gstack",
+    url: "https://github.com/garrytan/gstack",
+    role: "Methodologie de développement IA",
+    rationale:
+      "Le setup Claude Code de Garry Tan (Y Combinator) — un workflow structuré où chaque étape du développement a son mode cognitif propre. ZCode s'en inspire pour structurer la Phase 5 : au lieu de générer tout d'un coup, on suit un workflow gstack-like (plan → test → implémente → review) qui donne à l'agent un cadre discipliné.",
+    phase: "generation",
+    license: "MIT",
+    lang: "TypeScript",
+    stars: "5k+",
+  },
+
+  // Skills framework — composable TDD skills
+  {
+    id: "superpowers",
+    name: "Superpowers",
+    url: "https://github.com/obra/superpowers",
+    role: "Framework de skills composable (TDD)",
+    rationale:
+      "Framework de skills IA basé sur le TDD appliqué à la documentation de processus. Chaque skill est testable et composable. ZCode l'adopte comme format de skill avancé : au lieu de skills statiques (markdown), on peut écrire des skills avec tests intégrés qui valident que la skill produit bien le résultat attendu.",
+    phase: "intention",
+    license: "MIT",
+    lang: "TypeScript",
+    stars: "10k+",
+  },
+
+  // Prompt quality — red teaming & evals
+  {
+    id: "promptfoo",
+    name: "Promptfoo",
+    url: "https://github.com/promptfoo/promptfoo",
+    role: "Tests & red teaming de prompts",
+    rationale:
+      "Teste les prompts et modèles avec des évaluations automatisées + red teaming (simulation d'attaques adversariales). Pour ZCode : valide le system prompt de l'orchestrateur avant déploiement, vérifie que l'IA ne divulgue pas de secrets, teste la robustesse face à des questions pièges. Indispensable pour la qualité en production.",
+    phase: "global",
+    license: "MIT",
+    lang: "TypeScript",
+    stars: "5k+",
+  },
 ];
 
 // =========================================================================
@@ -355,5 +455,85 @@ export const ZCODE_SKILLS: ZCodeSkill[] = [
     active: true,
     icon: "Network",
     poweredBy: "openagents",
+  },
+
+  // --- New skills (user-provided projects) ---
+
+  {
+    id: "context-compress",
+    name: "Context Compressor",
+    description:
+      "Compresse les fichiers parsés et l'historique avant envoi au LLM (Headroom). Permet d'analyser des gros dépôts sans exploser le token budget — critique pour les monorepos.",
+    phases: ["comprehension"],
+    tags: ["contexte", "headroom", "compression"],
+    active: false,
+    icon: "Minimize2",
+    poweredBy: "headroom",
+  },
+  {
+    id: "skill-scanner",
+    name: "Skill Scanner",
+    description:
+      "Scanne chaque skill IA avant activation pour détecter prompt injection, exfiltration de données, patterns malveillants (SkillSpector de NVIDIA). Bloque les skills dangereuses.",
+    phases: ["intention", "global"],
+    tags: ["sécurité", "skillspector", "nvidia"],
+    active: true,
+    icon: "ShieldAlert",
+    poweredBy: "skillspector",
+  },
+  {
+    id: "web-preview",
+    name: "Web Preview",
+    description:
+      "Ouvre la maquette HTML dans un vrai navigateur headless et prend des screenshots pour valider le rendu visuel (Browser Use). Compare les variants de maquette côte à côte.",
+    phases: ["maquette"],
+    tags: ["navigateur", "browser-use", "screenshot"],
+    active: false,
+    icon: "Monitor",
+    poweredBy: "browser-use",
+  },
+  {
+    id: "doc-fetcher",
+    name: "Doc Fetcher",
+    description:
+      "Récupère la documentation officielle des dépendances (npm, pypi, docs du framework) et la convertit en Markdown pour le LLM (Firecrawl). Répond aux questions « à quoi sert cette lib ? ».",
+    phases: ["comprehension"],
+    tags: ["documentation", "firecrawl", "scraping"],
+    active: false,
+    icon: "BookOpen",
+    poweredBy: "firecrawl",
+  },
+  {
+    id: "tdd-workflow",
+    name: "TDD Workflow",
+    description:
+      "Workflow de génération structuré : plan → test → implémente → review (inspiré de gstack). Chaque étape a son mode cognitif propre, l'agent ne génère pas tout d'un coup.",
+    phases: ["generation"],
+    tags: ["workflow", "gstack", "tdd"],
+    active: false,
+    icon: "ListChecks",
+    poweredBy: "gstack",
+  },
+  {
+    id: "skill-tdd",
+    name: "Composable Skills",
+    description:
+      "Skills IA avec tests intégrés qui valident que la skill produit bien le résultat attendu (Superpowers). Chaque skill est testable et composable avec d'autres.",
+    phases: ["intention", "global"],
+    tags: ["skills", "superpowers", "tdd"],
+    active: false,
+    icon: "Puzzle",
+    poweredBy: "superpowers",
+  },
+  {
+    id: "prompt-redteam",
+    name: "Prompt Red Team",
+    description:
+      "Teste le system prompt de l'orchestrateur avec des attaques adversariales (Promptfoo). Vérifie la robustesse face aux questions pièges et aux tentatives d'extraction de secrets.",
+    phases: ["global"],
+    tags: ["qualité", "promptfoo", "red-team"],
+    active: false,
+    icon: "Bug",
+    poweredBy: "promptfoo",
   },
 ];

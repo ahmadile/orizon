@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.promptfoo.dev/docs/red-team",
+    "name": "LLM red teaming guide (open source) - Promptfoo",
+    "snippet": "LLM red teaming is a way to find vulnerabilities in AI systems before they're deployed by using simulated adversarial inputs.",
+    "host_name": "www.promptfoo.dev",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/promptfoo/promptfoo",
+    "name": "Promptfoo: LLM evals & red teaming - GitHub",
+    "snippet": "Test your prompts and models with automated evaluations · Secure your LLM apps with red teaming and vulnerability scanning ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.promptfoo.dev",
+    "name": "Promptfoo: Build Secure AI Applications",
+    "snippet": "Foundation Model Reports · Language Model Security DB · Running ...",
+    "host_name": "www.promptfoo.dev",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.braintrust.dev/articles/best-promptfoo-alternatives-2026",
+    "name": "Best Promptfoo alternatives in 2026: Open-source tools and SaaS - Articles",
+    "snippet": "Promptfoo is built for local, CLI-driven evaluation and red teaming. It works well for individual developers testing prompts before committing ...",
+    "host_name": "www.braintrust.dev",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medium.com/@kbdhunga/promptfoo-explained-simply-why-llm-applications-need-evaluation-part-i-744ef887a51d",
+    "name": "Promptfoo Explained Simply: Why LLM Applications Need Evaluation",
+    "snippet": "Promptfoo is an open-source CLI and library for evaluating and red-teaming LLM applications. It helps developers test prompts, models, RAG ...",
+    "host_name": "medium.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

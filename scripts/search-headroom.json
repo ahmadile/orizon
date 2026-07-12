@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com/headroomlabs-ai/headroom",
+    "name": "GitHub - headroomlabs-ai/headroom: Compress tool outputs, logs, files",
+    "snippet": "Headroom compresses everything your AI agent reads — tool outputs ... The npm headroom-ai is the TypeScript SDK — a library you import ...",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "Jul 10, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://skillsllm.com/skill/headroomlabs-ai-headroom",
+    "name": "headroom - AI Agents on GitHub (58.4k  ) | SkillsLLM",
+    "snippet": "Headroom compresses everything your AI agent reads — tool outputs, logs, RAG chunks, files, and conversation history — before it reaches the LLM ...",
+    "host_name": "skillsllm.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/headroomlabs-ai/headroom/discussions",
+    "name": "headroomlabs-ai headroom · Discussions - GitHub",
+    "snippet": "Explore the GitHub Discussions forum for headroomlabs-ai headroom. Discuss code, ask questions & collaborate with the developer community.",
+    "host_name": "github.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/headroomlabs-ai/headroom/issues/526",
+    "name": "[FEATURE] Hermes agent support · Issue #526 · headroomlabs-ai",
+    "snippet": "I'm working on an MVP for Hermes support. Current scope: headroom wrap hermes; OpenRouter routing via OPENROUTER_BASE_URL; Custom OpenAI- ...",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medium.com/design-bootcamp/headroom-the-netflix-tool-that-makes-ai-agents-10x-cheaper-fdd94b5252cf",
+    "name": "Headroom: The Netflix Tool That Makes AI Agents 10x Cheaper",
+    "snippet": "Headroom: The Netflix Tool That Makes AI Agents 10x Cheaper Run a coding agent for an hour and check what it actually sent to the model.",
+    "host_name": "medium.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

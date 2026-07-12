@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://www.linkedin.com/posts/kevinmohara_github-obrasuperpowers-an-agentic-skills-activity-7437667432636403714-F4Eb",
+    "name": "GitHub | Kevin O'Hara | 19 comments - LinkedIn",
+    "snippet": "GitHub - obra/superpowers: An agentic skills framework & software development methodology that works. github.",
+    "host_name": "www.linkedin.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.termdock.com/en/blog/superpowers-framework-agent-skills",
+    "name": "Superpowers: Skills Framework Reshaping AI Dev - Termdock",
+    "snippet": "Free · Developer 17 Mar 2026 · The result: Superpowers, a framework of composable skills that turns your AI coding agent from a fast typist into a disciplined engineering ...\nFree · Developer Mar 17, 2026 · The result: Superpowers, a framework of composable skills that turns your AI coding agent from a fast typist into a disciplined engineering ... You Are Probably Using 30... · Who Made This and Why",
+    "host_name": "www.termdock.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/obra/superpowers/blob/main/skills/writing-skills/SKILL.md",
+    "name": "Writing Skills - obra/superpowers - GitHub",
+    "snippet": "Writing skills IS Test-Driven Development applied to process documentation. Personal skills live in your runtime's skills directory.",
+    "host_name": "github.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.c-sharpcorner.com/article/superpowers-by-obra-what-it-is-and-how-to-use-it-to-improve-ai-coding",
+    "name": "Superpowers by obra: What It Is and How to Use It to Improve AI Coding",
+    "snippet": "Superpowers is a repository that packages reusable “skills” for coding agents. A skill is a small instruction pack that tells the agent how to handle a task ...",
+    "host_name": "www.c-sharpcorner.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/obra/superpowers/issues/202",
+    "name": "Issue #202 · obra/superpowers - Skill Grading Report - GitHub",
+    "snippet": "Largest Agentic Marketplace for AI Agent Skills and SpillWave: Leaders in AI Agent Development. --- **Powered by:** [SkillzWave.ai](https ...\nSkilz supports 14+ coding agents including Claude Code, OpenAI Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, Windsurf, Qwen Code, ...",
+    "host_name": "github.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

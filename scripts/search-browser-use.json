@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com/browser-use/browser-use",
+    "name": "GitHub - browser-use/browser-use: Make websites accessible for AI",
+    "snippet": "Browser Use lets an AI agent use a web browser the same way you do — it opens pages, clicks buttons, types, and fills in forms. You describe the task, ...",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://browser-use.com",
+    "name": "Browser Use - The way AI uses the internet",
+    "snippet": "The Way AIuses the web. Agents, stealth browsers, custom models. From $0.02/hr. Get Started. Trusted by teams at.",
+    "host_name": "browser-use.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.labellerr.com/blog/browser-use-agent",
+    "name": "Browser-Use: Open-Source AI Agent For Web Automation - Labellerr",
+    "snippet": "Browser-Use is an open-source Python library letting AI agents interact with browsers programmatically, combining LLMs and HTML/visual analysis ...",
+    "host_name": "www.labellerr.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medium.com/@ashishmule/the-browser-use-revolution-how-ai-is-transforming-web-automation-c14fe13edcfa",
+    "name": "The Browser Use Revolution: How AI is Transforming Web Automation",
+    "snippet": "Browser Use is an innovative Python library that creates an AI agent capable of controlling web browsers through natural language instructions.",
+    "host_name": "medium.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=wfC8kmkvC-Q",
+    "name": "Automate Web Scraping with AI Agents - Browser-Use Python",
+    "snippet": "Learn how to extract data from any website using Browser-Use, the revolutionary Python library that combines AI agents with web automation!",
+    "host_name": "www.youtube.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

@@ -10,6 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Folder,
   FolderOpen,
@@ -19,6 +20,9 @@ import {
   Loader2,
   FileCode2,
   CheckCircle2,
+  Github,
+  Globe,
+  AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -49,6 +53,7 @@ interface ScanResult {
 }
 
 export function RepoOpenDialog({ open, onOpenChange, onRepoSelected }: RepoOpenDialogProps) {
+  const [tab, setTab] = React.useState<"browse" | "clone">("browse");
   const [currentPath, setCurrentPath] = React.useState("");
   const [dirs, setDirs] = React.useState<DirEntry[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -56,6 +61,47 @@ export function RepoOpenDialog({ open, onOpenChange, onRepoSelected }: RepoOpenD
   const [scanning, setScanning] = React.useState(false);
   const [scanResult, setScanResult] = React.useState<ScanResult | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+
+  // Clone tab state
+  const [cloneUrl, setCloneUrl] = React.useState("");
+  const [cloning, setCloning] = React.useState(false);
+  const [cloneResult, setCloneResult] = React.useState<{ path: string; name: string; owner: string; branch: string } | null>(null);
+
+  async function handleClone() {
+    if (!cloneUrl.trim()) return;
+    setCloning(true);
+    setError(null);
+    setCloneResult(null);
+    try {
+      const res = await fetch("/api/repo/clone", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: cloneUrl.trim(), depth: 30 }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setError(data.error ?? "Échec du clone");
+        return;
+      }
+      setCloneResult({
+        path: data.path,
+        name: data.name,
+        owner: data.owner,
+        branch: data.branch,
+      });
+    } catch {
+      setError("Erreur réseau pendant le clone");
+    } finally {
+      setCloning(false);
+    }
+  }
+
+  function handleCloneConfirm() {
+    if (cloneResult) {
+      onRepoSelected(cloneResult.path, cloneResult.name);
+      onOpenChange(false);
+    }
+  }
 
   // Load initial path (home) when dialog opens
   React.useEffect(() => {
@@ -70,6 +116,9 @@ export function RepoOpenDialog({ open, onOpenChange, onRepoSelected }: RepoOpenD
       setSelected(null);
       setScanResult(null);
       setError(null);
+      setCloneUrl("");
+      setCloneResult(null);
+      setTab("browse");
     }
   }, [open]);
 
@@ -140,13 +189,54 @@ export function RepoOpenDialog({ open, onOpenChange, onRepoSelected }: RepoOpenD
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FolderOpen className="w-4 h-4 text-brand" />
-            Ouvrir un dépôt local
+            Ouvrir un dépôt
           </DialogTitle>
           <DialogDescription>
-            Naviguez jusqu'au dossier du dépôt cloné. ZCode l'analysera automatiquement.
+            Choisissez un dépôt local ou clonez directement depuis GitHub via son URL.
           </DialogDescription>
         </DialogHeader>
 
+        {/* Tabs */}
+        <div className="flex items-center gap-1 border-b border-border mb-2">
+          <button
+            onClick={() => setTab("browse")}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 text-xs border-b-2 -mb-px transition-colors",
+              tab === "browse"
+                ? "border-brand text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <FolderOpen className="w-3.5 h-3.5" />
+            Naviguer (local)
+          </button>
+          <button
+            onClick={() => setTab("clone")}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 text-xs border-b-2 -mb-px transition-colors",
+              tab === "clone"
+                ? "border-brand text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <Github className="w-3.5 h-3.5" />
+            Cloner depuis GitHub
+          </button>
+        </div>
+
+        {tab === "clone" ? (
+          <CloneTab
+            cloneUrl={cloneUrl}
+            setCloneUrl={setCloneUrl}
+            cloning={cloning}
+            cloneResult={cloneResult}
+            error={error}
+            onClone={handleClone}
+            onConfirm={handleCloneConfirm}
+            onCancel={() => onOpenChange(false)}
+          />
+        ) : (
+          <>
         {/* Breadcrumb / path bar */}
         <div className="flex items-center gap-1 text-xs font-mono bg-background/50 border border-border rounded-md px-2 py-1.5 mb-2">
           <button
@@ -337,7 +427,133 @@ export function RepoOpenDialog({ open, onOpenChange, onRepoSelected }: RepoOpenD
             Ouvrir ce dépôt
           </Button>
         </DialogFooter>
+          </>
+        )}
       </DialogContent>
     </Dialog>
+  );
+}
+
+// =========================================================================
+// CloneTab — GitHub clone interface
+// =========================================================================
+
+interface CloneTabProps {
+  cloneUrl: string;
+  setCloneUrl: (v: string) => void;
+  cloning: boolean;
+  cloneResult: { path: string; name: string; owner: string; branch: string } | null;
+  error: string | null;
+  onClone: () => void;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+function CloneTab({
+  cloneUrl,
+  setCloneUrl,
+  cloning,
+  cloneResult,
+  error,
+  onClone,
+  onConfirm,
+  onCancel,
+}: CloneTabProps) {
+  return (
+    <div className="space-y-3">
+      {/* URL input */}
+      <div>
+        <label className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1.5 block">
+          URL GitHub du dépôt
+        </label>
+        <div className="flex gap-1.5">
+          <Input
+            value={cloneUrl}
+            onChange={(e) => setCloneUrl(e.target.value)}
+            placeholder="https://github.com/owner/repo"
+            className="font-mono text-xs flex-1"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && cloneUrl.trim() && !cloning) {
+                onClone();
+              }
+            }}
+          />
+          <Button
+            onClick={onClone}
+            disabled={!cloneUrl.trim() || cloning}
+            className="bg-brand hover:bg-brand-strong text-background"
+          >
+            {cloning ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
+                Clone…
+              </>
+            ) : (
+              "Cloner"
+            )}
+          </Button>
+        </div>
+        <div className="text-[10px] text-muted-foreground/60 mt-1.5">
+          Accepte : <code className="font-mono">https://github.com/owner/repo</code>,{" "}
+          <code className="font-mono">owner/repo</code>, ou une URL avec branche.
+          Dépôts publics uniquement (clone superficiel, 30 commits).
+        </div>
+      </div>
+
+      {/* Cloning state */}
+      {cloning && (
+        <div className="flex items-center gap-2 text-xs text-muted-foreground py-3">
+          <Loader2 className="w-3.5 h-3.5 animate-spin text-brand" />
+          Clonage en cours… Récupération des 30 derniers commits.
+        </div>
+      )}
+
+      {/* Clone result */}
+      {cloneResult && !cloning && (
+        <div className="rounded-md border border-brand bg-brand-soft/30 p-3 zcode-fade-up">
+          <div className="flex items-center gap-2 mb-2">
+            <Github className="w-4 h-4 text-brand" />
+            <span className="text-sm font-medium">{cloneResult.name}</span>
+            <span className="text-[10px] text-muted-foreground font-mono">
+              @{cloneResult.owner}
+            </span>
+            <span className="ml-auto text-[10px] text-muted-foreground bg-secondary border border-border px-1.5 py-0.5 rounded">
+              {cloneResult.branch}
+            </span>
+          </div>
+          <div className="text-[10px] text-muted-foreground font-mono truncate bg-background/40 rounded px-2 py-1">
+            {cloneResult.path}
+          </div>
+          <div className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+            Dépôt cloné avec succès. Cliquez sur « Ouvrir ce dépôt » pour lancer l'analyse.
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="rounded-md border border-rose-500/30 bg-rose-500/5 p-2.5 text-xs text-rose-400 flex items-start gap-2">
+          <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+          <span className="whitespace-pre-line">{error}</span>
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className="flex justify-end gap-1.5 pt-2">
+        <Button
+          variant="ghost"
+          onClick={onCancel}
+          className="text-muted-foreground"
+        >
+          Annuler
+        </Button>
+        <Button
+          onClick={onConfirm}
+          disabled={!cloneResult}
+          className="bg-brand hover:bg-brand-strong text-background"
+        >
+          Ouvrir ce dépôt
+        </Button>
+      </div>
+    </div>
   );
 }

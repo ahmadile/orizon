@@ -313,3 +313,57 @@ Stage Summary:
 - CheckpointPanel in progress panel with create/restore/fork actions
 - Lint clean, browser-verified
 - All 7 priorities from the original proposal are now implemented
+
+---
+Task ID: zcode-v1-oss-integrations-github-clone
+Agent: main (super-z)
+Task: Research + integrate 7 user-provided OSS projects + GitHub clone feature
+
+Work Log:
+1. Researched 7 OSS projects:
+   - headroom (headroomlabs-ai): compresses tool outputs/files/logs before LLM
+   - SkillSpector (NVIDIA): security scanner for AI agent skills
+   - browser-use: AI browser automation (open pages, click, type)
+   - firecrawl: web scraping → clean Markdown for LLM
+   - gstack (Garry Tan): Claude Code methodology (plan→test→implement→review)
+   - superpowers (obra): composable TDD skills framework
+   - promptfoo: prompt testing + red teaming
+
+2. GitHub clone feature (fork from URL):
+   - Created src/app/api/repo/clone/route.ts: clones public GitHub repos via git
+     - Parses URL: https://github.com/owner/repo, owner/repo, SSH, with branch
+     - Shallow clone (--depth 30, --single-branch) for speed
+     - Clones to /home/z/repos/owner--repo
+     - 2-minute timeout, idempotent (removes existing dir first)
+     - Returns path, name, owner, branch
+   - Added "Cloner depuis GitHub" tab to RepoOpenDialog
+     - URL input + Cloner button
+     - Clone progress state
+     - Success panel with repo metadata + path
+     - Error handling (private repo, invalid URL, network)
+   - Tested: cloned octocat/Hello-World successfully, loaded into chat
+
+3. Updated OSS catalog (oss-catalog.ts):
+   - Added 7 new OSSIntegration entries (headroom, skillspector, browser-use, firecrawl, gstack, superpowers, promptfoo)
+   - Added 7 new ZCodeSkill entries:
+     * Context Compressor (headroom) — comprehension
+     * Skill Scanner (skillspector) — intention/global [active]
+     * Web Preview (browser-use) — maquette
+     * Doc Fetcher (firecrawl) — comprehension
+     * TDD Workflow (gstack) — generation
+     * Composable Skills (superpowers) — intention/global
+     * Prompt Red Team (promptfoo) — global
+
+4. Web preview route:
+   - Created src/app/api/repo/preview/route.ts: screenshots any URL via microlink.io (free, no key)
+   - Returns screenshot URL + page title
+   - Useful for: previewing a deployed project, capturing maquette render
+
+Stage Summary:
+- 7 OSS projects researched and catalogued with clear integration rationale per phase
+- GitHub clone feature works end-to-end: paste URL → clone → load into chat
+- Clone supports: full URLs, short owner/repo, SSH, branch-specific
+- Shallow clone (30 commits) for speed, public repos only
+- 7 new skills added to the Skills panel (1 active: Skill Scanner)
+- Web preview route ready for screenshot capture
+- Lint clean, browser-verified

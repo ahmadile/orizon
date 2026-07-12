@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com/garrytan/gstack",
+    "name": "GitHub - garrytan/gstack: Use Garry Tan's exact Claude Code setup",
+    "snippet": "gstack tracks what reviews are run, figures out what's appropriate, and just does the smart thing. The Review Readiness Dashboard tells you ...\ngstack is my answer. I've been building products for twenty years, and right now I'm shipping more products than I ever have. In the last 60 days: 3 production services, 40+ shipped features, part-time, while running YC full-time.",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "Jul 10, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.mindstudio.ai/blog/what-is-gstack-gary-tan-claude-code-framework",
+    "name": "What Is GStack? Gary Tan's Open-Source Startup Framework",
+    "snippet": "GStack is an open-source framework by Y Combinator's Gary Tan that gives solo developers the power of a full startup team using Claude Code ...",
+    "host_name": "www.mindstudio.ai",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://goddaehee.tistory.com/570",
+    "name": "\"하네스 엔지니어링\" - gstack(혼자서 팀처럼 개발하기) 리뷰 : Garry Tan의",
+    "snippet": "Garry Tan 본인의 표현대로 \"That is not a copilot. That is a team.\" — 각 개발 단계마다 다른 인지 모드를 스위칭하는 구조적 접근법이다. 처음 공개 ...",
+    "host_name": "goddaehee.tistory.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://blog.risemoment.ai/what-is-gstack",
+    "name": "gstack 이란? Claude Code로 20인 팀 만들기 - 라이즈 모먼트 AI",
+    "snippet": "Y Combinator CEO Garry Tan이 직접 만들고 매일 사용하는 오픈소스 소프트웨어 팩토리로, Claude Code를 가상의 20인 엔지니어링 팀으로 변환해줍니다.",
+    "host_name": "blog.risemoment.ai",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://apidog.com/blog/gstack",
+    "name": "What Is gstack? This will Change How you Code Forever - Apidog",
+    "snippet": "gstack is Garry Tan's open-source system that turns Claude Code into a virtual engineering team of 20 specialists.",
+    "host_name": "apidog.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

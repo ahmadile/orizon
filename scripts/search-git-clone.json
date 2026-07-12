@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://stackoverflow.com/questions/42148841/github-clone-with-oauth-access-token",
+    "name": "GitHub Clone with OAuth Access Token - Stack Overflow",
+    "snippet": "Just use the HTTPS address to clone with the key as the user, Git URL is considered bad practice because it risks inadvert credential exposure  ... git - Clone a private repository (GitHub) github - Git Clone - Repository not found More results from stackoverflow.com\nJust use the HTTPS address to clone with the key as the user, so: git clone https://oauth2:oauth-key-goes-here@github.com/username/repo.git github - Git Clone - Repository not found Github REST API git clone More results from stackoverflow.com",
+    "host_name": "stackoverflow.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/orgs/community/discussions/144342",
+    "name": "Unable to Clone a private repository using Personal access token",
+    "snippet": "First, set up SSH keys on GitHub, then use the SSH URL: git clone git@github.com:/.git. Update Git: Ensure you are using the latest version of Git. Older ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=MQAESRcstts",
+    "name": "How to Git Clone with Personal Access Token (2025) - YouTube",
+    "snippet": "Having trouble cloning private GitHub repositories with HTTPS in 2025? GitHub no longer supports password-based authentication, ...",
+    "host_name": "www.youtube.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://docs.github.com/articles/cloning-a-repository",
+    "name": "Cloning a repository - GitHub Docs",
+    "snippet": "You can clone a repository from GitHub.com to your local computer, Copy the URL for the repository. Type git clone , and then paste the URL you copied earlier. ...",
+    "host_name": "docs.github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/orgs/community/discussions/61660",
+    "name": "Unable to clone GitHub repos using Powershell and GitHub API",
+    "snippet": "The API v3 endpoints do not match properly. If I call https://api.github.com/orgs/<my_org>/repos, I can pull a list of all the Public repositories.",
+    "host_name": "github.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]
