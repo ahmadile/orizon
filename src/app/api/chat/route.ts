@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model,
         messages: fullMessages,
-        max_tokens: 4096,
+        max_tokens: 800,
         stream: true,
       }),
     });
