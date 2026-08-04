@@ -14,20 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZCode — Comprendre & transformer des dépôts open source",
+  title: "Orizon — Comprendre & transformer des dépôts open source",
   description:
     "Interface agentique qui analyse un dépôt de code local, le fait comprendre par une orchestration d'IA, puis accompagne l'utilisateur pour l'améliorer, l'adapter ou en créer un dérivé.",
   keywords: [
-    "ZCode",
+    "Orizon",
     "agent IA",
     "code repository",
     "comprehension code",
     "maquette",
     "transformation",
   ],
-  authors: [{ name: "ZCode Team" }],
+  authors: [{ name: "Orizon Team" }],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
 };
 

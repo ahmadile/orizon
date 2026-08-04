@@ -218,7 +218,7 @@ function download(filename: string, content: string) {
 
 function buildMd(repoName: string, intentLabel: string): string {
   return `# PROJECT_STRUCTURE.md
-# Généré par ZCode — ${new Date().toISOString().slice(0, 10)}
+# Généré par Orizon — ${new Date().toISOString().slice(0, 10)}
 # Source : ${repoName} · Intention : ${intentLabel}
 
 ## 1. Objectif du projet cible
@@ -226,7 +226,7 @@ function buildMd(repoName: string, intentLabel: string): string {
 ${intentLabel} à partir du dépôt \`${repoName}\`.
 Le présent fichier décrit l'arborescence, les responsabilités de chaque
 fichier et la stack technique attendue. Il est consommable par n'importe
-quel agent de code (Cursor, Claude Code, ZCode, etc.).
+quel agent de code (Cursor, Claude Code, Orizon, etc.).
 
 ## 2. Stack technique
 

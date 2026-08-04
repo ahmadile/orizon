@@ -3,11 +3,18 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
+import { isValidEmail } from "./validation";
 
 // =========================================================================
 // NextAuth configuration — Credentials provider (email + password).
 // Sessions are JWT-based (no DB session storage needed for SQLite).
 // =========================================================================
+
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error(
+    "NEXTAUTH_SECRET is not defined. Set it in your .env.local file."
+  );
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,9 +24,14 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Mot de passe", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          throw new Error("Email et mot de passe requis");
+        }
+
+        // Validate email format
+        if (!isValidEmail(credentials.email)) {
+          throw new Error("Format d'email non valide");
         }
 
         const user = await db.user.findUnique({
@@ -27,7 +39,8 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user || !user.passwordHash) {
-          return null;
+          // Don't reveal if user exists (security best practice)
+          throw new Error("Email ou mot de passe incorrect");
         }
 
         const isValid = await bcrypt.compare(
@@ -36,7 +49,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isValid) {
-          return null;
+          throw new Error("Email ou mot de passe incorrect");
         }
 
         return {
@@ -48,17 +61,33 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, // 24 hours
+    updateAge: 60 * 60, // 1 hour
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
   pages: {
     // We handle sign-in / register in a custom dialog, so we don't redirect
     // to a separate page. But we keep this for fallback.
     signIn: "/",
+    error: "/",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
       }
+
+      // Handle session update
+      if (trigger === "update" && session) {
+        token.name = session.name;
+        token.image = session.image;
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -69,4 +98,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
+  // Add additional security headers
+  useSecureCookies: process.env.NODE_ENV === "production",
 };

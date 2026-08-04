@@ -43,7 +43,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* ===== Dark theme only (ZCode is a dark-first product) ===== */
+/* ===== Dark theme only (Orizon is a dark-first product) ===== */
 :root {
   --radius: 0.625rem;
   --background: oklch(0.145 0 0);
@@ -78,7 +78,7 @@
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* ZCode brand — saffron amber (distinctive, warm, not the usual AI emerald/blue) */
+  /* Orizon brand — saffron amber (distinctive, warm, not the usual AI emerald/blue) */
   --zcode-brand: oklch(0.75 0.16 62);
   --zcode-brand-strong: oklch(0.68 0.17 58);
   --zcode-brand-soft: oklch(0.75 0.16 62 / 0.12);
@@ -104,7 +104,7 @@
   }
 }
 
-/* ===== ZCode brand utility classes ===== */
+/* ===== Orizon brand utility classes ===== */
 @layer utilities {
   .text-brand { color: var(--zcode-brand); }
   .bg-brand { background-color: var(--zcode-brand); }

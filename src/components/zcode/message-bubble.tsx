@@ -81,6 +81,34 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             </div>
           )}
 
+          {/* Tool calls — chips montrant les outils utilisés par l'agent */}
+          {message.toolCalls && message.toolCalls.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-2 pb-2 border-b border-border/50">
+              {message.toolCalls.map((tc, i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    "inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full border",
+                    tc.status === "running"
+                      ? "border-amber-500/30 bg-amber-500/10 text-amber-400"
+                      : tc.status === "done"
+                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+                      : "border-rose-500/30 bg-rose-500/10 text-rose-400"
+                  )}
+                >
+                  <span>🔧</span>
+                  <span>{tc.name}</span>
+                  {tc.status === "running" && (
+                    <span className="w-1 h-1 rounded-full bg-amber-400 animate-pulse" />
+                  )}
+                  {tc.status === "done" && (
+                    <span className="text-emerald-400">✓</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          )}
+
           {/* Main content */}
           {message.content ? (
             <div className="zcode-prose">

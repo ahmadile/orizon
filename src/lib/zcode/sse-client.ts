@@ -2,11 +2,14 @@
 
 // =========================================================================
 // SSE client for /api/chat — parses the event stream into typed callbacks.
+// Now supports agentic events: tool_call, tool_result.
 // =========================================================================
 
 export interface ChatStreamCallbacks {
   onReasoning?: (chunk: string) => void;
   onContent?: (chunk: string) => void;
+  onToolCall?: (name: string, args: string) => void;
+  onToolResult?: (name: string, output: string) => void;
   onDone?: () => void;
   onError?: (message: string) => void;
 }
@@ -15,7 +18,7 @@ export async function streamChat(
   messages: { role: string; content: string }[],
   cb: ChatStreamCallbacks,
   signal?: AbortSignal,
-  opts?: { phase?: string; intent?: string | null }
+  opts?: { phase?: string; intent?: string | null; context?: string }
 ): Promise<void> {
   let res: Response;
   try {
@@ -26,6 +29,7 @@ export async function streamChat(
         messages,
         phase: opts?.phase,
         intent: opts?.intent,
+        context: opts?.context,
       }),
       signal,
     });
@@ -78,6 +82,10 @@ export async function streamChat(
             cb.onReasoning?.(parsed.chunk);
           } else if (eventType === "content" && parsed.chunk) {
             cb.onContent?.(parsed.chunk);
+          } else if (eventType === "tool_call") {
+            cb.onToolCall?.(parsed.name ?? "tool", parsed.args ?? "");
+          } else if (eventType === "tool_result") {
+            cb.onToolResult?.(parsed.name ?? "tool", parsed.output ?? "");
           } else if (eventType === "done") {
             cb.onDone?.();
             return;

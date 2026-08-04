@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { buildSystemPrompt } from "@/lib/aionlabs/system-prompt";
+import { buildSystemPrompt } from "@/lib/llm/system-prompt";
 import type { PhaseId } from "@/lib/zcode/types";
 
 export const runtime = "nodejs";
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 //   2. Each agent reads its zone and produces a focused summary
 //   3. A coordinator agent fuses the per-part summaries into a synthesis
 //
-// This is the heart of Phase 1 (Comprehension) — it's what makes ZCode
+// This is the heart of Phase 1 (Comprehension) — it's what makes Orizon
 // able to analyze larger repos without a single mega-prompt.
 // =========================================================================
 
@@ -38,9 +38,9 @@ async function loadProviderSettings() {
   const map: Record<string, string> = {};
   for (const r of rows) map[r.key] = r.value;
   return {
-    apiKey: map.api_key ?? process.env.AIONLABS_API_KEY ?? "",
-    baseUrl: map.base_url ?? process.env.AIONLABS_BASE_URL ?? "https://api.aionlabs.ai/v1",
-    model: map.model ?? process.env.AIONLABS_MODEL ?? "aion-labs/aion-3.0",
+    apiKey: map.api_key ?? process.env.LLM_API_KEY ?? process.env.AIONLABS_API_KEY ?? "",
+    baseUrl: map.base_url ?? process.env.LLM_BASE_URL ?? process.env.AIONLABS_BASE_URL ?? "https://api.openai.com/v1",
+    model: map.model ?? process.env.LLM_MODEL ?? process.env.AIONLABS_MODEL ?? "gpt-4o-mini",
   };
 }
 

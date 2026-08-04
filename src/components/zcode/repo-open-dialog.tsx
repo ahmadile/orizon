@@ -111,8 +111,9 @@ export function RepoOpenDialog({ open, onOpenChange, onRepoSelected }: RepoOpenD
   }, [open, currentPath]);
 
   // Reset when closed
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (!open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelected(null);
       setScanResult(null);
       setError(null);

@@ -37,8 +37,9 @@ export function AuthDialog({ open, onOpenChange, onAuthed }: AuthDialogProps) {
   const [error, setError] = React.useState<string | null>(null);
 
   // Reset on close
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (!open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEmail("");
       setPassword("");
       setName("");
@@ -122,7 +123,7 @@ export function AuthDialog({ open, onOpenChange, onAuthed }: AuthDialogProps) {
           <DialogDescription>
             {mode === "signin"
               ? "Connectez-vous pour sauvegarder vos conversations et synchroniser vos projets."
-              : "Créez un compte ZCode pour accéder à l'historique complet et aux fonctionnalités multi-appareils."}
+              : "Créez un compte Orizon pour accéder à l'historique complet et aux fonctionnalités multi-appareils."}
           </DialogDescription>
         </DialogHeader>
 

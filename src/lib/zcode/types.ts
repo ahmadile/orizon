@@ -95,6 +95,8 @@ export interface Message {
   reasoning?: string;
   /** error flag if the API call failed */
   error?: boolean;
+  /** tool calls executed by the agent (displayed as chips) */
+  toolCalls?: { name: string; status: "running" | "done" | "error" }[];
 }
 
 export type Intent = "improve" | "derive" | "adapt" | null;

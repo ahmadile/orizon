@@ -18,8 +18,8 @@ interface TourStep {
 const STEPS: TourStep[] = [
   {
     id: "welcome",
-    title: "Bienvenue dans ZCode",
-    body: "ZCode est une plateforme agentique qui comprend vos dépôts open source et vous accompagne pour les améliorer, les adapter ou en créer un dérivé. Suivez ce tour rapide de 30 secondes pour découvrir les fonctionnalités essentielles.",
+    title: "Bienvenue dans Orizon",
+    body: "Orizon est une plateforme agentique qui comprend vos dépôts open source et vous accompagne pour les améliorer, les adapter ou en créer un dérivé. Suivez ce tour rapide de 30 secondes pour découvrir les fonctionnalités essentielles.",
     placement: "center",
   },
   {
@@ -39,7 +39,7 @@ const STEPS: TourStep[] = [
   {
     id: "phases",
     title: "Les 5 phases du parcours",
-    body: "ZCode suit un parcours structuré : Comprendre → Déclarer → Explorer → Maquetter → Produire. Chaque phase se débloque au fur et à mesure. Cliquez sur une phase pour y accéder directement.",
+    body: "Orizon suit un parcours structuré : Comprendre → Déclarer → Explorer → Maquetter → Produire. Chaque phase se débloque au fur et à mesure. Cliquez sur une phase pour y accéder directement.",
     target: '[data-tour="phases"]',
     placement: "bottom",
   },
@@ -53,7 +53,7 @@ const STEPS: TourStep[] = [
   {
     id: "settings",
     title: "Paramètres — Multi-provider",
-    body: "ZCode supporte 3 providers : Aion Labs (cloud), OpenAI-compatible (votre endpoint), et Ollama (local, sans clé). Cliquez sur l'icône engrenage pour configurer votre provider.",
+    body: "Orizon supporte 3 providers : Aion Labs (cloud), OpenAI-compatible (votre endpoint), et Ollama (local, sans clé). Cliquez sur l'icône engrenage pour configurer votre provider.",
     target: '[data-tour="settings"]',
     placement: "bottom",
   },

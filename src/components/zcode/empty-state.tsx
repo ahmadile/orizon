@@ -153,7 +153,7 @@ export function EmptyState({ onOpenRepo, onRepoScanned }: EmptyStateProps) {
             <Sparkles className="w-7 h-7 text-brand" />
           </div>
           <h1 className="text-2xl font-semibold tracking-tight mb-2">
-            Bienvenue dans ZCode
+            Bienvenue dans Orizon
           </h1>
           <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
             La plateforme agentique qui comprend vos dépôts open source et vous

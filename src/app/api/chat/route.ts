@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { buildSystemPrompt } from "@/lib/aionlabs/system-prompt";
+import { buildSystemPrompt } from "@/lib/llm/system-prompt";
+import { agentLoop } from "@/lib/orizon/agent/runtime";
+import type { AgentCallbacks } from "@/lib/orizon/agent/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,9 +25,9 @@ async function loadProviderSettings() {
   for (const r of rows) map[r.key] = r.value;
 
   return {
-    apiKey: map.api_key ?? process.env.AIONLABS_API_KEY ?? "",
-    baseUrl: map.base_url ?? process.env.AIONLABS_BASE_URL ?? "https://api.aionlabs.ai/v1",
-    model: map.model ?? process.env.AIONLABS_MODEL ?? "aion-labs/aion-3.0",
+    apiKey: map.api_key ?? process.env.LLM_API_KEY ?? process.env.AIONLABS_API_KEY ?? "",
+    baseUrl: map.base_url ?? process.env.LLM_BASE_URL ?? process.env.AIONLABS_BASE_URL ?? "https://api.openai.com/v1",
+    model: map.model ?? process.env.LLM_MODEL ?? process.env.AIONLABS_MODEL ?? "gpt-4o-mini",
   };
 }
 
@@ -58,9 +60,9 @@ export async function POST(req: NextRequest) {
     : null;
 
   // Load provider settings (DB > env)
-  const { apiKey, baseUrl, model } = await loadProviderSettings();
+  const settings = await loadProviderSettings();
 
-  if (!apiKey && !baseUrl.includes("localhost")) {
+  if (!settings.apiKey && !settings.baseUrl.includes("localhost")) {
     return new Response(
       JSON.stringify({
         error:
@@ -70,51 +72,20 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Prepend the dynamic, phase-aware system prompt
+  // Build the system prompt + conversation history
+  // Le context peut contenir le chemin réel du projet
+  const repoPath = context || undefined;
+  const systemPrompt = buildSystemPrompt(currentPhase, currentIntent, context, repoPath);
   const fullMessages = [
-    { role: "system" as const, content: buildSystemPrompt(currentPhase, currentIntent, context) },
-    ...messages,
+    { role: "system" as const, content: systemPrompt } as const,
+    ...messages.map((m) => ({
+      role: m.role as "system" | "user" | "assistant",
+      content: m.content,
+    })),
   ];
 
-  // Call the provider (OpenAI-compatible)
-  let res: Response;
-  try {
-    res = await fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
-        "Content-Type": "application/json",
-        Accept: "text/event-stream",
-      },
-      body: JSON.stringify({
-        model,
-        messages: fullMessages,
-        max_tokens: 800,
-        stream: true,
-      }),
-    });
-  } catch (err) {
-    return new Response(
-      JSON.stringify({
-        error: `Connexion impossible à ${baseUrl}. ${
-          err instanceof Error ? err.message : ""
-        }`,
-      }),
-      { status: 502, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  if (!res.ok || !res.body) {
-    const text = await res.text().catch(() => "");
-    return new Response(
-      JSON.stringify({
-        error: `Erreur API (${res.status}): ${text.slice(0, 300)}`,
-      }),
-      { status: res.status, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  // Stream the SSE response through, normalizing event names
+  // ✅ Agent runtime — handles tool calls + LLM loop
+  // We produce an SSE stream so the client can show tool calls in real time
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
@@ -124,55 +95,43 @@ export async function POST(req: NextRequest) {
         );
       };
 
-      const reader = res.body!.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
+      const callbacks: AgentCallbacks = {
+        onReasoning: (chunk: string) => {
+          send("reasoning", { chunk });
+        },
+        onContent: (chunk: string) => {
+          send("content", { chunk });
+        },
+        onToolCall: (toolName: string, args: string) => {
+          send("tool_call", { name: toolName, args });
+        },
+        onToolResult: (toolName: string, output: string) => {
+          send("tool_result", {
+            name: toolName,
+            output: output.slice(0, 500),
+          });
+        },
+        onDone: () => {
+          send("done", {});
+          controller.close();
+        },
+        onError: (message: string) => {
+          send("error", { message });
+          controller.close();
+        },
+      };
 
       try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const events = buffer.split("\n\n");
-          buffer = events.pop() ?? "";
-
-          for (const evt of events) {
-            const line = evt
-              .split("\n")
-              .find((l) => l.startsWith("data:"));
-            if (!line) continue;
-
-            const data = line.slice(5).trim();
-            if (data === "[DONE]") {
-              send("done", {});
-              controller.close();
-              return;
-            }
-
-            try {
-              const json = JSON.parse(data);
-              const delta = json?.choices?.[0]?.delta;
-              if (!delta) continue;
-
-              if (typeof delta.reasoning === "string" && delta.reasoning) {
-                send("reasoning", { chunk: delta.reasoning });
-              }
-              if (typeof delta.content === "string" && delta.content) {
-                send("content", { chunk: delta.content });
-              }
-            } catch {
-              // ignore malformed lines
-            }
-          }
-        }
-        send("done", {});
+        await agentLoop(fullMessages, settings, callbacks);
       } catch (err) {
-        send("error", {
-          message: err instanceof Error ? err.message : "Stream error",
-        });
-      } finally {
-        controller.close();
+        const msg = err instanceof Error ? err.message : "Erreur inconnue";
+        // Only send error if not already done
+        try {
+          send("error", { message: msg });
+          controller.close();
+        } catch {
+          // controller already closed
+        }
       }
     },
   });

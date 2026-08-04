@@ -1,7 +1,7 @@
 // =========================================================================
-// ZCode — Open-source integrations catalog
+// Orizon — Open-source integrations catalog
 // Research-driven: each entry is a real, current open-source project that
-// ZCode can integrate to power a specific phase of the journey.
+// Orizon can integrate to power a specific phase of the journey.
 // =========================================================================
 
 export interface OSSIntegration {
@@ -11,7 +11,7 @@ export interface OSSIntegration {
   url: string;
   /** one-line role */
   role: string;
-  /** why it fits ZCode */
+  /** why it fits Orizon */
   rationale: string;
   /** which phase it powers */
   phase: "comprehension" | "intention" | "experimentation" | "maquette" | "generation" | "global";
@@ -105,7 +105,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://agentskills.io",
     role: "Format ouvert de skills IA",
     rationale:
-      "Format standardisé pour packager des capacités IA : instructions + métadonnées + ressources optionnelles (scripts, données). ZCode l'adopte comme format natif pour ses skills — l'utilisateur peut importer un skill existant ou en créer un pour orienter l'intention.",
+      "Format standardisé pour packager des capacités IA : instructions + métadonnées + ressources optionnelles (scripts, données). Orizon l'adopte comme format natif pour ses skills — l'utilisateur peut importer un skill existant ou en créer un pour orienter l'intention.",
     phase: "intention",
     license: "MIT",
     lang: "Markdown / YAML",
@@ -145,7 +145,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://ladle.dev",
     role: "Atelier composants React",
     rationale:
-      "Alternative légère à Storybook, basée sur Vite. Pour la Phase 4, ZCode génère des stories Ladle pour chaque variant de maquette — l'utilisateur peut les voir en isolation, ajuster les props, et valider l'UX avant la génération finale.",
+      "Alternative légère à Storybook, basée sur Vite. Pour la Phase 4, Orizon génère des stories Ladle pour chaque variant de maquette — l'utilisateur peut les voir en isolation, ajuster les props, et valider l'UX avant la génération finale.",
     phase: "maquette",
     license: "MIT",
     lang: "TypeScript",
@@ -183,7 +183,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://continue.dev",
     role: "Agent de code (VS Code / JetBrains)",
     rationale:
-      "Acquis par Cursor, c'est l'agent de code open source de référence. ZCode génère le PROJECT_STRUCTURE.md + un config.yaml Continue pour que l'utilisateur puisse ouvrir Continue et démarrer la génération sans recopier le contexte.",
+      "Acquis par Cursor, c'est l'agent de code open source de référence. Orizon génère le PROJECT_STRUCTURE.md + un config.yaml Continue pour que l'utilisateur puisse ouvrir Continue et démarrer la génération sans recopier le contexte.",
     phase: "generation",
     license: "Apache-2.0",
     lang: "TypeScript",
@@ -195,7 +195,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/openai/openai-agents-python",
     role: "Framework multi-agents",
     rationale:
-      "Framework léger pour orchestrer plusieurs agents IA avec handoffs, guardrails et tools. ZCode peut l'utiliser en backend pour orchestrer les agents de compréhension (un par partie séquencée), d'où le terme « orchestration multi-agents » du produit.",
+      "Framework léger pour orchestrer plusieurs agents IA avec handoffs, guardrails et tools. Orizon peut l'utiliser en backend pour orchestrer les agents de compréhension (un par partie séquencée), d'où le terme « orchestration multi-agents » du produit.",
     phase: "global",
     license: "MIT",
     lang: "Python",
@@ -211,7 +211,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/headroomlabs-ai/headroom",
     role: "Compression de contexte pour LLM",
     rationale:
-      "Compresse tout ce que l'IA lit — sorties d'outils, logs, chunks RAG, fichiers, historique — avant que ça n'atteigne le LLM. Pour ZCode, c'est critique sur les gros dépôts : on compresse les fichiers parsés par tree-sitter avant de les envoyer à l'orchestrateur, ce qui réduit le coût token et permet d'analyser des dépôts plus grands.",
+      "Compresse tout ce que l'IA lit — sorties d'outils, logs, chunks RAG, fichiers, historique — avant que ça n'atteigne le LLM. Pour Orizon, c'est critique sur les gros dépôts : on compresse les fichiers parsés par tree-sitter avant de les envoyer à l'orchestrateur, ce qui réduit le coût token et permet d'analyser des dépôts plus grands.",
     phase: "comprehension",
     license: "MIT",
     lang: "TypeScript",
@@ -225,7 +225,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/nvidia/skillspector",
     role: "Scanner de sécurité pour skills IA",
     rationale:
-      "Scanner de sécurité développé par NVIDIA pour détecter les vulnérabilités, patterns malveillants et risques de politique dans les skills IA. ZCode l'utilise pour scanner chaque skill avant activation — un skill peut contenir des instructions malveillantes (prompt injection, exfiltration de données), SkillSpector bloque ça avant l'installation.",
+      "Scanner de sécurité développé par NVIDIA pour détecter les vulnérabilités, patterns malveillants et risques de politique dans les skills IA. Orizon l'utilise pour scanner chaque skill avant activation — un skill peut contenir des instructions malveillantes (prompt injection, exfiltration de données), SkillSpector bloque ça avant l'installation.",
     phase: "intention",
     license: "Apache-2.0",
     lang: "Python",
@@ -239,7 +239,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/browser-use/browser-use",
     role: "Automatisation navigateur pour IA",
     rationale:
-      "Permet à l'IA d'utiliser un navigateur comme un humain : ouvrir des pages, cliquer, remplir des formulaires. Pour ZCode : (1) en Phase 4 (maquette), l'IA peut ouvrir la maquette HTML dans un vrai navigateur et prendre des screenshots pour valider le rendu ; (2) en Phase 5 (génération), l'IA peut naviguer sur le projet généré pour vérifier qu'il marche.",
+      "Permet à l'IA d'utiliser un navigateur comme un humain : ouvrir des pages, cliquer, remplir des formulaires. Pour Orizon : (1) en Phase 4 (maquette), l'IA peut ouvrir la maquette HTML dans un vrai navigateur et prendre des screenshots pour valider le rendu ; (2) en Phase 5 (génération), l'IA peut naviguer sur le projet généré pour vérifier qu'il marche.",
     phase: "maquette",
     license: "MIT",
     lang: "Python",
@@ -253,7 +253,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/firecrawl/firecrawl",
     role: "Scraping web → Markdown pour LLM",
     rationale:
-      "Convertit n'importe quelle page web en Markdown propre, structuré, prêt pour le LLM. Pour ZCode : quand l'utilisateur demande « à quoi sert cette dépendance ? », Firecrawl va chercher la doc officielle (npmjs.com, pypi.org, docs du framework) et la transforme en contexte utilisable par l'IA. Aussi utile pour analyser le README d'un dépôt GitHub distant.",
+      "Convertit n'importe quelle page web en Markdown propre, structuré, prêt pour le LLM. Pour Orizon : quand l'utilisateur demande « à quoi sert cette dépendance ? », Firecrawl va chercher la doc officielle (npmjs.com, pypi.org, docs du framework) et la transforme en contexte utilisable par l'IA. Aussi utile pour analyser le README d'un dépôt GitHub distant.",
     phase: "comprehension",
     license: "AGPL-3.0",
     lang: "TypeScript",
@@ -267,7 +267,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/garrytan/gstack",
     role: "Methodologie de développement IA",
     rationale:
-      "Le setup Claude Code de Garry Tan (Y Combinator) — un workflow structuré où chaque étape du développement a son mode cognitif propre. ZCode s'en inspire pour structurer la Phase 5 : au lieu de générer tout d'un coup, on suit un workflow gstack-like (plan → test → implémente → review) qui donne à l'agent un cadre discipliné.",
+      "Le setup Claude Code de Garry Tan (Y Combinator) — un workflow structuré où chaque étape du développement a son mode cognitif propre. Orizon s'en inspire pour structurer la Phase 5 : au lieu de générer tout d'un coup, on suit un workflow gstack-like (plan → test → implémente → review) qui donne à l'agent un cadre discipliné.",
     phase: "generation",
     license: "MIT",
     lang: "TypeScript",
@@ -281,7 +281,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/obra/superpowers",
     role: "Framework de skills composable (TDD)",
     rationale:
-      "Framework de skills IA basé sur le TDD appliqué à la documentation de processus. Chaque skill est testable et composable. ZCode l'adopte comme format de skill avancé : au lieu de skills statiques (markdown), on peut écrire des skills avec tests intégrés qui valident que la skill produit bien le résultat attendu.",
+      "Framework de skills IA basé sur le TDD appliqué à la documentation de processus. Chaque skill est testable et composable. Orizon l'adopte comme format de skill avancé : au lieu de skills statiques (markdown), on peut écrire des skills avec tests intégrés qui valident que la skill produit bien le résultat attendu.",
     phase: "intention",
     license: "MIT",
     lang: "TypeScript",
@@ -295,7 +295,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
     url: "https://github.com/promptfoo/promptfoo",
     role: "Tests & red teaming de prompts",
     rationale:
-      "Teste les prompts et modèles avec des évaluations automatisées + red teaming (simulation d'attaques adversariales). Pour ZCode : valide le system prompt de l'orchestrateur avant déploiement, vérifie que l'IA ne divulgue pas de secrets, teste la robustesse face à des questions pièges. Indispensable pour la qualité en production.",
+      "Teste les prompts et modèles avec des évaluations automatisées + red teaming (simulation d'attaques adversariales). Pour Orizon : valide le system prompt de l'orchestrateur avant déploiement, vérifie que l'IA ne divulgue pas de secrets, teste la robustesse face à des questions pièges. Indispensable pour la qualité en production.",
     phase: "global",
     license: "MIT",
     lang: "TypeScript",
@@ -304,7 +304,7 @@ export const OSS_INTEGRATIONS: OSSIntegration[] = [
 ];
 
 // =========================================================================
-// ZCode — Skills catalog
+// Orizon — Skills catalog
 // Skills = capabilities the AI agent can activate per phase / per intent.
 // Format inspired by Agent Skills (agentskills.io) — markdown + metadata.
 // =========================================================================

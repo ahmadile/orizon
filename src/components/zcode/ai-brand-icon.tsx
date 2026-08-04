@@ -9,7 +9,7 @@ interface AIBrandIconProps {
 }
 
 /**
- * AIBrandIcon — a custom, distinctive mark for ZCode's AI agent.
+ * AIBrandIcon — a custom, distinctive mark for Orizon's AI agent.
  *
  * Design rationale:
  * - NOT a generic sparkles/star (overused on AI-generated sites)

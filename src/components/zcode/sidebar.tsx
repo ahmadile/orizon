@@ -14,7 +14,7 @@ import {
 import { useZCode, PHASES } from "@/lib/zcode/store";
 import { cn } from "@/lib/utils";
 import { RelativeTime } from "@/components/zcode/relative-time";
-import { ZCodeLogo } from "@/components/zcode/logo";
+import { OrizonLogo } from "@/components/zcode/logo";
 import { RepoOpenDialog } from "@/components/zcode/repo-open-dialog";
 import { SettingsDialog } from "@/components/zcode/settings/settings-dialog";
 import { UserMenu } from "@/components/zcode/auth/user-menu";
@@ -84,7 +84,7 @@ export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
       <aside className="flex flex-col h-full bg-sidebar border-r border-sidebar-border items-center">
         {/* Header aligned with chat header (h-14) */}
         <div className="flex items-center justify-center h-14 w-full border-b border-sidebar-border shrink-0">
-          <ZCodeLogo size={24} markOnly />
+          <OrizonLogo size={24} markOnly />
         </div>
         {/* Expand button */}
         <div className="p-2">
@@ -136,7 +136,7 @@ export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
     <aside className="flex flex-col h-full bg-sidebar border-r border-sidebar-border">
       {/* Brand header — h-14 to align with chat panel header */}
       <div className="flex items-center gap-2 px-3 h-14 border-b border-sidebar-border shrink-0">
-        <ZCodeLogo size={26} />
+        <OrizonLogo size={26} />
         <div className="ml-auto flex items-center gap-0.5">
           <TooltipProvider delayDuration={300}>
             <Tooltip>
@@ -221,11 +221,19 @@ export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
           <span className="text-muted-foreground/50">{filtered.length}</span>
         </div>
         {filtered.map((c) => (
-          <button
+          <div
             key={c.id}
             onClick={() => setActiveConversation(c.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setActiveConversation(c.id);
+              }
+            }}
             className={cn(
-              "group w-full text-left rounded-lg p-2 mb-0.5 transition-colors",
+              "group w-full text-left rounded-lg p-2 mb-0.5 transition-colors cursor-pointer",
               c.id === activeConversationId
                 ? "bg-sidebar-accent"
                 : "hover:bg-sidebar-accent/60"
@@ -289,7 +297,7 @@ export function Sidebar({ onOpenRepo, onOpenSettings }: SidebarProps = {}) {
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
-          </button>
+          </div>
         ))}
       </div>
 

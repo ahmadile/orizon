@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
     const res = await fetch(docUrl, {
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (compatible; ZCode/1.0; +https://github.com/zcode)",
+          "Mozilla/5.0 (compatible; Orizon/1.0; +https://github.com/orizon)",
         Accept: "text/html",
       },
       signal: AbortSignal.timeout(8000),

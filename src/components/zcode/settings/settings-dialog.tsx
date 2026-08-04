@@ -40,7 +40,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
 };
 
 export function SettingsDialog({ open, onOpenChange, onSaved }: SettingsDialogProps) {
-  const [providerId, setProviderId] = React.useState<ProviderId>("aionlabs");
+  const [providerId, setProviderId] = React.useState<ProviderId>("openai");
   const [apiKey, setApiKey] = React.useState("");
   const [baseUrl, setBaseUrl] = React.useState(PROVIDERS[0].defaultBaseUrl);
   const [model, setModel] = React.useState(PROVIDERS[0].defaultModel);
@@ -53,6 +53,7 @@ export function SettingsDialog({ open, onOpenChange, onSaved }: SettingsDialogPr
   // Load settings on open
   React.useEffect(() => {
     if (!open) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setError(null);
     fetch("/api/settings")
@@ -69,9 +70,10 @@ export function SettingsDialog({ open, onOpenChange, onSaved }: SettingsDialogPr
   }, [open]);
 
   // When provider changes, update baseUrl + model to provider defaults
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const p = PROVIDERS.find((x) => x.id === providerId);
     if (!p) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBaseUrl(p.defaultBaseUrl);
     setModel(p.defaultModel);
   }, [providerId]);
@@ -119,7 +121,7 @@ export function SettingsDialog({ open, onOpenChange, onSaved }: SettingsDialogPr
             Paramètres — Provider IA
           </DialogTitle>
           <DialogDescription>
-            Choisissez le provider d'IA qui alimente l'agent ZCode. Les clés API
+            Choisissez le provider d'IA qui alimente l'agent Orizon. Les clés API
             sont stockées localement dans votre base de données, jamais envoyées
             au client.
           </DialogDescription>
@@ -197,7 +199,7 @@ export function SettingsDialog({ open, onOpenChange, onSaved }: SettingsDialogPr
                     type={showKey ? "text" : "password"}
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
-                    placeholder={provider.id === "aionlabs" ? "alv2_…" : "sk-…"}
+                    placeholder={provider.apiKeyRequired ? "sk-…" : "aucune clé requise"}
                     className="pr-10 font-mono text-xs"
                   />
                   <button

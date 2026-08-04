@@ -318,6 +318,37 @@ export const useZCode = create<ZCodeState>((set, get) => ({
           ),
         }));
       },
+      onToolCall: (name, args) => {
+        // Show a tool call chip in the assistant message
+        const toolCall = { name, status: "running" as const };
+        set((s) => ({
+          messages: s.messages.map((m) =>
+            m.id === assistantId
+              ? {
+                  ...m,
+                  toolCalls: [...(m.toolCalls ?? []), toolCall],
+                }
+              : m
+          ),
+        }));
+      },
+      onToolResult: (name) => {
+        // Mark the tool call as done
+        set((s) => ({
+          messages: s.messages.map((m) =>
+            m.id === assistantId
+              ? {
+                  ...m,
+                  toolCalls: (m.toolCalls ?? []).map((tc) =>
+                    tc.name === name
+                      ? { ...tc, status: "done" as const }
+                      : tc
+                  ),
+                }
+              : m
+          ),
+        }));
+      },
       onDone: () => {
         const finalContent = get().messages.find((m) => m.id === assistantId)?.content ?? "";
         set((s) => ({
@@ -362,7 +393,13 @@ export const useZCode = create<ZCodeState>((set, get) => ({
       },
     },
       undefined,
-      { phase: get().phase, intent: get().intent }
+      {
+        phase: get().phase,
+        intent: get().intent,
+        // Passer le chemin réel du repo chargé pour que l'agent
+        // utilise les bons chemins de fichiers
+        context: get().loadedRepo?.path,
+      }
     );
   },
 

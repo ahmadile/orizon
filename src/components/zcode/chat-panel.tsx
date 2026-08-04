@@ -11,6 +11,8 @@ import { MockupPanel } from "./mockup-panel";
 import { GenerationPanel } from "./generation-panel";
 import { EmptyState } from "./empty-state";
 import { RepoOpenDialog } from "./repo-open-dialog";
+import { ForkDialog } from "./fork-dialog";
+import { ContextDialog } from "./context-dialog";
 import { SettingsDialog } from "@/components/zcode/settings/settings-dialog";
 import {
   GitBranch,
@@ -22,6 +24,7 @@ import {
   FolderOpen,
   PanelRightClose,
   PanelRightOpen,
+  FileCode2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -56,6 +59,8 @@ export function ChatPanel({
 
   const [internalRepoDialogOpen, setInternalRepoDialogOpen] = React.useState(false);
   const [internalSettingsOpen, setInternalSettingsOpen] = React.useState(false);
+  const [forkOpen, setForkOpen] = React.useState(false);
+  const [contextOpen, setContextOpen] = React.useState(false);
 
   // Use external state if provided, otherwise fall back to internal state
   const repoDialogOpen = externalRepoDialogOpen ?? internalRepoDialogOpen;
@@ -90,6 +95,18 @@ export function ChatPanel({
           }}
         />
         <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
+        <ForkDialog
+          open={forkOpen}
+          onOpenChange={setForkOpen}
+          sourcePath={loadedRepo?.path}
+          sourceName={loadedRepo?.name}
+        />
+        <ContextDialog
+          open={contextOpen}
+          onOpenChange={setContextOpen}
+          sourcePath={loadedRepo?.path}
+          sourceName={loadedRepo?.name}
+        />
       </main>
     );
   }
@@ -162,6 +179,18 @@ export function ChatPanel({
 
       {/* Dialogs (also accessible from sidebar / command palette) */}
       <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
+      <ForkDialog
+        open={forkOpen}
+        onOpenChange={setForkOpen}
+        sourcePath={loadedRepo?.path}
+        sourceName={loadedRepo?.name}
+      />
+      <ContextDialog
+        open={contextOpen}
+        onOpenChange={setContextOpen}
+        sourcePath={loadedRepo?.path}
+        sourceName={loadedRepo?.name}
+      />
       <RepoOpenDialog
         open={repoDialogOpen}
         onOpenChange={setRepoDialogOpen}
@@ -185,7 +214,7 @@ function ChatHeader() {
   } = useZCode();
   const [modelOpen, setModelOpen] = React.useState(false);
 
-  const repoName = hasRepo && loadedRepo ? loadedRepo.name : "ZCode";
+  const repoName = hasRepo && loadedRepo ? loadedRepo.name : "Orizon";
   const repoPath = hasRepo && loadedRepo ? loadedRepo.path : "Aucun dépôt chargé";
 
   return (
@@ -264,6 +293,29 @@ function ChatHeader() {
             </>
           )}
         </div>
+
+        {hasRepo && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+            onClick={() => setContextOpen(true)}
+            title="Generer le contexte pour les agents"
+          >
+            <FileCode2 className="w-3.5 h-3.5" />
+          </Button>
+        )}
+        {hasRepo && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+            onClick={() => setForkOpen(true)}
+            title="Forker ce projet"
+          >
+            <GitFork className="w-3.5 h-3.5" />
+          </Button>
+        )}
 
         {/* Re-run comprehension */}
         {comprehensionDone && (

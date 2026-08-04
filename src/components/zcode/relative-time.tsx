@@ -33,8 +33,12 @@ export function RelativeTime({
   const [mounted, setMounted] = React.useState(false);
   const [text, setText] = React.useState(placeholder);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
     const update = () => {
       setText(format === "long" ? timeAgo(ts) : formatRelativeShort(ts));
     };
