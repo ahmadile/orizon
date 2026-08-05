@@ -40,11 +40,11 @@ export const projectStructureTool: Tool = {
       path = await import("node:path");
     }
 
-    const projectPath = path.resolve(args.path as string);
+    const projectPath = path.resolve(/*turbopackIgnore: true*/ args.path as string);
     const includeContent = (args.includeContent as boolean) ?? true;
 
     try {
-      const stat = await fs.stat(projectPath);
+      const stat = await fs.stat(/*turbopackIgnore: true*/ projectPath);
       if (!stat.isDirectory()) {
         return { success: false, output: `Erreur : "${projectPath}" n'est pas un dossier.` };
       }
@@ -68,7 +68,7 @@ export const projectStructureTool: Tool = {
       // Detect key files
       const keyFiles = [
         "package.json", "README.md", "readme.md", "Readme.md",
-        "tsconfig.json", "next.config.ts", "next.config.js",
+        "tsconfig.json", "next." + "config.ts", "next." + "config.js",
         "Cargo.toml", "go.mod", "requirements.txt", "pyproject.toml",
         ".env.example", "Dockerfile", "docker-compose.yml",
         "Makefile", "justfile",
@@ -77,10 +77,10 @@ export const projectStructureTool: Tool = {
       const foundKeyFiles: { name: string; content?: string }[] = [];
       for (const kf of keyFiles) {
         try {
-          const kfPath = path.join(projectPath, kf);
-          await fs.access(kfPath);
+          const kfPath = path.join(/*turbopackIgnore: true*/ projectPath, kf);
+          await fs.access(/*turbopackIgnore: true*/ kfPath);
           const content = includeContent
-            ? await fs.readFile(kfPath, "utf-8").then(c => c.slice(0, 2000)).catch(() => "")
+            ? await fs.readFile(/*turbopackIgnore: true*/ kfPath, "utf-8").then(c => c.slice(0, 2000)).catch(() => "")
             : "";
           foundKeyFiles.push({ name: kf, content: content || undefined });
         } catch {
@@ -134,20 +134,20 @@ async function walkDir(dir: string, root: string, depth: number, files: { path: 
 
   let entries;
   try {
-    entries = await fs.readdir(dir, { withFileTypes: true });
+    entries = await fs.readdir(/*turbopackIgnore: true*/ dir, { withFileTypes: true });
   } catch {
     return;
   }
 
   for (const entry of entries) {
     if (entry.name.startsWith(".") || IGNORE_DIRS.has(entry.name)) continue;
-    const fullPath = path.join(dir, entry.name);
+    const fullPath = path.join(/*turbopackIgnore: true*/ dir, entry.name);
 
     if (entry.isDirectory()) {
       await walkDir(fullPath, root, depth + 1, files);
     } else if (entry.isFile()) {
       try {
-        const stat = await fs.stat(fullPath);
+        const stat = await fs.stat(/*turbopackIgnore: true*/ fullPath);
         files.push({ path: fullPath, ext: path.extname(entry.name).toLowerCase(), size: stat.size });
       } catch {
         // skip
@@ -161,7 +161,7 @@ async function buildCompactTree(dir: string, root: string, depth: number, maxDep
 
   let entries;
   try {
-    entries = await fs.readdir(dir, { withFileTypes: true });
+    entries = await fs.readdir(/*turbopackIgnore: true*/ dir, { withFileTypes: true });
   } catch {
     return "";
   }
@@ -178,7 +178,7 @@ async function buildCompactTree(dir: string, root: string, depth: number, maxDep
   let result = "";
   for (const entry of filtered) {
     const prefix = "  ".repeat(depth);
-    const fullPath = path.join(dir, entry.name);
+    const fullPath = path.join(/*turbopackIgnore: true*/ dir, entry.name);
     if (entry.isDirectory()) {
       result += `${prefix}📁 ${entry.name}/\n`;
       if (depth + 1 < maxDepth) {

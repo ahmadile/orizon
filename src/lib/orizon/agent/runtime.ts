@@ -13,7 +13,7 @@
 // with sensitive operations.
 // =========================================================================
 
-import { TOOLS, getTool, type Tool, type ToolCall } from "../tools";
+import { TOOLS, getTool, getAllTools, type Tool, type ToolCall } from "../tools";
 import type { ProviderSettings, ChatMessage, AgentCallbacks, AgentOptions } from "./types";
 import { DEFAULT_MAX_ITERATIONS } from "./types";
 
@@ -60,38 +60,20 @@ async function callLLM(
   });
 
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`LLM API error ${res.status}: ${text.slice(0, 300)}`);
+    const errorText = await res.text().catch(() => "");
+    throw new Error(`LLM call failed (${res.status}): ${errorText || res.statusText}`);
   }
 
   const data = await res.json();
-  const choice = data?.choices?.[0]?.message;
+  const choice = data.choices?.[0]?.message;
+
   if (!choice) {
-    throw new Error("LLM returned empty response");
+    throw new Error("Réponse LLM vide ou invalide");
   }
-
-  // Check for tool calls
-  const rawToolCalls = choice.tool_calls as Array<{
-    id: string;
-    type: string;
-    function: { name: string; arguments: string };
-  }> | undefined;
-
-  const toolCalls: ToolCall[] | null = rawToolCalls?.length
-    ? rawToolCalls.map((tc) => ({
-        id: tc.id,
-        type: "function" as const,
-        function: {
-          name: tc.function.name,
-          arguments: tc.function.arguments,
-        },
-      }))
-    : null;
 
   return {
     content: choice.content ?? null,
-    tool_calls: toolCalls,
-    // Some providers return reasoning in a separate field
+    tool_calls: choice.tool_calls ?? null,
     reasoning: (choice as { reasoning?: string }).reasoning,
   };
 }
@@ -100,7 +82,7 @@ async function callLLM(
  * Execute a single tool call and return the result message.
  */
 async function executeToolCall(tc: ToolCall): Promise<ChatMessage> {
-  const tool = getTool(tc.function.name);
+  const tool = await getTool(tc.function.name);
   if (!tool) {
     return {
       role: "tool",
@@ -152,7 +134,7 @@ export async function agentLoop(
 
   // Only expose tools once we have a project loaded (the first message
   // asks about the project, then tools become available)
-  const availableTools = [...TOOLS];
+  const availableTools = await getAllTools();
 
   while (iteration < maxIterations) {
     iteration++;
