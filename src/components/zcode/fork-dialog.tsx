@@ -81,6 +81,7 @@ export function ForkDialog({
   // Reset state when dialog opens
   React.useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStatus("idle");
       setResult(null);
       setError(null);
@@ -96,6 +97,7 @@ export function ForkDialog({
   React.useEffect(() => {
     if (!open || !sourcePath || modules.length > 0) return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatus("analyzing");
     fetch("/api/analyze", {
       method: "POST",

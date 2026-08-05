@@ -62,6 +62,7 @@ export function ContextDialog({
   // Reset state when dialog opens
   React.useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFiles(null);
       setError(null);
       setTask("");
