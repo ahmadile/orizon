@@ -492,6 +492,7 @@ export function checkWin(board: Board, x: number, y: number): boolean {
 ];
 
 export const DEFAULT_ANSWER: CannedAnswer = {
+  match: /.*/,
   content:
     "Bonne question. D'après mon analyse du dépôt, **gomoku-ai** est une SPA TypeScript vanilla avec un moteur de jeu découplé d'une IA Minimax. Posez-moi des questions sur :\n\n" +
     "- l'**architecture** globale\n" +

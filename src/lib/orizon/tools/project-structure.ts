@@ -134,21 +134,21 @@ async function walkDir(dir: string, root: string, depth: number, files: { path: 
 
   let entries;
   try {
-    entries = await fs.readdir(/*turbopackIgnore: true*/ dir, { withFileTypes: true });
+    entries = await fs!.readdir(/*turbopackIgnore: true*/ dir, { withFileTypes: true });
   } catch {
     return;
   }
 
   for (const entry of entries) {
     if (entry.name.startsWith(".") || IGNORE_DIRS.has(entry.name)) continue;
-    const fullPath = path.join(/*turbopackIgnore: true*/ dir, entry.name);
+    const fullPath = path!.join(/*turbopackIgnore: true*/ dir, entry.name);
 
     if (entry.isDirectory()) {
       await walkDir(fullPath, root, depth + 1, files);
     } else if (entry.isFile()) {
       try {
-        const stat = await fs.stat(/*turbopackIgnore: true*/ fullPath);
-        files.push({ path: fullPath, ext: path.extname(entry.name).toLowerCase(), size: stat.size });
+        const stat = await fs!.stat(/*turbopackIgnore: true*/ fullPath);
+        files.push({ path: fullPath, ext: path!.extname(entry.name).toLowerCase(), size: stat.size });
       } catch {
         // skip
       }
@@ -161,7 +161,7 @@ async function buildCompactTree(dir: string, root: string, depth: number, maxDep
 
   let entries;
   try {
-    entries = await fs.readdir(/*turbopackIgnore: true*/ dir, { withFileTypes: true });
+    entries = await fs!.readdir(/*turbopackIgnore: true*/ dir, { withFileTypes: true });
   } catch {
     return "";
   }
@@ -178,7 +178,7 @@ async function buildCompactTree(dir: string, root: string, depth: number, maxDep
   let result = "";
   for (const entry of filtered) {
     const prefix = "  ".repeat(depth);
-    const fullPath = path.join(/*turbopackIgnore: true*/ dir, entry.name);
+    const fullPath = path!.join(/*turbopackIgnore: true*/ dir, entry.name);
     if (entry.isDirectory()) {
       result += `${prefix}📁 ${entry.name}/\n`;
       if (depth + 1 < maxDepth) {

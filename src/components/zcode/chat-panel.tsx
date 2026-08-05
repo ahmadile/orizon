@@ -80,7 +80,10 @@ export function ChatPanel({
   if (!hasRepo) {
     return (
       <main className="flex flex-col h-full bg-background min-w-0">
-        <ChatHeader />
+        <ChatHeader
+          onOpenContext={() => setContextOpen(true)}
+          onOpenFork={() => setForkOpen(true)}
+        />
         <EmptyState
           onOpenRepo={() => setRepoDialogOpen(true)}
           onRepoScanned={(path, name, scan) => {
@@ -114,7 +117,10 @@ export function ChatPanel({
   return (
     <main className="flex flex-col h-full bg-background min-w-0">
       {/* Header */}
-      <ChatHeader />
+      <ChatHeader
+        onOpenContext={() => setContextOpen(true)}
+        onOpenFork={() => setForkOpen(true)}
+      />
 
       {/* Phase journey (horizontal) */}
       <PhaseJourney />
@@ -202,7 +208,12 @@ export function ChatPanel({
   );
 }
 
-function ChatHeader() {
+interface ChatHeaderProps {
+  onOpenContext?: () => void;
+  onOpenFork?: () => void;
+}
+
+function ChatHeader({ onOpenContext, onOpenFork }: ChatHeaderProps = {}) {
   const {
     resetComprehension,
     comprehensionDone,
@@ -299,7 +310,7 @@ function ChatHeader() {
             variant="ghost"
             size="icon"
             className="h-8 w-8 text-muted-foreground hover:text-foreground"
-            onClick={() => setContextOpen(true)}
+            onClick={onOpenContext}
             title="Generer le contexte pour les agents"
           >
             <FileCode2 className="w-3.5 h-3.5" />
@@ -310,7 +321,7 @@ function ChatHeader() {
             variant="ghost"
             size="icon"
             className="h-8 w-8 text-muted-foreground hover:text-foreground"
-            onClick={() => setForkOpen(true)}
+            onClick={onOpenFork}
             title="Forker ce projet"
           >
             <GitFork className="w-3.5 h-3.5" />

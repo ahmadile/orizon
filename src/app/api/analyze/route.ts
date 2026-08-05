@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { analyzeProject } from "@/lib/orizon/analyzer";
+import { analyzeProject, type SemanticAnalysis } from "@/lib/orizon/analyzer";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Analyse agentique optionnelle
-    let semantic = null;
+    let semantic: SemanticAnalysis | null = null;
     if (agentic) {
       try {
         const rows = await db.setting.findMany({

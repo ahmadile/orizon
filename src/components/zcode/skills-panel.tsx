@@ -40,7 +40,7 @@ export function SkillsPanel({ variant = "compact" }: SkillsPanelProps) {
         {expanded && (
           <div className="space-y-1 zcode-fade-up">
             {ZCODE_SKILLS.map((skill) => {
-              const Icon = (Icons as Record<string, React.ElementType>)[skill.icon] ?? Icons.Package;
+              const Icon = (Icons as unknown as Record<string, React.ElementType>)[skill.icon] ?? Icons.Package;
               return (
                 <div
                   key={skill.id}

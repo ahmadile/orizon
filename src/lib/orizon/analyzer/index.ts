@@ -52,7 +52,11 @@ export async function analyzeProject(
   // Phase 3: Agentic analysis (optional, needs LLM)
   if (opts?.agentic && opts?.apiKey) {
     try {
-      base.semantic = await runAgenticAnalysis(base, opts);
+      base.semantic = await runAgenticAnalysis(base, {
+        apiKey: opts.apiKey ?? "",
+        baseUrl: opts.baseUrl ?? "https://api.openai.com/v1",
+        model: opts.model ?? "gpt-4o-mini",
+      });
     } catch (err) {
       console.error("Agentic analysis failed:", err);
       // Graceful degradation — static analysis is still available

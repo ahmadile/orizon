@@ -178,7 +178,7 @@ export async function agentLoop(
         currentMessages.push(toolResults[i]);
         cb.onToolResult?.(
           response.tool_calls[i].function.name,
-          toolResults[i].content
+          toolResults[i].content ?? ""
         );
       }
 

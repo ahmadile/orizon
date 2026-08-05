@@ -78,17 +78,13 @@ export const execCommandTool: Tool = {
     }
 
     try {
-      // Sur Windows, utiliser PowerShell avec exécution silencieuse
-      const shell = IS_WIN ? "powershell.exe" : true;
-      const shellArgs = IS_WIN ? ["-NoProfile", "-NonInteractive", "-Command", command] : undefined;
-      
       const { stdout, stderr } = await execAsync(
         IS_WIN ? `powershell.exe -NoProfile -NonInteractive -Command "${command.replace(/"/g, '\\"')}"` : command,
         {
           cwd,
           timeout,
           maxBuffer: 10 * 1024 * 1024,
-          shell: IS_WIN ? "powershell.exe" : true,
+          shell: IS_WIN ? "powershell.exe" : undefined,
         }
       );
 
@@ -113,8 +109,8 @@ export const execCommandTool: Tool = {
       const msg = err instanceof Error ? err.message : String(err);
       // Nettoyer les erreurs PowerShell verbeuses
       const cleanMsg = msg
-        .replace(/.*\n\+ CategoryInfo.*/s, "")
-        .replace(/\+ FullyQualifiedErrorId.*/s, "")
+        .replace(/[\s\S]*\n\+ CategoryInfo[\s\S]*/, "")
+        .replace(/\+ FullyQualifiedErrorId[\s\S]*/, "")
         .trim();
       return {
         success: false,
