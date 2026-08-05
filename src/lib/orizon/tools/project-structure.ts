@@ -2,9 +2,11 @@
 // Orizon — Project structure tool
 // =========================================================================
 
-import fs from "node:fs/promises";
-import path from "node:path";
 import type { Tool } from "./types";
+
+// Lazy imports for fs and path to avoid Turbopack tracing issues
+let fs: typeof import("node:fs/promises") | undefined;
+let path: typeof import("node:path") | undefined;
 
 const IGNORE_DIRS = new Set([
   "node_modules", ".git", ".next", "dist", "build", ".cache",
@@ -32,6 +34,12 @@ export const projectStructureTool: Tool = {
     required: ["path"],
   },
   execute: async (args) => {
+    // Initialize lazy imports
+    if (!fs || !path) {
+      fs = await import("node:fs/promises");
+      path = await import("node:path");
+    }
+
     const projectPath = path.resolve(args.path as string);
     const includeContent = (args.includeContent as boolean) ?? true;
 
